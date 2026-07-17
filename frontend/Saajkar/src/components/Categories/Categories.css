@@ -1,0 +1,35 @@
+.categories{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-bottom:30px;
+
+    flex-wrap:wrap;
+
+}
+
+.categories button{
+
+    background:white;
+
+    border:1px solid #D4AF37;
+
+    padding:10px 20px;
+
+    border-radius:25px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.categories button:hover{
+
+    background:#D4AF37;
+
+    color:white;
+
+}

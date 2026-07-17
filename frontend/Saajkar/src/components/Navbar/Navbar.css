@@ -1,0 +1,52 @@
+.navbar{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+    padding:20px 40px;
+    background:#FFFDF8;
+    border-bottom:1px solid hsl(0, 0%, 93%);
+}
+
+/* Logo */
+.navbar-logo{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.navbar-logo img{
+    width: 260px;
+    height:auto;
+}
+
+/* Icons on the right */
+.navbar-icons{
+    position:absolute;
+    right:40px;
+    display:flex;
+    gap:20px;
+    align-items:center;
+}
+.login-logo{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    object-fit:cover;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.login-logo:hover{
+    transform:scale(1.1);
+    box-shadow:0 0 10px #d4af37;
+}
+.icon{
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.icon:hover{
+    color:#D4AF37;
+    transform:scale(1.1);
+}

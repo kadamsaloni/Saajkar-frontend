@@ -1,0 +1,57 @@
+.container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #e6d3b3;
+}
+
+.login-card {
+    width: 380px;
+    padding: 40px;
+    background: #FFFDF8;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.logo {
+    width: 180px;
+    height: auto;
+    display: block;
+    margin: 0 auto 20px;
+}
+
+.tagline {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 18px;
+    border: 2px solid #D8C3A5;   /* Light Hazelnut */
+    border-radius: 10px;
+    font-size: 16px;
+    background-color: #FFFDF8;   /* Cream */
+    color: #3E2723;              /* Dark Brown */
+    transition: all 0.3s ease;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #6F4E37;   /* Umber */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:active {
+    transform: scale(0.98);
+}

@@ -1,0 +1,51 @@
+.filter{
+    width:280px;
+    background:#ffffff;
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 10px 25px #f2ececf4;
+}
+
+.filter h2{
+    text-align:center;
+    color:#D4AF37;
+    margin-bottom:25px;
+    font-size:30px;
+}
+
+.filter-section{
+    margin-bottom:25px;
+}
+
+.filter-section h3{
+    margin-bottom:15px;
+    color:#0F0F0F;
+}
+
+.filter-section label{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:12px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.filter-section input{
+    margin-right:10px;
+    accent-color:#D4AF37;
+}
+
+.apply-btn{
+    width:100%;
+    padding:12px;
+    background:#D4AF37;
+    color:white;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+}
+
+.apply-btn:hover{
+    background:hsla(0, 39%, 95%, 0.894);
+}
