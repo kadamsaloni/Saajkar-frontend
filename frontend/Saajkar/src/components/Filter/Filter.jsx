@@ -78,9 +78,7 @@ function Filter() {
 
         <label><input type="checkbox" /> Festival</label>
 
-        <label><input type="checkbox" /> Party Wear</label>
-
-        <label><input type="checkbox" /> Daily Wear</label>
+        
 
       </div>
 

@@ -1,54 +1,198 @@
 .search-page{
-    min-height:100vh;
-    background:#FFFDF8;
-    padding:40px;
+
+padding:50px;
+
+background:#FFFDF8;
+
+min-height:100vh;
+
 }
+
+
 
 .search-page h1{
-    text-align:center;
-    color:#D4AF37;
-    margin-bottom:35px;
+
+text-align:center;
+
+font-family:"Playfair Display",serif;
+
+font-size:40px;
+
+color:#0F0F0F;
+
+margin-bottom:35px;
+
 }
+
+
+
+/* Search Box */
 
 .search-box{
-    width:600px;
-    margin:auto;
-    display:flex;
-    align-items:center;
-    gap:15px;
-    background:white;
-    border-radius:40px;
-    padding:15px 25px;
-    box-shadow:0 8px 25px rgba(0,0,0,.1);
+
+display:flex;
+
+justify-content:center;
+
+margin-bottom:40px;
+
 }
+
+
 
 .search-box input{
-    flex:1;
-    border:none;
-    outline:none;
-    font-size:18px;
+
+width:500px;
+
+padding:15px 25px;
+
+border-radius:30px;
+
+border:1px solid #ddd;
+
+font-size:16px;
+
+outline:none;
+
 }
 
-.search-results{
-    margin-top:50px;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:25px;
+
+
+.search-box input:focus{
+
+border-color:#D4AF37;
+
 }
 
-.result-card{
-    background:white;
-    padding:30px;
-    border-radius:15px;
-    text-align:center;
-    box-shadow:0 10px 20px rgba(0,0,0,.08);
-    transition:.3s;
+
+
+/* Products */
+
+.search-products{
+
+display:grid;
+
+grid-template-columns:repeat(4,1fr);
+
+gap:25px;
+
 }
 
-.result-card:hover{
-    transform:translateY(-5px);
+
+
+/* Card */
+
+.search-card{
+
+background:white;
+
+padding:20px;
+
+border-radius:15px;
+
+text-align:center;
+
+box-shadow:0 8px 20px rgba(0,0,0,0.1);
+
+transition:.3s;
+
 }
 
-.result-card h3{
-    color:#0F0F0F;
+
+
+.search-card:hover{
+
+transform:translateY(-8px);
+
+}
+
+
+
+.search-card img{
+
+width:100%;
+
+height:220px;
+
+object-fit:contain;
+
+}
+
+
+
+.search-card h3{
+
+font-family:"Playfair Display",serif;
+
+}
+
+
+
+.search-card p{
+
+color:#D4AF37;
+
+font-weight:bold;
+
+font-size:18px;
+
+}
+
+
+
+.search-card button{
+
+background:#D4AF37;
+
+border:none;
+
+padding:12px 25px;
+
+border-radius:25px;
+
+cursor:pointer;
+
+}
+
+
+
+.search-card button:hover{
+
+background:#0F0F0F;
+
+color:white;
+
+}
+
+
+
+/* Responsive */
+
+@media(max-width:1000px){
+
+.search-products{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+
+
+@media(max-width:600px){
+
+.search-products{
+
+grid-template-columns:1fr;
+
+}
+
+
+.search-box input{
+
+width:90%;
+
+}
+
 }
