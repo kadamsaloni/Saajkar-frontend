@@ -1,46 +1,23 @@
 import "./Home.css";
 
 import Navbar from "../components/Navbar/Navbar";
+
 import Banner from "../components/Banner/Banner";
-import Filter from "../components/Filter/Filter";
 import Categories from "../components/Categories/Categories";
-import Products from "../components/Products/Products";
+import Products from "../components/Product/Product";
 
-
-function Home(){
-
+function Home() {
   return (
-
     <div className="home">
-
       <Navbar />
-
+      
       <Banner />
 
+      <Categories />
 
-      <div className="shop-layout">
-
-        {/* Left Filter */}
-        <Filter />
-
-
-        {/* Right Side */}
-        <div className="right-section">
-
-          <Categories />
-
-          <Products />
-
-        </div>
-
-
-      </div>
-
-
+      <Products />
     </div>
-
   );
-
 }
 
 export default Home;

@@ -1,93 +1,155 @@
+import React from "react";
 import "./Filter.css";
 
-function Filter() {
-  return (
-    <aside className="filter">
 
-      <h2>Filter By</h2>
+const Filter = ({closeFilter}) => {
 
-      {/* Price */}
-      <div className="filter-section">
 
-        <h3>Price</h3>
+return (
 
-        <label>
-          <input type="checkbox" />
-          Under ₹1,000
-        </label>
+<div className="filter-overlay">
 
-        <label>
-          <input type="checkbox" />
-          ₹1,000 - ₹5,000
-        </label>
 
-        <label>
-          <input type="checkbox" />
-          Above ₹5,000
-        </label>
+<div className="filter-sidebar">
 
-      </div>
 
-      {/* Category */}
+<div className="filter-header">
 
-      <div className="filter-section">
+<h2>
 
-        <h3>Category</h3>
+</h2>
 
-        <label><input type="checkbox" /> Rings</label>
 
-        <label><input type="checkbox" /> Necklaces</label>
+</div>
 
-        <label><input type="checkbox" /> Earrings</label>
+<div className="filter-header">
 
-        <label><input type="checkbox" /> Bridal Sets</label>
+  <h2>Filter</h2>
 
-        <label><input type="checkbox" /> Bangles</label>
+  <button onClick={closeFilter}>
+    ✕
+  </button>
 
-        <label><input type="checkbox" /> Mangalsutra</label>
+</div>
 
-        <label><input type="checkbox" /> Nath</label>
 
-        <label><input type="checkbox" /> Anklets</label>
 
-      </div>
+<hr/>
 
-      {/* Material */}
 
-      <div className="filter-section">
 
-        <h3>Material</h3>
+<h3>Price</h3>
 
-        <label><input type="checkbox" /> Gold</label>
 
-        <label><input type="checkbox" /> Silver</label>
+<label>
+<input type="checkbox"/>
+Under ₹500
+</label>
 
-        <label><input type="checkbox" /> Diamond</label>
 
-        <label><input type="checkbox" /> Kundan</label>
+<label>
+<input type="checkbox"/>
+₹100 - ₹200
+</label>
 
-      </div>
 
-      {/* Occasion */}
+<label>
+<input type="checkbox"/>
+Above ₹20000
+</label>
 
-      <div className="filter-section">
 
-        <h3>Occasion</h3>
 
-        <label><input type="checkbox" /> Wedding</label>
 
-        <label><input type="checkbox" /> Festival</label>
+<h3>Category</h3>
 
-        
 
-      </div>
+<label>
+<input type="checkbox"/>
+Necklace
+</label>
 
-      <button className="apply-btn">
-        Apply Filters
-      </button>
 
-    </aside>
-  );
-}
+<label>
+<input type="checkbox"/>
+Earrings
+</label>
+
+
+<label>
+<input type="checkbox"/>
+Rings
+</label>
+
+
+<label>
+<input type="checkbox"/>
+Bridal Jewellery
+</label>
+
+
+
+
+<h3>Metal</h3>
+
+
+<label>
+<input type="checkbox"/>
+Gold
+</label>
+
+
+<label>
+<input type="checkbox"/>
+Diamond
+</label>
+
+
+<label>
+<input type="checkbox"/>
+Silver
+</label>
+
+
+
+
+<h3>Occasion</h3>
+
+
+<label>
+<input type="checkbox"/>
+Wedding
+</label>
+
+
+<label>
+<input type="checkbox"/>
+Party Wear
+</label>
+
+
+<label>
+<input type="checkbox"/>
+Daily Wear
+</label>
+
+
+
+<button className="apply-btn">
+Apply Filter
+</button>
+
+
+
+</div>
+
+
+</div>
+
+);
+
+
+};
+
 
 export default Filter;

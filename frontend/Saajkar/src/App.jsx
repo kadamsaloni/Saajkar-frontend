@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 import Search from "./pages/Search";
 import Wishlist from "./pages/Wishlist";
 import Cart from "./pages/Cart";
+import Collection from "./pages/Collection";
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
       <Route path="/search" element={<Search />} />
       <Route path="/wishlist" element={<Wishlist />} />
       <Route path="/cart" element={<Cart />} />
+      <Route path="/collection/:category"element={<Collection />}
+      />
     </Routes>
   );
 }

@@ -12,10 +12,10 @@ function Login() {
 
         <img src={logo} alt="Saajkar" className="logo" />
 
-        <h2>Welcome Back</h2>
+        <h2></h2>
 
         <p className="tagline">
-          Sign in to continue your jewellery journey.
+         
         </p>
 
         <input

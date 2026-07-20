@@ -1,101 +1,162 @@
+import React, { useState } from "react";
 import "./Navbar.css";
+import { Link } from "react-router-dom";
+
 import logo from "../../assets/saajkar-logo.png";
 import loginLogo from "../../assets/logo-for-login.jpg";
-import shopData from "../../data/shopData";
 
-import { Search, Heart, ShoppingCart } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import Filter from "../Filter/Filter";
 
-function Navbar() {
+import {
+  FaBars,
+  FaSearch,
+  FaHeart,
+  FaShoppingBag
+} from "react-icons/fa";
 
-  const navigate = useNavigate();
+
+const Navbar = () => {
+
+  const [showFilter, setShowFilter] = useState(false);
+
 
   return (
 
-    <nav className="navbar">
-
-      {/* Logo */}
-
-      <div className="navbar-logo">
-
-        <img src={logo} alt="Saajkar Logo" />
-
-      </div>
+    <header className="navbar">
 
 
-      {/* Navigation */}
+      {/* TOP NAVBAR */}
 
-      <ul className="navbar-links">
-
-        <li onClick={() => navigate("/")}>HOME</li>
-
-        <li className="shop-menu">
-
-          SHOP ▾
-
-          <div className="dropdown">
-
-            {shopData.map((item) => (
-
-              <div className="dropdown-column" key={item.title}>
-
-                <h4>{item.title}</h4>
-
-                {item.subCategories.map((sub) => (
-
-                  <p key={sub}>{sub}</p>
-
-                ))}
-
-              </div>
-
-            ))}
-
-          </div>
-
-        </li>
-
-        <li>NEW ARRIVALS</li>
-
-        <li>BRIDAL COLLECTION</li>
-
-        <li>BEST SELLERS</li>
-
-      </ul>
+      <div className="top-navbar">
 
 
-      {/* Icons */}
+        <div className="empty-space"></div>
 
-      <div className="navbar-icons">
 
-        <Search
-          className="icon"
-          onClick={() => navigate("/search")}
-        />
 
-        <Heart
-          className="icon"
-          onClick={() => navigate("/wishlist")}
-        />
+        {/* LOGO */}
 
-        <ShoppingCart
-          className="icon"
-          onClick={() => navigate("/cart")}
-        />
+        <div className="logo">
 
-        <img
-          src={loginLogo}
-          alt="Login"
-          className="login-logo"
-          onClick={() => navigate("/login")}
-        />
+          <Link to="/">
+            <img 
+              src={logo} 
+              alt="Saajkar Logo"
+            />
+          </Link>
+
+        </div>
+
+
+
+        {/* ICONS */}
+
+        <div className="nav-icons">
+
+
+          <Link to="/search">
+            <FaSearch />
+          </Link>
+
+
+          <Link to="/wishlist">
+            <FaHeart />
+          </Link>
+
+
+          <Link to="/cart">
+            <FaShoppingBag />
+          </Link>
+
+
+          <Link to="/login">
+
+            <img
+              src={loginLogo}
+              alt="Login"
+              className="login-logo"
+            />
+
+          </Link>
+
+
+        </div>
+
 
       </div>
 
-    </nav>
+
+
+
+
+      {/* MENU BAR */}
+
+      <nav className="menu">
+
+
+        <button
+          className="filter-btn"
+          onClick={() => setShowFilter(true)}
+        >
+
+          <FaBars />
+
+          <span>
+            Filter
+          </span>
+
+        </button>
+
+
+
+        <Link to="/">
+          Home
+        </Link>
+
+
+        <Link to="/shop">
+          Shop ▼
+        </Link>
+
+
+        <Link to="/new-arrival">
+          New Arrival
+        </Link>
+
+
+        <Link to="/about">
+          About
+        </Link>
+
+
+        <Link to="/best-sellers">
+          Best Seller
+        </Link>
+
+
+      </nav>
+
+
+
+
+
+      {/* FILTER */}
+
+      {
+        showFilter &&
+
+        <Filter
+          closeFilter={() => setShowFilter(false)}
+        />
+
+      }
+
+
+    </header>
 
   );
 
-}
+};
+
 
 export default Navbar;
