@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar/Navbar";
 
 import Banner from "../components/Banner/Banner";
 import Categories from "../components/Categories/Categories";
-import Products from "../components/Product/Product";
+import Product from "../components/Product/Product";
 
 function Home() {
   return (
@@ -15,7 +15,7 @@ function Home() {
 
       <Categories />
 
-      <Products />
+      <Product />
     </div>
   );
 }

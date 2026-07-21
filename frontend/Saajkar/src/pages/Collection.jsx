@@ -1,21 +1,21 @@
 import React from "react";
-import {useParams} from "react-router-dom";
-import shopData from "../data/shopData";
-import Product from "../components/Product/Product";
+import { useParams } from "react-router-dom";
 
+function Collection() {
 
-const Collection = () => {
+  const { category } = useParams();
 
-const {category}=useParams();
+  return (
+    <div>
+      <h1>
+        Collection Page Working
+      </h1>
 
-
-return(
-   <div>
-      {category}
-   </div>
-)
-
+      <h2>
+        Category: {category}
+      </h2>
+    </div>
+  );
 }
-
 
 export default Collection;

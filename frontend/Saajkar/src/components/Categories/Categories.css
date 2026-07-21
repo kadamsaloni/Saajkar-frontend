@@ -1,35 +1,116 @@
-.categories{
+/* Category Section */
 
-    display:flex;
+.categories-section {
+  width: 90%;
+  margin: 60px auto;
+}
 
-    gap:15px;
 
-    margin-bottom:30px;
+/* Heading */
 
-    flex-wrap:wrap;
+.category-title {
+  text-align: center;
+  color: #000;
+  font-size: 36px;
+  font-family: Georgia, serif;
+  font-weight: 700;
+  margin-bottom: 50px;
+}
+
+
+/* Categories Layout */
+
+.categories {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 35px;
+}
+
+
+/* Category Item */
+
+.category {
+  text-align: center;
+  background: transparent;
+  transition: 0.3s ease;
+}
+
+
+.category:hover {
+  transform: translateY(-8px);
+}
+
+
+/* Images */
+
+.category-img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+}
+
+
+/* Category Name */
+
+.category h2 {
+  margin: 18px 0;
+  font-size: 26px;
+  color: #222;
+  font-family: Georgia, serif;
+}
+
+
+/* Explore Button */
+
+.category button {
+
+  padding: 12px 30px;
+
+  background: #D4AF37;
+
+  color: white;
+
+  border: none;
+
+  border-radius: 30px;
+
+  font-size: 16px;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+
+.category button:hover {
+
+  background: #000;
 
 }
 
-.categories button{
 
-    background:white;
+/* Tablet */
 
-    border:1px solid #D4AF37;
+@media(max-width: 992px){
 
-    padding:10px 20px;
-
-    border-radius:25px;
-
-    cursor:pointer;
-
-    transition:.3s;
+  .categories{
+    grid-template-columns: repeat(2,1fr);
+  }
 
 }
 
-.categories button:hover{
 
-    background:#D4AF37;
+/* Mobile */
 
-    color:white;
+@media(max-width:768px){
+
+  .categories{
+    grid-template-columns: 1fr;
+  }
+
+
+  .category-img{
+    height:230px;
+  }
 
 }
