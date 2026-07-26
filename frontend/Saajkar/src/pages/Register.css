@@ -23,7 +23,10 @@ body{
 }
 
 .register-logo{
-    width:180px;
+    display:block;
+    width:160px;
+    height:auto;
+    margin:0 auto 20px;
     margin-bottom:20px;
 }
 

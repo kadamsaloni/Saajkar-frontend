@@ -7,7 +7,8 @@ import Search from "./pages/Search";
 import Wishlist from "./pages/Wishlist";
 import Cart from "./pages/Cart";
 import Collection from "./pages/Collection";
-
+import About from "./pages/About";
+import Checkout from "./pages/Checkout";
 function App() {
   return (
     <Routes>
@@ -18,7 +19,8 @@ function App() {
       <Route path="/wishlist" element={<Wishlist />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/collection/:category" element={<Collection />} />
-      
+      <Route path="/about" element={<About />} />
+      <Route path="/checkout" element={<Checkout />} />
     </Routes>
   );
 }

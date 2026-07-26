@@ -1,84 +1,57 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Cart.css";
 
+const Cart = () => {
 
-function Cart() {
+  const navigate = useNavigate();
 
 
   const [cartItems, setCartItems] = useState([
-
     {
       id: 1,
       name: "Royal Gold Ring",
-      price: 499,
-      quantity: 1,
+      price: 500,
       image: "/images/ring.jpg"
-    },
+    }
+  ]);
+  useEffect(() => {
+  localStorage.setItem(
+    "cartItems",
+    JSON.stringify(cartItems)
+  );
+}, [cartItems]);
 
-    {
-      id: 2,
-      name: "Traditional Earrings",
-      price: 559,
-      quantity: 1,
-      image: "/images/earrings.jpg"
+
+  useEffect(() => {
+
+    const items = JSON.parse(
+      localStorage.getItem("cartItems")
+    );
+
+
+    if (items && items.length > 0) {
+      setCartItems(items);
     }
 
-  ]);
+
+  }, []);
 
 
 
-  const increaseQty = (id) => {
+  const removeItem = (index) => {
 
-    setCartItems(
-
-      cartItems.map(item =>
-
-        item.id === id
-
-        ? {
-            ...item,
-            quantity: item.quantity + 1
-          }
-
-        : item
-
-      )
-
+    const updatedCart = cartItems.filter(
+      (_, i) => i !== index
     );
 
-  };
+
+    setCartItems(updatedCart);
 
 
-
-  const decreaseQty = (id) => {
-
-    setCartItems(
-
-      cartItems.map(item =>
-
-        item.id === id && item.quantity > 1
-
-        ? {
-            ...item,
-            quantity: item.quantity - 1
-          }
-
-        : item
-
-      )
-
-    );
-
-  };
-
-
-
-  const removeItem = (id) => {
-
-    setCartItems(
-
-      cartItems.filter(item => item.id !== id)
-
+    localStorage.setItem(
+      "cartItems",
+      JSON.stringify(updatedCart)
     );
 
   };
@@ -86,13 +59,8 @@ function Cart() {
 
 
   const total = cartItems.reduce(
-
-    (sum, item) =>
-
-      sum + item.price * item.quantity,
-
+    (sum, item) => sum + Number(item.price),
     0
-
   );
 
 
@@ -102,142 +70,88 @@ function Cart() {
     <div className="cart-page">
 
 
-      <h1>Your Shopping Cart</h1>
+      <h1>Your Cart</h1>
 
 
 
       <div className="cart-container">
 
 
-
-        <div className="cart-items">
-
-
-          {cartItems.length === 0 ? (
-
-            <h2>Your cart is empty</h2>
-
-          ) : (
+        {
+          cartItems.map((item,index)=>(
 
 
-            cartItems.map(item => (
+            <div className="cart-card" key={index}>
 
 
-              <div className="cart-card" key={item.id}>
+              <img
+                src={item.image}
+                alt={item.name}
+              />
 
 
-                <img 
-                  src={item.image} 
-                  alt={item.name}
-                />
+              <div>
+
+                <h2>
+                  {item.name}
+                </h2>
 
 
-
-                <div className="cart-details">
-
-
-                  <h3>{item.name}</h3>
+                <p>
+                  Price: ₹{item.price}
+                </p>
 
 
-                  <p>
-                    ₹{item.price}
-                  </p>
-
-
-
-                  <div className="quantity">
-
-
-                    <button onClick={() => decreaseQty(item.id)}>
-                      -
-                    </button>
-
-
-                    <span>
-                      {item.quantity}
-                    </span>
-
-
-                    <button onClick={() => increaseQty(item.id)}>
-                      +
-                    </button>
-
-
-                  </div>
-
-
-
-                  <button
-
-                    className="remove"
-
-                    onClick={() => removeItem(item.id)}
-
-                  >
-
-                    Remove
-
-                  </button>
-
-
-
-                </div>
+                <button
+                  onClick={() => removeItem(index)}
+                >
+                  Remove
+                </button>
 
 
               </div>
 
 
-            ))
-
-          )}
+            </div>
 
 
-
-        </div>
-
-
-
-
-        <div className="cart-summary">
-
-
-          <h2>
-            Order Summary
-          </h2>
-
-
-
-          <div className="total">
-
-            Total:
-
-            <span>
-              ₹{total}
-            </span>
-
-          </div>
-
-
-
-          <button className="checkout">
-
-            Proceed To Checkout
-
-          </button>
-
-
-        </div>
-
+          ))
+        }
 
 
       </div>
+
+
+
+      <div className="cart-total">
+
+
+        <h2>
+          Total: ₹{total}
+        </h2>
+
+
+
+        <button
+          type="button"
+          className="checkout-btn"
+          onClick={() => navigate("/checkout")}
+        >
+
+          Proceed to Checkout
+
+        </button>
+
+
+      </div>
+
 
 
     </div>
 
   );
 
-}
+};
 
 
 export default Cart;

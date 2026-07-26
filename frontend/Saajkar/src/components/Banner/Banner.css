@@ -1,27 +1,60 @@
 .banner-container{
     display:flex;
     gap:20px;
-    margin:30px;
+    margin:40px 60px;
+    height:320px;
 }
 
+
+/* Common banner cards */
 .banner-left,
 .banner-center,
 .banner-right{
     flex:1;
-    height:350px;
     overflow:hidden;
-    border-radius:15px;
+    border-radius:20px;
+    position:relative;
 }
 
+
+/* Images */
 .banner-left img,
 .banner-right img{
     width:100%;
     height:100%;
-    object-fit:cover;
+    object-fit:contain;
+    background:#fffdf8;
+    transition:0.5s ease;
 }
 
+
+/* Video */
 .banner-video{
     width:100%;
     height:100%;
     object-fit:cover;
+}
+
+
+/* Luxury hover effect */
+.banner-left:hover img,
+.banner-right:hover img{
+    transform:scale(1.05);
+}
+
+
+/* Responsive */
+@media(max-width:900px){
+
+    .banner-container{
+        flex-direction:column;
+        height:auto;
+        margin:20px;
+    }
+
+    .banner-left,
+    .banner-center,
+    .banner-right{
+        height:250px;
+    }
 }

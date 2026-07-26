@@ -1,0 +1,244 @@
+/* About Page */
+
+.about-page {
+    background: #fffdf8;
+    color: #222;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+/* ================= Banner ================= */
+
+.about-banner {
+
+    height: 280px;
+    width: 100%;
+
+    background-image: url("../../assets/about-banner.jpg");
+    background-size: cover;
+    background-position: center;
+
+    position: relative;
+
+}
+
+
+.banner-overlay {
+
+    height: 100%;
+    width: 100%;
+
+    background: rgba(0,0,0,0.45);
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+
+}
+
+
+.banner-overlay h1 {
+
+    font-family: 'Cinzel', serif;
+
+    font-size: 45px;
+    letter-spacing: 3px;
+
+    margin: 0;
+
+}
+
+
+.banner-overlay p {
+
+    margin-top: 10px;
+
+    font-size: 16px;
+
+    letter-spacing: 1px;
+
+}
+
+
+
+/* ================= About Content ================= */
+
+
+.about-content {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 60px;
+
+    padding: 70px 100px;
+
+}
+
+
+.about-image {
+
+    width: 420px;
+
+}
+
+
+.about-image img {
+
+    width: 100%;
+
+    border-radius: 5px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+
+}
+
+
+
+.about-text {
+
+    max-width: 500px;
+
+}
+
+
+.about-text h2 {
+
+    font-family: 'Cinzel',serif;
+
+    font-size: 35px;
+
+    color:#D4AF37;
+
+    margin-bottom:20px;
+
+}
+
+
+.about-text p {
+
+    line-height:1.8;
+
+    font-size:16px;
+
+    color:#555;
+
+}
+
+
+
+/* ================= Luxury Cards ================= */
+
+
+.about-cards {
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:30px;
+
+    padding:40px 80px 80px;
+
+}
+
+
+
+.about-card {
+
+    width:280px;
+
+    background:white;
+
+    padding:30px;
+
+    text-align:center;
+
+    border-radius:10px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,0.08);
+
+    transition:0.4s;
+
+}
+
+
+
+.about-card:hover {
+
+    transform:translateY(-10px);
+
+    box-shadow:0 15px 35px rgba(212,175,55,0.25);
+
+}
+
+
+
+.about-card h3 {
+
+    font-family:'Cinzel',serif;
+
+    color:#D4AF37;
+
+    font-size:22px;
+
+}
+
+
+
+.about-card p {
+
+    color:#666;
+
+    line-height:1.6;
+
+}
+
+
+
+/* ================= Responsive ================= */
+
+
+@media(max-width:900px){
+
+
+.about-content{
+
+    flex-direction:column;
+
+    padding:40px 25px;
+
+}
+
+
+.about-image{
+
+    width:90%;
+
+}
+
+
+.about-cards{
+
+    flex-direction:column;
+
+    align-items:center;
+
+}
+
+
+.banner-overlay h1{
+
+    font-size:32px;
+
+}
+
+
+}

@@ -2,7 +2,7 @@
 
 width:100%;
 
-background:#0F0F0F;
+background: #4A120D;
 
 color:white;
 
@@ -50,11 +50,10 @@ transform:translateX(-50%);
 
 
 .logo img{
-
-width:140px;
-
-height:auto;
-
+    width: 190px;   /* Increased from 140px */
+    height:auto;
+    display:block;
+    margin: 36px auto 20px;
 }
 
 
@@ -128,7 +127,7 @@ align-items:center;
 
 justify-content:center;
 
-gap:40px;
+gap:70px;
 
 border-top:1px solid rgba(255,255,255,0.2);
 
