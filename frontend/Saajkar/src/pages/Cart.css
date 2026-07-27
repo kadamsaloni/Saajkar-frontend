@@ -1,101 +1,131 @@
 .cart-page{
-
-    background:#FFFDF8;
     min-height:100vh;
     padding:50px 8%;
+    background:linear-gradient(
+        rgba(255,255,255,0.90),
+        rgba(255,255,255,0.90)
+    ),
+    url("../assets/banner1.jpg");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
 }
-
 
 .cart-page h1{
-
     text-align:center;
-    font-family:Cinzel,serif;
+    font-family:'Cinzel', serif;
+    font-size:42px;
+    font-weight:700;
+    color:#000;
+    margin-bottom:40px;
 }
 
-
 .cart-container{
-
     display:grid;
     grid-template-columns:repeat(2,1fr);
     gap:30px;
-    margin-top:40px;
-
 }
-
 
 .cart-card{
-
     display:flex;
     gap:20px;
-    background:white;
+    background:#FFFFFF;
     padding:20px;
     border-radius:15px;
-    box-shadow:0 8px 20px rgba(0,0,0,0.1);
-
+    border:2px solid #000;
+    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+    align-items:center;
 }
 
-
 .cart-card img{
-
     width:120px;
     height:120px;
     object-fit:cover;
     border-radius:10px;
-
+    border:1.5px solid #000;
 }
 
+.cart-card h2{
+    margin-bottom:10px;
+    color:#000;
+    font-family:'Cinzel', serif;
+    font-size:22px;
+    font-weight:600;
+}
+
+.cart-card p{
+    margin:5px 0;
+    color:#444;
+}
 
 .cart-card button{
-
-    background:#D4AF37;
-    color:white;
+    background:#D4AF37;   /* Golden */
+    color:#fff;
     border:none;
     padding:10px 20px;
     border-radius:8px;
     cursor:pointer;
-
+    font-weight:600;
+    transition:0.3s ease;
 }
 
+.cart-card button:hover{
+    background:#B89225;
+}
+
+.cart-card button:hover{
+    background:#B89225;
+}
 
 .cart-total{
-
     margin-top:40px;
     text-align:right;
-
 }
 
+.cart-total h2{
+    margin-bottom:20px;
+    color:#000;
+}
 
 .cart-total button{
-
-    background:#0F0F0F;
-    color:white;
-    padding:15px 30px;
+    background:#800020;   /* Maroon */
+    color:#fff;
     border:none;
+    padding:15px 30px;
     border-radius:10px;
     cursor:pointer;
-
+    font-size:16px;
+    font-weight:600;
+    transition:0.3s ease;
 }
 
+.cart-total button:hover{
+    background:#5C0018;
+}
+
+.cart-total button:hover{
+    background:#B89225;
+}
 
 .empty{
-
     text-align:center;
+    font-size:22px;
+    color:#000;
+    margin-top:100px;
 }
-
 
 @media(max-width:768px){
 
-.cart-container{
+    .cart-container{
+        grid-template-columns:1fr;
+    }
 
-grid-template-columns:1fr;
+    .cart-card{
+        flex-direction:column;
+        text-align:center;
+    }
 
-}
-
-
-.cart-card{
-
-flex-direction:column;
-
-}
-
+    .cart-total{
+        text-align:center;
+    }
 }

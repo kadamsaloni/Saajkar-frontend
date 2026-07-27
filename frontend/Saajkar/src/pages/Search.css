@@ -1,198 +1,152 @@
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Poppins:wght@300;400;500;600&display=swap');
+
+/* Search Page */
+
 .search-page{
-
-padding:50px;
-
-background:#FFFDF8;
-
-min-height:100vh;
-
+    min-height:100vh;
+    padding:50px;
+    background:
+        linear-gradient(
+            rgba(255,255,255,0.90),
+            rgba(255,255,255,0.90)
+        ),
+        url("../assets/banner1.jpg");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
 }
 
-
+/* Heading */
 
 .search-page h1{
-
-text-align:center;
-
-font-family:"Playfair Display",serif;
-
-font-size:40px;
-
-color:#0F0F0F;
-
-margin-bottom:35px;
-
+    text-align:center;
+    font-family:'Cinzel', serif;
+    font-size:42px;
+    font-weight:700;
+    color:#000;
+    margin-bottom:35px;
 }
-
-
 
 /* Search Box */
 
 .search-box{
-
-display:flex;
-
-justify-content:center;
-
-margin-bottom:40px;
-
+    display:flex;
+    justify-content:center;
+    margin-bottom:40px;
 }
-
-
 
 .search-box input{
-
-width:500px;
-
-padding:15px 25px;
-
-border-radius:30px;
-
-border:1px solid #ddd;
-
-font-size:16px;
-
-outline:none;
-
+    width:500px;
+    padding:15px 25px;
+    border-radius:30px;
+    border:2px solid #000;
+    background:#fff;
+    font-size:16px;
+    outline:none;
+    transition:0.3s;
 }
-
-
 
 .search-box input:focus{
-
-border-color:#D4AF37;
-
+    border-color:#D4AF37;
+    box-shadow:0 0 8px rgba(212,175,55,0.3);
 }
 
-
-
-/* Products */
+/* Products Grid */
 
 .search-products{
-
-display:grid;
-
-grid-template-columns:repeat(4,1fr);
-
-gap:25px;
-
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:25px;
 }
 
-
-
-/* Card */
+/* Product Card */
 
 .search-card{
-
-background:white;
-
-padding:20px;
-
-border-radius:15px;
-
-text-align:center;
-
-box-shadow:0 8px 20px rgba(0,0,0,0.1);
-
-transition:.3s;
-
+    background:#fff;
+    padding:20px;
+    border-radius:15px;
+    border:2px solid #000;
+    text-align:center;
+    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+    transition:0.3s;
 }
-
-
 
 .search-card:hover{
-
-transform:translateY(-8px);
-
+    transform:translateY(-8px);
 }
 
-
+/* Product Image */
 
 .search-card img{
-
-width:100%;
-
-height:220px;
-
-object-fit:contain;
-
+    width:100%;
+    height:220px;
+    object-fit:contain;
+    margin-bottom:15px;
 }
 
-
+/* Product Name */
 
 .search-card h3{
-
-font-family:"Playfair Display",serif;
-
+    font-family:'Cinzel', serif;
+    color:#000;
+    font-size:22px;
+    margin-bottom:10px;
 }
 
-
+/* Price */
 
 .search-card p{
-
-color:#D4AF37;
-
-font-weight:bold;
-
-font-size:18px;
-
+    color:#D4AF37;
+    font-weight:700;
+    font-size:18px;
+    margin-bottom:15px;
 }
 
-
+/* Button */
 
 .search-card button{
-
-background:#D4AF37;
-
-border:none;
-
-padding:12px 25px;
-
-border-radius:25px;
-
-cursor:pointer;
-
+    background:#D4AF37;
+    color:#fff;
+    border:none;
+    padding:12px 25px;
+    border-radius:25px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:600;
+    transition:0.3s;
 }
-
-
 
 .search-card button:hover{
-
-background:#0F0F0F;
-
-color:white;
-
+    background:#B89225;
 }
-
-
 
 /* Responsive */
 
 @media(max-width:1000px){
 
-.search-products{
-
-grid-template-columns:repeat(2,1fr);
-
-}
+    .search-products{
+        grid-template-columns:repeat(2,1fr);
+    }
 
 }
-
-
 
 @media(max-width:600px){
 
-.search-products{
+    .search-products{
+        grid-template-columns:1fr;
+    }
 
-grid-template-columns:1fr;
+    .search-box input{
+        width:90%;
+    }
 
-}
+    .search-page{
+        padding:30px 20px;
+    }
 
-
-.search-box input{
-
-width:90%;
-
-}
+    .search-page h1{
+        font-size:32px;
+    }
 
 }

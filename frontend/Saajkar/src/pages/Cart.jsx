@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Cart.css";
+import ring from "../assets/ring1.jpg";
+import necklace from "../assets/necklace.jpg";
+import earring from "../assets/Earring.jpg";
 
 const Cart = () => {
 
@@ -12,8 +15,21 @@ const Cart = () => {
       id: 1,
       name: "Royal Gold Ring",
       price: 500,
-      image: "/images/ring.jpg"
+      image: ring
+    },
+    {
+      id: 2,
+      name: " Necklace",
+      price: 1000,
+      image: necklace
+    },
+    {
+      id: 3,
+      name: " Earrings",
+      price: 550,
+      image: earring
     }
+
   ]);
   useEffect(() => {
   localStorage.setItem(
