@@ -83,7 +83,7 @@
 
 .forgot a{
     text-decoration:none;
-    color:#D4AF37;
+    color:#8B0000;
     font-size:14px;
     transition:0.3s;
 }
@@ -129,7 +129,7 @@
 }
 
 .home-btn:hover{
-    background:#b8932d;
+    background:#6d0000;
     transform:translateY(-2px);
     box-shadow:0 6px 15px rgba(109,0,0,0.35);
 }
