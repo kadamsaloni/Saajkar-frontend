@@ -133,6 +133,11 @@ const Navbar = () => {
           Best Seller
         </Link>
 
+        <Link to="/customization">
+          Customization
+        </Link>
+
+
 
       </nav>
 

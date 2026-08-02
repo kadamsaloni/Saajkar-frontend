@@ -22,7 +22,7 @@ const Footer = () => {
             <li><Link to="/">Home</Link></li>
             <li><Link to="/about">About</Link></li>
             <li><Link to="/collection">Collection</Link></li>
-            
+            <li><Link to="/customization">Customization</Link></li>
           </ul>
         </div>
 
@@ -34,6 +34,7 @@ const Footer = () => {
             <li>Necklaces</li>
             <li>Earrings</li>
             <li>Bridal Sets</li>
+            
           </ul>
         </div>
 
@@ -41,7 +42,7 @@ const Footer = () => {
         <div className="footer-section">
           <h3>Contact</h3>
           <p>📍 Mumbai, India</p>
-          <p>📞 +91 98765 43210</p>
+          <p>📞 +91 9867443783</p>
           <p>✉ support@saajkar.com</p>
         </div>
 

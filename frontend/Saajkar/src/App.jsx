@@ -9,6 +9,7 @@ import Cart from "./pages/Cart";
 import Collection from "./pages/Collection";
 import About from "./pages/About";
 import Checkout from "./pages/Checkout";
+import Customization from "./pages/Customization";
 function App() {
   return (
     <Routes>
@@ -21,6 +22,7 @@ function App() {
       <Route path="/collection/:category" element={<Collection />} />
       <Route path="/about" element={<About />} />
       <Route path="/checkout" element={<Checkout />} />
+      <Route path="/customization" element={<Customization />} />
     </Routes>
   );
 }

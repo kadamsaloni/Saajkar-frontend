@@ -14,7 +14,7 @@ import ring1 from "../../assets/ring1.jpg";
 const categories = [
   
   {
-    name: "Ring1",
+    name: "Ring",
     image: ring1,
   },
   {
@@ -34,7 +34,7 @@ const categories = [
     image: nath,
   },
   {
-    name: "Hairpin",
+    name: "Hair Accesories",
     image: hairpin,
   },
 ];
@@ -45,7 +45,7 @@ function Categories() {
     <section className="categories-section">
 
       <h2 className="category-title">
-        Explore Our Categories
+        Explore Our Product
       </h2>
 
 

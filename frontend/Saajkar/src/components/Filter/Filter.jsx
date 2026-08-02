@@ -87,54 +87,6 @@ Rings
 Bridal Jewellery
 </label>
 
-
-
-
-<h3>Metal</h3>
-
-
-<label>
-<input type="checkbox"/>
-Gold
-</label>
-
-
-<label>
-<input type="checkbox"/>
-Diamond
-</label>
-
-
-<label>
-<input type="checkbox"/>
-Silver
-</label>
-
-
-
-
-<h3>Occasion</h3>
-
-
-<label>
-<input type="checkbox"/>
-Wedding
-</label>
-
-
-<label>
-<input type="checkbox"/>
-Party Wear
-</label>
-
-
-<label>
-<input type="checkbox"/>
-Daily Wear
-</label>
-
-
-
 <button className="apply-btn">
 Apply Filter
 </button>
