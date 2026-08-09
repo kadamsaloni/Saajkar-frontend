@@ -1,30 +1,35 @@
 import React, { useState } from "react";
 import "./Search.css";
 import Fuse from "fuse.js";
+import { Link } from "react-router-dom";
 
 function Search() {
   const products = [
     {
       id: 1,
       name: "Royal Ring",
+      category: "ring",
       price: 500,
       image: "/images/ring.jpg",
     },
     {
       id: 2,
-      name: " Necklace",
+      name: "Necklace",
+      category: "necklace",
       price: 1000,
       image: "/images/necklace.jpg",
     },
     {
       id: 3,
       name: "Traditional Earrings",
+      category: "earrings",
       price: 550,
       image: "/images/earrings.jpg",
     },
     {
       id: 4,
       name: "Nath",
+      category: "nath",
       price: 500,
       image: "/images/nath.jpg",
     },
@@ -34,7 +39,7 @@ function Search() {
 
   // Fuse.js configuration
   const fuse = new Fuse(products, {
-    keys: ["name"],
+    keys: ["name", "category"],
     threshold: 0.4,
   });
 
@@ -50,7 +55,7 @@ function Search() {
         .includes(search.toLowerCase())
     );
 
-    // If no exact match, use Fuse.js
+    // Spelling suggestion
     if (filteredProducts.length === 0) {
       const results = fuse.search(search);
 
@@ -63,6 +68,7 @@ function Search() {
 
   return (
     <div className="search-page">
+
       <h1>Search Jewellery</h1>
 
       <div className="search-box">
@@ -74,31 +80,61 @@ function Search() {
         />
       </div>
 
+      {/* Suggestion */}
       {suggestion && (
         <div className="suggestion">
           Did you mean <strong>{suggestion}</strong>?
         </div>
       )}
 
+      {/* Products */}
       {filteredProducts.length === 0 ? (
-        <h2 style={{ textAlign: "center", marginTop: "40px" }}>
+
+        <h2
+          style={{
+            textAlign: "center",
+            marginTop: "40px",
+          }}
+        >
           No products found.
         </h2>
+
       ) : (
+
         <div className="search-products">
+
           {filteredProducts.map((product) => (
-            <div className="search-card" key={product.id}>
-              <img src={product.image} alt={product.name} />
+
+            <div
+              className="search-card"
+              key={product.id}
+            >
+
+              <img
+                src={product.image}
+                alt={product.name}
+              />
 
               <h3>{product.name}</h3>
 
               <p>₹{product.price}</p>
 
-              <button>Add To Cart</button>
+              {/* Explore Button */}
+              <Link
+                to={`/collection/${product.category}`}
+                className="explore-btn"
+              >
+                Explore Now
+              </Link>
+
             </div>
+
           ))}
+
         </div>
+
       )}
+
     </div>
   );
 }

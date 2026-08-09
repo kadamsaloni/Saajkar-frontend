@@ -8,159 +8,148 @@ import loginLogo from "../../assets/logo-for-login.jpg";
 import Filter from "../Filter/Filter";
 
 import {
-  FaBars,
-  FaSearch,
-  FaHeart,
-  FaShoppingBag
+    FaBars,
+    FaSearch,
+    FaHeart,
+    FaShoppingBag
 } from "react-icons/fa";
 
 
 const Navbar = () => {
 
-  const [showFilter, setShowFilter] = useState(false);
+    const [showFilter, setShowFilter] = useState(false);
 
+    return (
+        <header className="navbar">
 
-  return (
+            {/* ================= TOP NAVBAR ================= */}
 
-    <header className="navbar">
+            <div className="top-navbar">
 
+                {/* Empty Space */}
+                <div className="empty-space"></div>
 
-      {/* TOP NAVBAR */}
 
-      <div className="top-navbar">
+                {/* LOGO */}
+                <div className="logo">
 
+                    <Link to="/">
+                        <img
+                            src={logo}
+                            alt="Saajkar Logo"
+                        />
+                    </Link>
 
-        <div className="empty-space"></div>
+                </div>
 
 
+                {/* NAVIGATION ICONS */}
+                <div className="nav-icons">
 
-        {/* LOGO */}
+                    {/* Search */}
+                    <Link to="/search">
+                        <FaSearch />
+                    </Link>
 
-        <div className="logo">
 
-          <Link to="/">
-            <img 
-              src={logo} 
-              alt="Saajkar Logo"
-            />
-          </Link>
+                    {/* Wishlist */}
+                    <Link to="/wishlist">
+                        <FaHeart />
+                    </Link>
 
-        </div>
 
+                    {/* Cart */}
+                    <Link to="/cart">
+                        <FaShoppingBag />
+                    </Link>
 
 
-        {/* ICONS */}
+                    {/* Login */}
+                    <Link to="/login">
+                        <img
+                            src={loginLogo}
+                            alt="Login"
+                            className="login-logo"
+                        />
+                    </Link>
 
-        <div className="nav-icons">
+                </div>
 
+            </div>
 
-          <Link to="/search">
-            <FaSearch />
-          </Link>
 
+            {/* ================= MENU BAR ================= */}
 
-          <Link to="/wishlist">
-            <FaHeart />
-          </Link>
+            <nav className="menu">
 
+                {/* Filter */}
+                <button
+                    type="button"
+                    className="filter-btn"
+                    onClick={() => setShowFilter(true)}
+                >
+                    <FaBars />
 
-          <Link to="/cart">
-            <FaShoppingBag />
-          </Link>
+                    <span>
+                        Filter
+                    </span>
+                </button>
 
 
-          <Link to="/login">
+                {/* Home */}
+                <Link to="/">
+                    Home
+                </Link>
 
-            <img
-              src={loginLogo}
-              alt="Login"
-              className="login-logo"
-            />
 
-          </Link>
+                {/* Shop */}
+                <Link to="/shop">
+                    Shop ▼
+                </Link>
 
 
-        </div>
+                {/* New Arrival */}
+                <Link to="/new-arrival">
+                    New Arrival
+                </Link>
 
 
-      </div>
+                {/* About */}
+                <Link to="/about">
+                    About
+                </Link>
 
 
+                {/* Best Seller */}
+                <Link to="/best-sellers">
+                    Best Seller
+                </Link>
 
 
+                {/* Customization */}
+                <Link to="/customization">
+                    Customization
+                </Link>
 
-      {/* MENU BAR */}
 
-      <nav className="menu">
+                {/* Jewellery Care */}
+                <Link to="/jewellery-care">
+                    Jewellery Care
+                </Link>
 
+            </nav>
 
-        <button
-          className="filter-btn"
-          onClick={() => setShowFilter(true)}
-        >
 
-          <FaBars />
+            {/* ================= FILTER ================= */}
 
-          <span>
-            Filter
-          </span>
+            {showFilter && (
+                <Filter
+                    closeFilter={() => setShowFilter(false)}
+                />
+            )}
 
-        </button>
-
-
-
-        <Link to="/">
-          Home
-        </Link>
-
-
-        <Link to="/shop">
-          Shop ▼
-        </Link>
-
-
-        <Link to="/new-arrival">
-          New Arrival
-        </Link>
-
-
-        <Link to="/about">
-          About
-        </Link>
-
-
-        <Link to="/best-sellers">
-          Best Seller
-        </Link>
-
-        <Link to="/customization">
-          Customization
-        </Link>
-
-
-
-      </nav>
-
-
-
-
-
-      {/* FILTER */}
-
-      {
-        showFilter &&
-
-        <Filter
-          closeFilter={() => setShowFilter(false)}
-        />
-
-      }
-
-
-    </header>
-
-  );
-
+        </header>
+    );
 };
 
 

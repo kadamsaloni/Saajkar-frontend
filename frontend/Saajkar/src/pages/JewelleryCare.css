@@ -1,0 +1,302 @@
+/* ============================= */
+/* GOOGLE FONTS */
+/* ============================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+
+
+/* ============================= */
+/* MAIN PAGE */
+/* ============================= */
+
+.care-page {
+    min-height: 100vh;
+
+    padding: 60px 8%;
+
+    box-sizing: border-box;
+
+    background:
+        linear-gradient(
+            rgba(255, 253, 248, 0.94),
+            rgba(255, 253, 248, 0.94)
+        ),
+        url("../assets/banner1.jpg");
+
+    background-size: cover;
+
+    background-position: center;
+
+    background-repeat: no-repeat;
+
+    color: #000;
+}
+
+
+/* ============================= */
+/* HEADER */
+/* ============================= */
+
+.care-header {
+    text-align: center;
+
+    margin-bottom: 50px;
+}
+
+
+.care-header h1 {
+    font-family: "Cinzel", serif;
+
+    font-size: 45px;
+
+    font-weight: 700;
+
+    color: #000;
+
+    margin: 0 0 15px 0;
+}
+
+
+.care-header p {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 16px;
+
+    color: #555;
+
+    max-width: 700px;
+
+    margin: 0 auto;
+
+    line-height: 1.7;
+}
+
+
+/* ============================= */
+/* CARE CARDS */
+/* ============================= */
+
+.care-container {
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 25px;
+}
+
+
+/* ============================= */
+/* CARD */
+/* ============================= */
+
+.care-card {
+    background: #ffffff;
+
+    border: 2px solid #000;
+
+    border-radius: 15px;
+
+    padding: 30px 25px;
+
+    text-align: center;
+
+    box-sizing: border-box;
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+
+    transition: 0.3s ease;
+}
+
+
+.care-card:hover {
+    transform: translateY(-6px);
+
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+
+/* ============================= */
+/* ICON */
+/* ============================= */
+
+.care-icon {
+    font-size: 40px;
+
+    margin-bottom: 15px;
+}
+
+
+/* ============================= */
+/* CARD TITLE */
+/* ============================= */
+
+.care-card h2 {
+    font-family: "Cinzel", serif;
+
+    font-size: 21px;
+
+    color: #000;
+
+    margin: 0 0 12px 0;
+}
+
+
+/* ============================= */
+/* CARD TEXT */
+/* ============================= */
+
+.care-card p {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+
+    color: #555;
+
+    line-height: 1.7;
+
+    margin: 0;
+}
+
+
+/* ============================= */
+/* CARE TIPS */
+/* ============================= */
+
+.care-tips {
+    max-width: 1000px;
+
+    margin: 60px auto 0;
+
+    background: #ffffff;
+
+    border: 2px solid #000;
+
+    border-radius: 18px;
+
+    padding: 35px;
+
+    box-sizing: border-box;
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+
+.care-tips > h2 {
+    text-align: center;
+
+    font-family: "Cinzel", serif;
+
+    font-size: 30px;
+
+    color: #D4AF37;
+
+    margin: 0 0 30px 0;
+}
+
+
+/* ============================= */
+/* DO / DON'T */
+/* ============================= */
+
+.tips-container {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 50px;
+}
+
+
+/* ============================= */
+/* DO SECTION */
+/* ============================= */
+
+.do-section h3 {
+    font-family: "Cinzel", serif;
+
+    font-size: 23px;
+
+    color: #3a0804;
+
+    margin: 0 0 15px 0;
+}
+
+
+/* ============================= */
+/* DON'T SECTION */
+/* ============================= */
+
+.dont-section h3 {
+    font-family: "Cinzel", serif;
+
+    font-size: 23px;
+
+    color: #3a0804;
+
+    margin: 0 0 15px 0;
+}
+
+
+/* ============================= */
+/* LIST */
+/* ============================= */
+
+.tips-container ul {
+    margin: 0;
+
+    padding-left: 22px;
+}
+
+
+.tips-container li {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+
+    color: #444;
+
+    line-height: 1.6;
+
+    margin-bottom: 10px;
+}
+
+
+/* ============================= */
+/* FOOTER MESSAGE */
+/* ============================= */
+
+.care-footer {
+    max-width: 750px;
+
+    margin: 55px auto 10px;
+
+    text-align: center;
+}
+
+
+.care-footer h2 {
+    font-family: "Cinzel", serif;
+
+    font-size: 30px;
+
+    color: #000;
+
+    margin: 0 0 12px 0;
+}
+
+
+.care-footer p {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 15px;
+
+    color: #555;
+
+    line-height: 1.7;
+
+    margin: 0;
+}

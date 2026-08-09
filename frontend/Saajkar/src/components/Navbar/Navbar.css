@@ -1,192 +1,303 @@
-.navbar{
+/* ============================= */
+/* NAVBAR */
+/* ============================= */
 
-width:100%;
-
-background: #3a0804;
-
-color:white;
-
-position:sticky;
-
-top:0;
-
-z-index:1000;
-
+.navbar {
+    width: 100%;
+    background: #3a0804;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 
-
+/* ============================= */
 /* TOP ROW */
+/* ============================= */
 
-.top-navbar{
+.top-navbar {
+    height: 85px;
 
-height:85px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-display:flex;
+    padding: 0 70px;
 
-align-items:center;
-
-justify-content:space-between;
-
-padding:0 70px;
-
-position:relative;
-
+    position: relative;
 }
 
 
-
+/* ============================= */
 /* LOGO CENTER */
+/* ============================= */
 
-.logo{
+.logo {
+    position: absolute;
 
-position:absolute;
+    left: 50%;
 
-left:50%;
+    transform: translateX(-50%);
 
-transform:translateX(-50%);
-text-align:center;
+    text-align: center;
 
+    z-index: 1002;
+}
+
+.logo a {
+    display: block;
+
+    text-decoration: none;
+}
+
+.logo img {
+    width: 190px;
+
+    height: auto;
+
+    display: block;
+
+    margin: -10px auto 0;
 }
 
 
-.logo img{
-    width:190px;
-    height:auto;
-    display:block;
-    margin:-10px auto 0;
-}
-
-
-
+/* ============================= */
 /* ICONS */
+/* ============================= */
 
-.nav-icons{
+.nav-icons {
+    display: flex;
 
-display:flex;
+    align-items: center;
 
-align-items:center;
+    gap: 25px;
 
-gap:25px;
+    margin-left: auto;
 
-margin-left:auto;
+    position: relative;
 
+    z-index: 1003;
 }
 
 
-.nav-icons a{
+.nav-icons a {
+    color: white;
 
-color:white;
+    text-decoration: none;
 
-text-decoration:none;
+    display: flex;
 
+    align-items: center;
+
+    justify-content: center;
+
+    cursor: pointer;
+
+    transition: 0.3s;
 }
 
 
-.nav-icons svg{
-
-font-size:22px;
-
+.nav-icons a:hover {
+    color: #D4AF37;
 }
 
 
-.nav-icons svg:hover{
+.nav-icons svg {
+    font-size: 22px;
 
-color:#D4AF37;
-
+    transition: 0.3s;
 }
 
 
-
-.login-logo{
-
-width:38px;
-
-height:38px;
-
-border-radius:50%;
-
-object-fit:cover;
-
-border:2px solid #D4AF37;
-
+.nav-icons svg:hover {
+    color: #D4AF37;
 }
 
 
+/* ============================= */
+/* LOGIN LOGO */
+/* ============================= */
+
+.login-logo {
+    width: 38px;
+
+    height: 38px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    border: 2px solid #D4AF37;
+
+    display: block;
+
+    transition: 0.3s;
+}
 
 
+.login-logo:hover {
+    transform: scale(1.05);
 
+    border-color: white;
+}
+
+
+/* ============================= */
 /* MENU */
+/* ============================= */
 
-.menu{
+.menu {
+    height: 50px;
 
-height:50px;
+    display: flex;
 
-display:flex;
+    align-items: center;
 
-align-items:center;
+    justify-content: center;
 
-justify-content:center;
+    gap: 70px;
 
-gap:70px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
 
-border-top:1px solid rgba(255,255,255,0.2);
+    position: relative;
 
+    z-index: 1001;
 }
 
 
+/* ============================= */
+/* MENU LINKS */
+/* ============================= */
 
-.menu a{
+.menu a {
+    color: white;
 
-color:white;
+    text-decoration: none;
 
-text-decoration:none;
+    font-size: 16px;
 
-font-size:16px;
+    font-family: "Poppins", sans-serif;
 
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    position: relative;
+
+    z-index: 1002;
+
+    cursor: pointer;
+
+    padding: 5px 0;
+
+    transition: color 0.3s ease;
 }
 
 
-
-.menu a:hover{
-
-color:#D4AF37;
-
+.menu a:hover {
+    color: #D4AF37;
 }
 
 
+/* Gold underline on hover */
 
+.menu a::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    bottom: 0;
+
+    width: 0;
+
+    height: 2px;
+
+    background: #D4AF37;
+
+    transition: width 0.3s ease;
+}
+
+
+.menu a:hover::after {
+    width: 100%;
+}
+
+
+/* ============================= */
 /* FILTER BUTTON */
+/* ============================= */
 
+.filter-btn {
+    position: absolute;
 
-.filter-btn{
+    left: 70px;
 
-position:absolute;
+    background: none;
 
-left:70px;
+    border: none;
 
-background:none;
+    color: white;
 
-border:none;
+    display: flex;
 
-color:white;
+    align-items: center;
 
-display:flex;
+    gap: 8px;
 
-align-items:center;
+    font-size: 16px;
 
-gap:8px;
+    font-family: "Poppins", sans-serif;
 
-font-size:16px;
+    cursor: pointer;
 
-cursor:pointer;
+    z-index: 1003;
 
+    padding: 5px;
+
+    transition: 0.3s;
 }
 
 
+.filter-btn:hover {
+    color: #D4AF37;
+}
 
-.filter-btn:hover{
 
-color:#D4AF37;
+.filter-btn svg {
+    font-size: 17px;
+}
 
+
+/* ============================= */
+/* IMPORTANT */
+/* Keep Navbar links separately clickable */
+/* ============================= */
+
+.menu a,
+.menu .filter-btn {
+    pointer-events: auto;
+}
+
+
+/* ============================= */
+/* JEWELLERY CARE / CUSTOMIZATION */
+/* Make sure each link has its own area */
+/* ============================= */
+
+.menu a[href="/customization"] {
+    position: relative;
+
+    z-index: 1004;
+}
+
+
+.menu a[href="/jewellery-care"] {
+    position: relative;
+
+    z-index: 1004;
 }

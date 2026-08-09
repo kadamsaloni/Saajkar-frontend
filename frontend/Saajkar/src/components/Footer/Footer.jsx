@@ -43,7 +43,7 @@ const Footer = () => {
           <h3>Contact</h3>
           <p>📍 Mumbai, India</p>
           <p>📞 +91 9867443783</p>
-          <p>✉ support@saajkar.com</p>
+          <p>✉ saajkar13@gmail.com</p>
         </div>
 
       </div>

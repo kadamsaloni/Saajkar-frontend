@@ -10,6 +10,7 @@ import Collection from "./pages/Collection";
 import About from "./pages/About";
 import Checkout from "./pages/Checkout";
 import Customization from "./pages/Customization";
+import JewelleryCare from "./pages/JewelleryCare";
 function App() {
   return (
     <Routes>
@@ -22,6 +23,7 @@ function App() {
       <Route path="/collection/:category" element={<Collection />} />
       <Route path="/about" element={<About />} />
       <Route path="/checkout" element={<Checkout />} />
+      <Route path="/jewellery-care" element={<JewelleryCare />} />
       <Route path="/customization" element={<Customization />} />
     </Routes>
   );

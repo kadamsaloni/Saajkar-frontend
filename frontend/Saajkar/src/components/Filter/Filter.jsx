@@ -87,6 +87,11 @@ Rings
 Bridal Jewellery
 </label>
 
+<label>
+<input type="checkbox"/>
+Mangalsutra
+</label>
+
 <button className="apply-btn">
 Apply Filter
 </button>
