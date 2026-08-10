@@ -11,6 +11,7 @@ import About from "./pages/About";
 import Checkout from "./pages/Checkout";
 import Customization from "./pages/Customization";
 import JewelleryCare from "./pages/JewelleryCare";
+import Invoice from "./pages/Invoice";
 function App() {
   return (
     <Routes>
@@ -24,6 +25,8 @@ function App() {
       <Route path="/about" element={<About />} />
       <Route path="/checkout" element={<Checkout />} />
       <Route path="/jewellery-care" element={<JewelleryCare />} />
+      
+     <Route path="/invoice"element={<Invoice />}/>
       <Route path="/customization" element={<Customization />} />
     </Routes>
   );

@@ -1,123 +1,248 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Checkout.css";
 
 const Checkout = () => {
-  const [cartItems, setCartItems] = useState([]);
-  const [pincode, setPincode] = useState("");
 
-  useEffect(() => {
-    const items = JSON.parse(localStorage.getItem("cartItems"));
+    const navigate = useNavigate();
 
-    if (items && items.length > 0) {
-      setCartItems(items);
-    }
-  }, []);
+    const [cartItems, setCartItems] = useState([]);
 
-  const total = cartItems.reduce(
-    (sum, item) => sum + Number(item.price),
-    0
-  );
+    const [pincode, setPincode] = useState("");
 
-  return (
-    <div className="checkout-page">
 
-      <h1>Checkout</h1>
+    // Get cart items from localStorage
+    useEffect(() => {
 
-      <div className="checkout-container">
+        const items =
+            JSON.parse(localStorage.getItem("cartItems")) || [];
 
-        {/* Billing Details */}
-        <div className="checkout-form">
+        setCartItems(items);
 
-          <h2>Billing Details</h2>
+    }, []);
 
-          <input
-            type="text"
-            placeholder="Full Name"
-          />
 
-          <input
-            type="email"
-            placeholder="Email Address"
-          />
+    // Calculate subtotal
+    const total = cartItems.reduce(
+        (sum, item) => sum + Number(item.price),
+        0
+    );
 
-          <input
-            type="tel"
-            placeholder="Phone Number"
-          />
 
-          <textarea
-            placeholder="Address"
-            rows="3"
-          ></textarea>
+    // ==============================
+    // PLACE ORDER
+    // ==============================
 
-          <input
-            type="text"
-            placeholder="Landmark"
-          />
+    const handlePlaceOrder = () => {
 
-          <input
-            type="text"
-            placeholder="Pincode"
-            value={pincode}
-            maxLength="6"
-            inputMode="numeric"
-            onChange={(e) => {
-              const value = e.target.value.replace(/\D/g, "");
-              setPincode(value);
-            }}
-          />
+        // Check cart
+        if (cartItems.length === 0) {
 
-        </div>
+            alert("Your cart is empty.");
 
-        {/* Order Summary */}
-        <div className="order-summary">
+            return;
+        }
 
-          <h2>Order Summary</h2>
 
-          {cartItems.length === 0 ? (
-            <p>Your cart is empty.</p>
-          ) : (
-            cartItems.map((item, index) => (
+        // Delivery charge
+        const deliveryCharges = 100;
 
-              <div
-                className="order-item"
-                key={index}
-              >
 
-                <img
-                  src={item.image}
-                  alt={item.name}
-                />
+        // Create order
+        const orderDetails = {
 
-                <div>
-                  <h3>{item.name}</h3>
+            orderId:
+                "SAAJ" + Date.now(),
 
-                  <p>
-                    Price: ₹{item.price}
-                  </p>
+            orderDate:
+                new Date().toLocaleDateString("en-IN"),
+
+            items:
+                cartItems,
+
+            subtotal:
+                total,
+
+            deliveryCharges:
+                deliveryCharges,
+
+            totalAmount:
+                total + deliveryCharges
+
+        };
+
+
+        // Save order details
+        localStorage.setItem(
+            "orderDetails",
+            JSON.stringify(orderDetails)
+        );
+
+
+        // Go to Invoice page
+        navigate("/invoice");
+
+    };
+
+
+    return (
+
+        <div className="checkout-page">
+
+
+            {/* ============================= */}
+            {/* CHECKOUT HEADING */}
+            {/* ============================= */}
+
+            <h1>
+                Checkout
+            </h1>
+
+
+            <div className="checkout-container">
+
+
+                {/* ============================= */}
+                {/* BILLING DETAILS */}
+                {/* ============================= */}
+
+                <div className="checkout-form">
+
+                    <h2>
+                        Billing Details
+                    </h2>
+
+
+                    <input
+                        type="text"
+                        placeholder="Full Name"
+                    />
+
+
+                    <input
+                        type="email"
+                        placeholder="Email Address"
+                    />
+
+
+                    <input
+                        type="tel"
+                        placeholder="Phone Number"
+                    />
+
+
+                    <textarea
+                        placeholder="Address"
+                        rows="3"
+                    ></textarea>
+
+
+                    <input
+                        type="text"
+                        placeholder="Landmark"
+                    />
+
+
+                    <input
+                        type="text"
+                        placeholder="Pincode"
+                        value={pincode}
+                        maxLength="6"
+                        inputMode="numeric"
+                        onChange={(e) => {
+
+                            const value =
+                                e.target.value.replace(
+                                    /\D/g,
+                                    ""
+                                );
+
+                            setPincode(value);
+
+                        }}
+                    />
+
                 </div>
 
-              </div>
 
-            ))
-          )}
+                {/* ============================= */}
+                {/* ORDER SUMMARY */}
+                {/* ============================= */}
 
-          <hr />
+                <div className="order-summary">
 
-          <h2>
-            Total Amount: ₹{total}
-          </h2>
+                    <h2>
+                        Order Summary
+                    </h2>
 
-          <button className="place-order">
-            Place Order
-          </button>
+
+                    {cartItems.length === 0 ? (
+
+                        <p>
+                            Your cart is empty.
+                        </p>
+
+                    ) : (
+
+                        cartItems.map((item, index) => (
+
+                            <div
+                                className="order-item"
+                                key={item.id || index}
+                            >
+
+                                <img
+                                    src={item.image}
+                                    alt={item.name}
+                                />
+
+
+                                <div>
+
+                                    <h3>
+                                        {item.name}
+                                    </h3>
+
+
+                                    <p>
+                                        Price: ₹{item.price}
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        ))
+
+                    )}
+
+
+                    <hr />
+                  {/* Total */}
+
+                    <h2>
+                        Total Amount: ₹{total }
+                    </h2>
+
+
+                    {/* Place Order */}
+
+                    <button
+                        className="place-order"
+                        type="button"
+                        onClick={handlePlaceOrder}
+                    >
+                        Place Order
+                    </button>
+
+                </div>
+
+            </div>
 
         </div>
 
-      </div>
+    );
 
-    </div>
-  );
 };
 
 export default Checkout;

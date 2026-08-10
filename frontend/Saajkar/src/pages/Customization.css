@@ -584,3 +584,62 @@
   }
 
 }
+.file-name {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  padding: 10px 12px;
+  margin-bottom: 8px;
+
+  background: white;
+
+  border-radius: 7px;
+
+  font-size: 14px;
+
+  color: #222;
+
+  border: 1px solid #eee;
+}
+
+
+.file-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  min-width: 0;
+}
+
+
+.file-info span:last-child {
+  word-break: break-word;
+}
+
+
+.delete-file-btn {
+  flex-shrink: 0;
+
+  background: #3a0804;
+  color: white;
+
+  border: none;
+
+  padding: 7px 14px;
+
+  border-radius: 5px;
+
+  font-size: 12px;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+
+.delete-file-btn:hover {
+  background: #D4AF37;
+  color: black;
+}
