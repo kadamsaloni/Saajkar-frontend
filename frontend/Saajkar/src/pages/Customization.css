@@ -1,508 +1,586 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Poppins:wght@300;400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Poppins:wght@300;400;500;600&display=swap");
 
 
+/* =========================================
+   MAIN PAGE
+========================================= */
 
-.custom-page{
+.custom-page {
+  width: 100%;
+  min-height: 100vh;
 
-background:#FFFDF8;
+  background-image:
+    linear-gradient(
+      rgba(255, 253, 248, 0.70),
+      rgba(255, 253, 248, 0.70)
+    ),
+    url("../assets/banner1.jpg");
 
-min-height:100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 
-font-family:"Poppins",sans-serif;
+  padding-bottom: 80px;
 
-color:#0F0F0F;
+  color: #160503;
 
+  font-family: "Poppins", sans-serif;
 }
 
 
+/* =========================================
+   HERO
+========================================= */
 
-/* HERO */
+.custom-banner {
+  height: 450px;
 
+  background:
+    linear-gradient(
+      rgba(0, 0, 0, 0.55),
+      rgba(0, 0, 0, 0.55)
+    ),
+    url("../assets/banner1.jpg");
 
-.custom-banner{
+  background-size: cover;
+  background-position: center;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-height:450px;
+  text-align: center;
 
-
-background:
-
-linear-gradient(
-rgba(0,0,0,0.55),
-rgba(0,0,0,0.55)
-),
-
-url("../assets/banner1.jpg");
-
-
-
-background-size:cover;
-
-background-position:center;
-
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-
-text-align:center;
-
-color:white;
-
-
+  color: white;
 }
 
 
-
-.banner-content{
-
-max-width:900px;
-
+.banner-content {
+  max-width: 900px;
+  padding: 20px;
 }
 
 
+.custom-banner h1 {
+  font-family: "Cinzel", serif;
 
-.custom-banner h1{
+  font-size: 55px;
 
-
-font-family:"Cinzel",serif;
-
-
-font-size:55px;
-
-
-margin-bottom:20px;
-
-
+  margin-bottom: 20px;
 }
 
 
+.custom-banner p {
+  font-size: 19px;
 
-.custom-banner p{
-
-
-font-size:19px;
-
-line-height:1.6;
-
+  line-height: 1.6;
 }
 
 
+.custom-banner button {
+  margin-top: 25px;
 
-.custom-banner button{
+  background: #D4AF37;
 
+  color: black;
 
-margin-top:25px;
+  border: none;
 
+  padding: 14px 40px;
 
-background:#D4AF37;
+  border-radius: 30px;
 
+  font-size: 16px;
 
-color:black;
+  cursor: pointer;
 
-
-border:none;
-
-
-padding:14px 40px;
-
-
-border-radius:30px;
-
-
-font-size:16px;
-
-
-cursor:pointer;
-
-
+  transition: 0.3s;
 }
 
 
-
-
-/* INTRO */
-
-
-.custom-intro{
-
-
-padding:55px 100px;
-
-
-text-align:center;
-
-
+.custom-banner button:hover {
+  background: #3a0804;
+  color: white;
 }
 
 
+/* =========================================
+   INTRO
+========================================= */
 
-.custom-intro h2{
+.custom-intro {
+  padding: 55px 100px;
 
-
-font-family:"Cinzel",serif;
-
-
-font-size:38px;
-
-
-color:#3a0804;
-
-
+  text-align: center;
 }
 
 
+.custom-intro h2 {
+  font-family: "Cinzel", serif;
 
-.custom-intro p{
+  font-size: 38px;
 
-
-font-size:18px;
-
-
-color:#555;
-
-
-line-height:1.8;
-
-
+  color: #3a0804;
 }
 
 
+.custom-intro p {
+  font-size: 18px;
 
+  color: #555;
 
-/* HOW IT WORKS */
+  line-height: 1.8;
 
+  max-width: 900px;
 
-.how-section{
-
-
-padding:40px 70px;
-
-
-text-align:center;
-
-
+  margin: 10px auto;
 }
 
 
+/* =========================================
+   HOW IT WORKS
+========================================= */
 
-.how-section h2{
+.how-section {
+  padding: 60px 70px;
 
+  text-align: center;
 
-font-family:"Cinzel",serif;
-
-
-font-size:38px;
-
-
-color:#3a0804;
-
-
+  background: transparent;
 }
 
 
+.how-section h2 {
+  font-family: "Cinzel", serif;
 
-.steps{
+  font-size: 38px;
 
+  color: #3a0804;
 
-display:flex;
-
-
-justify-content:center;
-
-
-gap:25px;
-
-
-margin-top:40px;
-
-
-flex-wrap:wrap;
-
-
+  margin-bottom: 10px;
 }
 
 
+/* =========================================
+   STEPS
+========================================= */
 
-.step-card{
+.steps {
+  display: flex;
 
+  justify-content: center;
 
-width:190px;
+  gap: 25px;
 
+  margin-top: 40px;
 
-background:white;
-
-
-padding:25px;
-
-
-border-radius:15px;
-
-
-border:1px solid #D4AF37;
-
-
-transition:.3s;
-
-
+  flex-wrap: wrap;
 }
 
 
+.step-card {
+  width: 190px;
 
-.step-card:hover{
+  min-height: 150px;
 
+  background: rgba(255, 255, 255, 0.96);
 
-transform:translateY(-10px);
+  padding: 25px;
 
+  border-radius: 15px;
 
-box-shadow:0 10px 25px rgba(0,0,0,.15);
+  border: 1px solid #D4AF37;
 
+  transition: 0.3s;
 
+  box-sizing: border-box;
 }
 
 
+.step-card:hover {
+  transform: translateY(-10px);
 
-.step-card span{
-
-
-font-size:30px;
-
-
-color:#D4AF37;
-
-
-font-weight:bold;
-
-
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 
+.step-card span {
+  font-size: 30px;
 
-.step-card h3{
+  color: #D4AF37;
 
-
-color:#3a0804;
-
-
+  font-weight: bold;
 }
 
 
+.step-card h3 {
+  color: #3a0804;
 
-/* FORM */
+  font-size: 18px;
 
-
-.custom-container{
-
-
-padding:60px 100px;
-
-
+  margin: 10px 0;
 }
 
 
+.step-card p {
+  color: #555;
 
-.custom-container h2{
+  font-size: 14px;
 
+  line-height: 1.5;
 
-text-align:center;
-
-
-font-family:"Cinzel",serif;
-
-
-font-size:38px;
-
-
-color:#3a0804;
-
-
-margin-bottom:40px;
-
-
+  margin: 0;
 }
 
 
+/* =========================================
+   FORM CONTAINER
+========================================= */
 
-.custom-form{
-
-
-max-width:850px;
-
-
-margin:auto;
-
-
-background:white;
-
-
-padding:45px;
-
-
-border-radius:20px;
-
-
-border:2px solid black;
-
-
-box-shadow:0 10px 30px rgba(0,0,0,.15);
-
-
+.custom-container {
+  padding: 60px 100px;
 }
 
 
+.custom-container h2 {
+  text-align: center;
 
-.custom-box{
+  font-family: "Cinzel", serif;
 
+  font-size: 38px;
 
-display:flex;
+  color: #3a0804;
 
-
-flex-direction:column;
-
-
-margin-bottom:25px;
-
-
+  margin-bottom: 40px;
 }
 
 
+/* =========================================
+   FORM
+========================================= */
 
-.custom-box label{
+.custom-form {
+  max-width: 850px;
 
+  margin: auto;
 
-margin-bottom:10px;
+  background: rgba(255, 255, 255, 0.97);
 
+  padding: 45px;
 
-font-weight:500;
+  border-radius: 20px;
 
+  border: 2px solid black;
 
-color:#3a0804;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.15);
 
-
+  box-sizing: border-box;
 }
 
 
+/* =========================================
+   FORM BOX
+========================================= */
+
+.custom-box {
+  display: flex;
+
+  flex-direction: column;
+
+  margin-bottom: 25px;
+}
+
+
+.custom-box label {
+  margin-bottom: 10px;
+
+  font-weight: 500;
+
+  color: #3a0804;
+
+  font-size: 15px;
+}
+
+
+/* =========================================
+   INPUTS
+========================================= */
 
 .custom-box input,
 .custom-box select,
-.custom-box textarea{
+.custom-box textarea {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 14px;
+
+  border: 1px solid #999;
+
+  border-radius: 10px;
+
+  font-size: 15px;
+
+  font-family: "Poppins", sans-serif;
+
+  outline: none;
+
+  background: white;
+
+  transition: 0.3s;
+}
 
 
-padding:14px;
+.custom-box input:focus,
+.custom-box select:focus,
+.custom-box textarea:focus {
+  border-color: #D4AF37;
+
+  box-shadow:
+    0 0 0 2px rgba(212, 175, 55, 0.15);
+}
 
 
-border:1px solid #999;
+/* =========================================
+   TEXTAREA
+========================================= */
+
+.custom-box textarea {
+  height: 130px;
+
+  resize: none;
+}
 
 
-border-radius:10px;
+/* =========================================
+   UPLOAD INFORMATION
+========================================= */
+
+.upload-info {
+  margin: 5px 0 15px;
+
+  font-size: 13px;
+
+  color: #777;
+}
 
 
-font-size:15px;
+/* =========================================
+   FILE INPUT
+========================================= */
+
+.custom-box input[type="file"] {
+  padding: 12px;
+
+  cursor: pointer;
+
+  background: #fffdf8;
+}
 
 
-font-family:"Poppins";
+/* =========================================
+   SELECTED FILES
+========================================= */
 
+.selected-files {
+  margin-top: 20px;
+
+  padding: 15px;
+
+  background: #fffdf8;
+
+  border: 1px solid #D4AF37;
+
+  border-radius: 10px;
+}
+
+
+.selected-files h4 {
+  margin: 0 0 12px;
+
+  color: #3a0804;
+
+  font-size: 15px;
+
+  font-weight: 600;
+}
+
+
+/* =========================================
+   FILE NAME
+========================================= */
+
+.file-name {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 9px 12px;
+
+  margin-bottom: 7px;
+
+  background: white;
+
+  border-radius: 6px;
+
+  font-size: 14px;
+
+  color: #222;
+
+  border: 1px solid #eee;
+
+  word-break: break-word;
+}
+
+
+.file-name:last-child {
+  margin-bottom: 0;
+}
+
+
+/* =========================================
+   SUBMIT BUTTON
+========================================= */
+
+.submit-btn {
+  display: block;
+
+  margin: 25px auto 0;
+
+  background: #3a0804;
+
+  color: white;
+
+  border: none;
+
+  padding: 15px 45px;
+
+  border-radius: 30px;
+
+  font-size: 16px;
+
+  font-family: "Poppins", sans-serif;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+
+.submit-btn:hover {
+  background: #D4AF37;
+
+  color: black;
+
+  transform: translateY(-2px);
+}
+
+
+/* =========================================
+   RESPONSIVE - TABLET
+========================================= */
+
+@media (max-width: 900px) {
+
+  .custom-container,
+  .custom-intro {
+    padding: 40px 20px;
+  }
+
+
+  .custom-banner {
+    height: 400px;
+  }
+
+
+  .custom-banner h1 {
+    font-size: 35px;
+  }
+
+
+  .custom-banner p {
+    font-size: 16px;
+  }
+
+
+  .how-section {
+    padding: 40px 20px;
+  }
+
+
+  .steps {
+    flex-direction: column;
+
+    align-items: center;
+  }
+
+
+  .step-card {
+    width: 80%;
+
+    max-width: 350px;
+  }
+
+
+  .custom-form {
+    padding: 30px 25px;
+  }
 
 }
 
 
+/* =========================================
+   RESPONSIVE - MOBILE
+========================================= */
 
-.custom-box textarea{
+@media (max-width: 600px) {
 
-
-height:130px;
-
-
-resize:none;
-
-
-}
+  .custom-page {
+    background-attachment: scroll;
+  }
 
 
-
-.submit-btn{
-
-
-display:block;
+  .custom-banner {
+    height: 350px;
+  }
 
 
-margin:auto;
+  .custom-banner h1 {
+    font-size: 30px;
+  }
 
 
-background:#3a0804;
+  .custom-banner p {
+    font-size: 14px;
+  }
 
 
-color:white;
+  .custom-intro h2,
+  .how-section h2,
+  .custom-container h2 {
+    font-size: 28px;
+  }
 
 
-border:none;
+  .custom-form {
+    padding: 25px 18px;
+  }
 
 
-padding:15px 45px;
+  .step-card {
+    width: 100%;
+  }
 
 
-border-radius:30px;
+  .submit-btn {
+    width: 100%;
 
-
-font-size:16px;
-
-
-cursor:pointer;
-
-
-}
-
-
-
-.submit-btn:hover{
-
-
-background:#D4AF37;
-
-
-color:black;
-
-
-}
-
-
-
-
-/* RESPONSIVE */
-
-
-@media(max-width:900px){
-
-
-.custom-container,
-.custom-intro{
-
-padding:40px 20px;
-
-}
-
-
-.custom-banner h1{
-
-
-font-size:35px;
-
-
-}
-
-
-
-.steps{
-
-
-flex-direction:column;
-
-align-items:center;
-
-}
-
+    padding: 14px 20px;
+  }
 
 }

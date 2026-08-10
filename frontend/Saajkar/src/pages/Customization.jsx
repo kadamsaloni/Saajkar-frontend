@@ -1,437 +1,397 @@
+import { useState } from "react";
 import "./Customization.css";
 
+function Customization() {
 
-function Customization(){
+  // Store multiple uploaded reference images
+  const [referenceImages, setReferenceImages] = useState([]);
 
-return(
 
-<div className="custom-page">
+  // Handle image upload
+  const handleImageChange = (e) => {
 
+    const files = Array.from(e.target.files);
 
-{/* HERO SECTION */}
+    const allowedTypes = [
+      "image/png",
+      "image/jpeg"
+    ];
 
-<section className="custom-banner">
 
-<div className="banner-content">
+    // Check for invalid files
+    const invalidFile = files.find(
+      (file) => !allowedTypes.includes(file.type)
+    );
 
-<h1>
-Create Your Dream Jewellery
-</h1>
 
-<p>
-Whether you have a sketch, a photo, or just an idea, our expert artisans 
-will transform it into a timeless masterpiece.
-</p>
+    if (invalidFile) {
 
+      alert(
+        "Invalid file! Please upload only PNG, JPG or JPEG images."
+      );
 
-<button>
-Start Your Design
-</button>
+      e.target.value = "";
 
-</div>
+      return;
+    }
 
-</section>
 
+    // Add new files to existing files
+    setReferenceImages((previousFiles) => [
+      ...previousFiles,
+      ...files
+    ]);
 
 
+    // Clear input so files can be selected again
+    e.target.value = "";
+  };
 
-{/* INTRO */}
 
-<section className="custom-intro">
+  // Delete individual image
+  const deleteImage = (indexToDelete) => {
 
+    setReferenceImages((previousFiles) =>
+      previousFiles.filter(
+        (_, index) => index !== indexToDelete
+      )
+    );
 
-<h2>
-Jewellery Designed Around Your Vision
-</h2>
+  };
 
 
-<p>
-At Saajkar, we believe every jewellery piece should be as unique as the
-person wearing it. Share your inspiration, tell us your ideas, and we'll
-create a handcrafted design made exclusively for you.
-</p>
+  return (
 
+    <div className="custom-page">
 
-</section>
 
+      {/* ================= HOW IT WORKS ================= */}
 
+      <section className="how-section">
 
+        <h2>How It Works</h2>
 
+        <div className="steps">
 
-{/* HOW IT WORKS */}
 
+          <div className="step-card">
 
-<section className="how-section">
+            <span>1</span>
 
+            <h3>Share Your Idea</h3>
 
-<h2>
-How It Works
-</h2>
+            <p>
+              Tell us what you want to create.
+            </p>
 
+          </div>
 
 
-<div className="steps">
+          <div className="step-card">
 
+            <span>2</span>
 
-<div className="step-card">
+            <h3>Upload Inspiration</h3>
 
-<span>
-1
-</span>
+            <p>
+              Add photos, sketches or references.
+            </p>
 
-<h3>
-Share Your Idea
-</h3>
+          </div>
 
-<p>
-Tell us what you want to create.
-</p>
 
-</div>
+          <div className="step-card">
 
+            <span>3</span>
 
+            <h3>Consultation</h3>
 
-<div className="step-card">
+            <p>
+              Our jewellery experts discuss every detail.
+            </p>
 
-<span>
-2
-</span>
+          </div>
 
-<h3>
-Upload Inspiration
-</h3>
 
-<p>
-Add photos, sketches or references.
-</p>
+          <div className="step-card">
 
-</div>
+            <span>4</span>
 
+            <h3>Crafting</h3>
 
+            <p>
+              Your jewellery is handcrafted with precision.
+            </p>
 
+          </div>
 
 
-<div className="step-card">
+          <div className="step-card">
 
-<span>
-3
-</span>
+            <span>5</span>
 
-<h3>
-Consultation
-</h3>
+            <h3>Delivery</h3>
 
-<p>
-Our jewellery experts discuss every detail.
-</p>
+            <p>
+              Receive your dream jewellery safely.
+            </p>
 
-</div>
+          </div>
 
 
+        </div>
 
+      </section>
 
 
-<div className="step-card">
+      {/* ================= CUSTOMIZATION REQUEST ================= */}
 
-<span>
-4
-</span>
+      <section className="custom-container">
 
-<h3>
-Crafting
-</h3>
+        <h2>Customization Request</h2>
 
-<p>
-Your jewellery is handcrafted with precision.
-</p>
 
-</div>
+        <div className="custom-form">
 
 
+          {/* ================= FULL NAME ================= */}
 
+          <div className="custom-box">
 
-<div className="step-card">
+            <label>Full Name</label>
 
-<span>
-5
-</span>
+            <input
+              type="text"
+              placeholder="Enter your name"
+            />
 
-<h3>
-Delivery
-</h3>
+          </div>
 
-<p>
-Receive your dream jewellery safely.
-</p>
 
-</div>
+          {/* ================= EMAIL ================= */}
 
+          <div className="custom-box">
 
+            <label>Email</label>
 
-</div>
+            <input
+              type="email"
+              placeholder="Enter your email"
+            />
 
+          </div>
 
-</section>
 
+          {/* ================= PHONE ================= */}
 
+          <div className="custom-box">
 
+            <label>Phone Number</label>
 
+            <input
+              type="text"
+              placeholder="Enter phone number"
+            />
 
-{/* CUSTOM FORM */}
+          </div>
 
 
+          {/* ================= JEWELLERY TYPE ================= */}
 
-<section className="custom-container">
+          <div className="custom-box">
 
+            <label>Jewellery Type</label>
 
-<h2>
-Customization Request
-</h2>
+            <select defaultValue="">
 
+              <option value="" disabled>
+                Select Jewellery
+              </option>
 
+              <option>Ring</option>
 
-<div className="custom-form">
+              <option>Necklace</option>
 
+              <option>Earrings</option>
 
+              <option>Bangle</option>
 
-<div className="custom-box">
+              <option>Bracelet</option>
 
-<label>
-Full Name
-</label>
+              <option>Bridal Set</option>
 
-<input 
-type="text"
-placeholder="Enter your name"
-/>
+            </select>
 
-</div>
+          </div>
 
 
+          {/* ================= MATERIAL ================= */}
 
+          <div className="custom-box">
 
-<div className="custom-box">
+            <label>Material</label>
 
-<label>
-Email
-</label>
+            <select defaultValue="">
 
-<input 
-type="email"
-placeholder="Enter your email"
-/>
+              <option value="" disabled>
+                Select Material
+              </option>
 
-</div>
+              <option>Gold</option>
 
+            </select>
 
+          </div>
 
 
+          {/* ================= BUDGET ================= */}
 
-<div className="custom-box">
+          <div className="custom-box">
 
-<label>
-Phone Number
-</label>
+            <label>Budget Range</label>
 
-<input 
-type="text"
-placeholder="Enter phone number"
-/>
+            <select defaultValue="">
 
-</div>
+              <option value="" disabled>
+                Select Budget
+              </option>
 
+              <option>
+                Below ₹25,000
+              </option>
 
+              <option>
+                ₹25,000 - ₹50,000
+              </option>
 
+              <option>
+                ₹50,000 - ₹1,00,000
+              </option>
 
+              <option>
+                Above ₹1,00,000
+              </option>
 
-<div className="custom-box">
+            </select>
 
-<label>
-Jewellery Type
-</label>
+          </div>
 
 
-<select>
+          {/* ================= DESIGN DESCRIPTION ================= */}
 
-<option>
-Select Jewellery
-</option>
+          <div className="custom-box full-width">
 
-<option>
-Ring
-</option>
+            <label>
+              Describe Your Design
+            </label>
 
-<option>
-Necklace
-</option>
+            <textarea
+              placeholder="Explain your jewellery design idea..."
+            ></textarea>
 
-<option>
-Earrings
-</option>
+          </div>
 
-<option>
-Bangle
-</option>
 
-<option>
-Bracelet
-</option>
+          {/* ================= IMAGE UPLOAD ================= */}
 
-<option>
-Bridal Set
-</option>
+          <div className="custom-box full-width">
 
+            <label>
+              Upload Reference Images
+            </label>
 
-</select>
+            <p className="upload-info">
+              Only PNG, JPG and JPEG files are allowed
+            </p>
 
-</div>
 
+            {/* FILE INPUT */}
 
+            <input
+              type="file"
+              accept=".png,.jpg,.jpeg"
+              multiple
+              onChange={handleImageChange}
+            />
 
 
+            {/* ================= SELECTED FILES ================= */}
 
-<div className="custom-box">
+            {referenceImages.length > 0 && (
 
+              <div className="selected-files">
 
-<label>
-Material
-</label>
+                <h4>
+                  Selected Files:
+                </h4>
 
 
-<select>
+                {referenceImages.map((file, index) => (
 
-<option>
-Select Material
-</option>
+                  <div
+                    className="file-name"
+                    key={`${file.name}-${index}`}
+                  >
 
-<option>
-Gold
-</option>
 
-<option>
-Diamond
-</option>
+                    <div className="file-info">
 
-<option>
-Silver
-</option>
+                      <span>
+                        📎
+                      </span>
 
-<option>
-Platinum
-</option>
+                      <span>
+                        {file.name}
+                      </span>
 
+                    </div>
 
-</select>
 
+                    {/* DELETE BUTTON */}
 
-</div>
+                    <button
+                      type="button"
+                      className="delete-file-btn"
+                      onClick={() => deleteImage(index)}
+                    >
+                      Delete
+                    </button>
 
 
+                  </div>
 
+                ))}
 
+              </div>
 
-<div className="custom-box">
+            )}
 
+          </div>
 
-<label>
-Describe Your Design
-</label>
 
+          {/* ================= SUBMIT BUTTON ================= */}
 
-<textarea
+          <button
+            className="submit-btn"
+            type="button"
+            onClick={() =>
+              alert(
+                "Your customization request has been submitted successfully!"
+              )
+            }
+          >
+            Submit Custom Request
+          </button>
 
-placeholder="Explain your jewellery design idea..."
 
-></textarea>
+        </div>
 
+      </section>
 
-</div>
 
+    </div>
 
-
-
-
-<div className="custom-box">
-
-
-<label>
-Upload Reference Image
-</label>
-
-
-<input 
-type="file"
-/>
-
-
-</div>
-
-
-
-
-
-<div className="custom-box">
-
-
-<label>
-Budget Range
-</label>
-
-
-<select>
-
-
-<option>
-Select Budget
-</option>
-
-
-<option>
-Below ₹25,000
-</option>
-
-
-<option>
-₹25,000 - ₹50,000
-</option>
-
-
-<option>
-₹50,000 - ₹1,00,000
-</option>
-
-
-<option>
-Above ₹1,00,000
-</option>
-
-
-</select>
-
-
-</div>
-
-
-
-
-<button className="submit-btn">
-
-Submit Custom Request
-
-</button>
-
-
-
-
-</div>
-
-
-</section>
-
-
-</div>
-
-)
+  );
 
 }
 
