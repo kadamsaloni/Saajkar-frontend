@@ -1,0 +1,310 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+
+
+/* ============================= */
+/* PAGE */
+/* ============================= */
+
+.my-orders-page {
+    min-height: 100vh;
+
+    padding: 60px 20px;
+
+    background:
+        linear-gradient(
+            rgba(255,255,255,0.85),
+            rgba(255,255,255,0.85)
+        ),
+        url("../assets/banner1.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    font-family: "Poppins", sans-serif;
+
+    box-sizing: border-box;
+}
+
+
+/* ============================= */
+/* MAIN BOX */
+/* ============================= */
+
+.my-orders-box {
+    max-width: 1000px;
+
+    margin: auto;
+
+    background: #fffdf8;
+
+    padding: 45px;
+
+    border: 2px solid #b78b4a;
+
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+
+/* ============================= */
+/* HEADING */
+/* ============================= */
+
+.my-orders-box h1 {
+    text-align: center;
+
+    font-family: "Cinzel", serif;
+
+    font-size: 42px;
+
+    color: #000;
+
+    margin: 0 0 40px;
+}
+
+
+/* ============================= */
+/* ORDER CARD */
+/* ============================= */
+
+.order-card {
+    background: #ffffff;
+
+    border: 1px solid #b78b4a;
+
+    padding: 30px;
+
+    box-sizing: border-box;
+}
+
+
+/* ============================= */
+/* ORDER TOP */
+/* ============================= */
+
+.order-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    padding-bottom: 25px;
+
+    border-bottom: 1px solid #d8c3a5;
+}
+
+
+.order-top div {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+
+.order-top span,
+.order-bottom span {
+    font-size: 12px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+    color: #555;
+}
+
+
+.order-top strong {
+    font-size: 15px;
+
+    color: #000;
+}
+
+
+/* ============================= */
+/* PRODUCTS */
+/* ============================= */
+
+.order-products {
+    padding: 25px 0;
+
+    border-bottom: 1px solid #d8c3a5;
+}
+
+
+.product-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 10px 0;
+
+    font-size: 15px;
+
+    color: #000;
+}
+
+
+.product-row span:last-child {
+    font-weight: 600;
+}
+
+
+/* ============================= */
+/* ORDER BOTTOM */
+/* ============================= */
+
+.order-bottom {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 25px 0;
+}
+
+
+.order-bottom div:first-child {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+
+.order-bottom strong {
+    font-size: 20px;
+
+    color: #000;
+}
+
+
+/* ============================= */
+/* STATUS */
+/* ============================= */
+
+.order-status {
+    background: #800020;
+
+    color: #ffffff;
+
+    padding: 8px 20px;
+
+    border-radius: 20px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+/* ============================= */
+/* BUTTONS */
+/* ============================= */
+
+.order-buttons {
+    display: flex;
+
+    gap: 15px;
+
+    justify-content: flex-end;
+}
+
+
+.order-buttons button {
+    padding: 12px 25px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+
+/* View Invoice */
+
+.invoice-button {
+    background: #ffffff;
+
+    color: #000;
+
+    border: 2px solid #000;
+}
+
+
+.invoice-button:hover {
+    background: #000;
+
+    color: #ffffff;
+}
+
+
+/* Track Order */
+
+.track-button {
+    background: #800020;
+
+    color: #ffffff;
+
+    border: 2px solid #800020;
+}
+
+
+.track-button:hover {
+    background: #5c0018;
+
+    border-color: #5c0018;
+}
+
+
+/* ============================= */
+/* MOBILE */
+/* ============================= */
+
+@media (max-width: 600px) {
+
+    .my-orders-page {
+        padding: 30px 15px;
+    }
+
+    .my-orders-box {
+        padding: 25px 18px;
+    }
+
+    .my-orders-box h1 {
+        font-size: 32px;
+    }
+
+    .order-card {
+        padding: 20px;
+    }
+
+    .order-top {
+        flex-direction: column;
+
+        gap: 18px;
+    }
+
+    .order-bottom {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+    .order-buttons {
+        flex-direction: column;
+    }
+
+    .order-buttons button {
+        width: 100%;
+    }
+}

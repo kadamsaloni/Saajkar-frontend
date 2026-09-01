@@ -1,187 +1,408 @@
-/* Google Font */
+/* =====================================================
+   GOOGLE FONT
+===================================================== */
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
-/* Login Page Background */
-.container{
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:40px;
-    background:
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+
+/* =====================================================
+   LOGIN PAGE / BACKGROUND
+===================================================== */
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 40px;
+    margin: 0;
+
+    background-image:
         linear-gradient(
-            rgba(255,255,255,0.85),
-            rgba(255,255,255,0.85)
+            rgba(255, 255, 255, 0.82),
+            rgba(255, 255, 255, 0.82)
         ),
         url("../assets/banner1.jpg");
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
+
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 
-/* Login Card */
-.login-card{
-    width:420px;
-    background:rgba(255,255,255,0.95);
-    backdrop-filter:blur(8px);
-    -webkit-backdrop-filter:blur(8px);
-    padding:40px;
-    border-radius:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.15);
-    text-align:center;
-    animation:fadeIn 0.7s ease;
+
+/* =====================================================
+   LOGIN CARD
+===================================================== */
+
+.login-card {
+    width: 420px;
+    max-width: 100%;
+
+    padding: 40px;
+    margin: 0 auto;
+
+    background: rgba(255, 255, 255, 0.96);
+
+    border-radius: 20px;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+
+    text-align: center;
+
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    position: relative;
+    top: 30px;
+
+    animation: fadeIn 0.7s ease;
 }
 
-/* Fade Animation */
-@keyframes fadeIn{
-    from{
-        opacity:0;
-        transform:translateY(25px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
 
-/* Top Image */
-.top-image{
-    width:130px;
-    height:130px;
-    object-fit:cover;
-    border-radius:50%;
-    display:block;
-    margin:0 auto 25px;
-    border:4px solid #8B0000;
-    box-shadow:0 5px 15px rgba(0,0,0,0.2);
-}
+/* =====================================================
+   FADE ANIMATION
+===================================================== */
 
-/* Input Fields */
-.login-card input{
-    width:100%;
-    padding:14px;
-    margin-bottom:18px;
-    border:1px solid #ccc;
-    border-radius:10px;
-    font-size:15px;
-    font-family:'Poppins',sans-serif;
-    outline:none;
-    box-sizing:border-box;
-    transition:0.3s;
-}
-
-.login-card input:focus{
-    border-color:#D4AF37;
-    box-shadow:0 0 8px rgba(212,175,55,0.3);
-}
-
-/* Forgot Password */
-.forgot{
-    text-align:right;
-    margin-bottom:20px;
-}
-
-.forgot a{
-    text-decoration:none;
-    color:#8B0000;
-    font-size:14px;
-    transition:0.3s;
-}
-
-.forgot a:hover{
-    color:#D4AF37;
-}
-
-/* Login Button */
-.login-btn{
-    width:100%;
-    padding:14px;
-    background:#D4AF37;
-    color:#fff;
-    border:none;
-    border-radius:10px;
-    font-size:16px;
-    font-weight:600;
-    cursor:pointer;
-    margin-bottom:15px;
-    transition:all 0.3s ease;
-}
-
-.login-btn:hover{
-    background:#b8932d;
-    transform:translateY(-2px);
-    box-shadow:0 6px 15px rgba(212,175,55,0.4);
-}
-
-/* Home Button */
-.home-btn{
-    width:100%;
-    padding:14px;
-    background:#D4AF37;
-    color:#fff;
-    border:none;
-    border-radius:10px;
-    font-size:16px;
-    font-weight:600;
-    cursor:pointer;
-    margin-bottom:20px;
-    transition:all 0.3s ease;
-}
-
-.home-btn:hover{
-    background:#6d0000;
-    transform:translateY(-2px);
-    box-shadow:0 6px 15px rgba(109,0,0,0.35);
-}
-
-/* Register Text */
-.register{
-    font-size:15px;
-    color:#333;
-}
-
-.register a{
-    color:#D4AF37;
-    text-decoration:none;
-    font-weight:600;
-    transition:0.3s;
-}
-
-.register a:hover{
-    text-decoration:underline;
-}
-
-/* Responsive Design */
-@media (max-width:768px){
-
-    .login-page{
-        padding:20px;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
     }
 
-    .container{
-        padding:20px;
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =====================================================
+   TOP IMAGE
+===================================================== */
+
+.top-image {
+    width: 130px;
+    height: 130px;
+
+    object-fit: cover;
+
+    display: block;
+
+    margin: 0 auto 25px;
+
+    border-radius: 50%;
+
+    border: 4px solid #8B0000;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.20);
+}
+
+
+/* =====================================================
+   INPUT FIELDS
+===================================================== */
+
+.login-card input {
+    width: 100%;
+
+    padding: 14px 16px;
+
+    margin-bottom: 18px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    color: #333;
+
+    font-size: 15px;
+
+    font-family: 'Poppins', sans-serif;
+
+    outline: none;
+
+    transition: 0.3s;
+}
+
+
+.login-card input::placeholder {
+    color: #777;
+}
+
+
+.login-card input:focus {
+    border-color: #D4AF37;
+
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+}
+
+
+/* =====================================================
+   FORGOT PASSWORD
+===================================================== */
+
+.forgot {
+    text-align: right;
+
+    margin-bottom: 20px;
+}
+
+
+.forgot a {
+    text-decoration: none;
+
+    color: #8B0000;
+
+    font-size: 14px;
+
+    font-family: 'Poppins', sans-serif;
+
+    transition: 0.3s;
+}
+
+
+.forgot a:hover {
+    color: #D4AF37;
+}
+
+
+/* =====================================================
+   LOGIN BUTTON
+===================================================== */
+
+.login-btn {
+    width: 100%;
+
+    padding: 14px;
+
+    margin-bottom: 15px;
+
+    background: #D4AF37;
+
+    color: #ffffff;
+
+    border: none;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    font-family: 'Poppins', sans-serif;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+}
+
+
+.login-btn:hover {
+    background: #b8932d;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 6px 15px rgba(212, 175, 55, 0.4);
+}
+
+
+/* =====================================================
+   HOME BUTTON
+===================================================== */
+
+.home-btn {
+    width: 100%;
+
+    padding: 14px;
+
+    margin-bottom: 20px;
+
+    background: #D4AF37;
+
+    color: #ffffff;
+
+    border: none;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    font-family: 'Poppins', sans-serif;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+}
+
+
+.home-btn:hover {
+    background: #6d0000;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 6px 15px rgba(109, 0, 0, 0.35);
+}
+
+
+/* =====================================================
+   REGISTER TEXT
+===================================================== */
+
+.register {
+    margin: 0;
+
+    color: #333;
+
+    font-size: 15px;
+
+    font-family: 'Poppins', sans-serif;
+
+    text-align: center;
+}
+
+
+.register a {
+    color: #D4AF37;
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+
+.register a:hover {
+    color: #8B0000;
+
+    text-decoration: underline;
+}
+
+
+/* =====================================================
+   ERROR MESSAGE
+===================================================== */
+
+.error-message {
+    color: red;
+
+    font-size: 14px;
+
+    font-family: 'Poppins', sans-serif;
+
+    text-align: center;
+
+    margin-bottom: 10px;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .container {
+        min-height: 100vh;
+
+        padding: 20px;
     }
 
-    .login-card{
-        width:100%;
-        max-width:380px;
-        padding:30px;
+
+    .login-card {
+        width: 100%;
+
+        max-width: 380px;
+
+        padding: 30px;
+
+        top: 20px;
     }
 
-    .top-image{
-        width:100px;
-        height:100px;
+
+    .top-image {
+        width: 100px;
+        height: 100px;
     }
+
 
     .login-card input,
     .login-btn,
-    .home-btn{
-        font-size:15px;
+    .home-btn {
+        font-size: 15px;
     }
 }
-.error-message{
-    color:red;
-    font-size:14px;
-    text-align:center;
-    margin-bottom:10px;
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 480px) {
+
+    .container {
+        padding: 15px;
+    }
+
+
+    .login-card {
+        width: 100%;
+
+        max-width: 350px;
+
+        padding: 25px 20px;
+
+        border-radius: 15px;
+
+        top: 15px;
+    }
+
+
+    .top-image {
+        width: 90px;
+        height: 90px;
+
+        margin-bottom: 20px;
+    }
+
+
+    .login-card input {
+        font-size: 14px;
+    }
+
+
+    .login-btn,
+    .home-btn {
+        font-size: 15px;
+    }
+
+
+    .register {
+        font-size: 14px;
+    }
 }

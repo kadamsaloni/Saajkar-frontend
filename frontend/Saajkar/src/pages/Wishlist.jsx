@@ -1,104 +1,188 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Wishlist.css";
+import API_URL from "../api/api";
 
 function Wishlist() {
 
     const navigate = useNavigate();
 
-    const [wishlist, setWishlist] = useState([
-        {
-            id: 1,
-            name: "Royal Gold Ring",
-            price: 499,
-            image: "/images/ring.jpg"
-        },
-        {
-            id: 2,
-            name: "Traditional Necklace",
-            price: 999,
-            image: "/images/necklace.jpg"
-        },
-        {
-            id: 3,
-            name: "Traditional Earrings",
-            price: 559,
-            image: "/images/earrings.jpg"
-        },
-        {
-            id: 4,
-            name: "Bridal Set",
-            price: 9999,
-            image: "/images/bridalset.jpg"
-        },
-        {
-            id: 5,
-            name: "Nath",
-            price: 500,
-            image: "/images/nath.jpg"
-        }
-    ]);
+    const [wishlist, setWishlist] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
+
+    // Fetch wishlist from backend
+    useEffect(() => {
+
+        const fetchWishlist = async () => {
+
+            const token = localStorage.getItem("token");
+
+            if (!token) {
+                setError("Please login first");
+                setLoading(false);
+                return;
+            }
+
+            try {
+
+                const response = await fetch(`${API_URL}/wishlist`, {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    setError(data.message || "Failed to load wishlist");
+                    return;
+                }
+
+                setWishlist(data.wishlist?.products || []);
+
+            } catch (error) {
+
+                console.error("Wishlist fetch error:", error);
+                setError("Unable to connect to server");
+
+            } finally {
+
+                setLoading(false);
+
+            }
+        };
+
+        fetchWishlist();
+
+    }, []);
+
 
     // Remove item from wishlist
-    const removeWishlist = (id) => {
+    const removeWishlist = async (productId) => {
 
-        const updatedWishlist = wishlist.filter(
-            item => item.id !== id
-        );
+        const token = localStorage.getItem("token");
 
-        setWishlist(updatedWishlist);
+        if (!token) {
+            setError("Please login first");
+            return;
+        }
+
+        try {
+
+            const response = await fetch(
+                `${API_URL}/wishlist/${productId}`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                alert(data.message || "Failed to remove product");
+                return;
+            }
+
+            // Update page immediately
+            setWishlist(prevWishlist =>
+                prevWishlist.filter(
+                    product => product._id !== productId
+                )
+            );
+
+        } catch (error) {
+
+            console.error("Remove wishlist error:", error);
+            alert("Unable to connect to server");
+
+        }
     };
 
 
     // Add wishlist item to cart
-    const addToCart = (item) => {
+    const addToCart = async (product) => {
 
-        // Get existing cart
-        const existingCart =
-            JSON.parse(localStorage.getItem("cartItems")) || [];
+        const token = localStorage.getItem("token");
 
-
-        // Check if product already exists
-        const alreadyInCart = existingCart.some(
-            cartItem => cartItem.id === item.id
-        );
-
-
-        if (alreadyInCart) {
-
-            alert("This product is already in your cart.");
-
-            navigate("/cart");
-
+        if (!token) {
+            alert("Please login first");
+            navigate("/login");
             return;
         }
 
+        try {
 
-        // Add product to cart
-        const updatedCart = [
-            ...existingCart,
-            {
-                id: item.id,
-                name: item.name,
-                price: item.price,
-                image: item.image
+            const response = await fetch(`${API_URL}/cart`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    productId: product._id,
+                    quantity: 1
+                })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                alert(data.message || "Failed to add product to cart");
+                return;
             }
-        ];
+
+            alert(`${product.name} added to cart!`);
+
+            navigate("/cart");
+
+        } catch (error) {
+
+            console.error("Add to cart error:", error);
+            alert("Unable to connect to server");
+
+        }
+    };
 
 
-        // Save cart
-        localStorage.setItem(
-            "cartItems",
-            JSON.stringify(updatedCart)
+    // Loading
+    if (loading) {
+
+        return (
+            <div className="wishlist-page">
+
+                <h1>My Wishlist</h1>
+
+                <h2>
+                    Loading wishlist...
+                </h2>
+
+            </div>
         );
 
+    }
 
-        alert(`${item.name} added to cart!`);
 
+    // Error
+    if (error) {
 
-        // Open cart
-        navigate("/cart");
-    };
+        return (
+            <div className="wishlist-page">
+
+                <h1>My Wishlist</h1>
+
+                <h2>
+                    {error}
+                </h2>
+
+            </div>
+        );
+
+    }
 
 
     return (
@@ -110,71 +194,68 @@ function Wishlist() {
             </h1>
 
 
-            {
-                wishlist.length === 0 ? (
+            {wishlist.length === 0 ? (
 
-                    <h2 className="empty-wishlist">
-                        Your wishlist is empty
-                    </h2>
+                <h2 className="empty-wishlist">
+                    Your wishlist is empty
+                </h2>
 
-                ) : (
+            ) : (
 
-                    <div className="wishlist-grid">
+                <div className="wishlist-grid">
 
-                        {
-                            wishlist.map(item => (
+                    {wishlist.map(product => (
 
-                                <div
-                                    className="wishlist-card"
-                                    key={item.id}
-                                >
+                        <div
+                            className="wishlist-card"
+                            key={product._id}
+                        >
 
-                                    <img
-                                        src={item.image}
-                                        alt={item.name}
-                                    />
+                            <img
+                                src={product.images?.[0]?.url}
+                                alt={product.name}
+                            />
 
 
-                                    <h3>
-                                        {item.name}
-                                    </h3>
+                            <h3>
+                                {product.name}
+                            </h3>
 
 
-                                    <p>
-                                        ₹{item.price}
-                                    </p>
+                            <p>
+                                ₹{product.discountPrice || product.price}
+                            </p>
 
 
-                                    <button
-                                        className="cart-btn"
-                                        onClick={() =>
-                                            addToCart(item)
-                                        }
-                                    >
-                                        Add To Cart
-                                    </button>
+                            <button
+                                className="cart-btn"
+                                onClick={() =>
+                                    addToCart(product)
+                                }
+                            >
+                                Add To Cart
+                            </button>
 
 
-                                    <button
-                                        className="remove-btn"
-                                        onClick={() =>
-                                            removeWishlist(item.id)
-                                        }
-                                    >
-                                        Remove
-                                    </button>
+                            <button
+                                className="remove-btn"
+                                onClick={() =>
+                                    removeWishlist(product._id)
+                                }
+                            >
+                                Remove
+                            </button>
 
-                                </div>
+                        </div>
 
-                            ))
-                        }
+                    ))}
 
-                    </div>
+                </div>
 
-                )
-            }
+            )}
 
         </div>
+
     );
 }
 
