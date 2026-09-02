@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import API_URL from "../api/api";
 import Product from "../components/Product/Product.jsx";
+import "./Collection.css";
 
-function Collection() {
+const Collection = () => {
     const { category } = useParams();
 
     const [products, setProducts] = useState([]);
@@ -15,8 +16,9 @@ function Collection() {
             try {
                 setLoading(true);
                 setError("");
+                setProducts([]);
 
-                // Get all categories
+                // Fetch all categories
                 const categoryResponse = await fetch(
                     `${API_URL}/categories`
                 );
@@ -25,41 +27,48 @@ function Collection() {
 
                 if (!categoryResponse.ok) {
                     throw new Error(
-                        categoryData.message ||
-                        "Failed to fetch categories"
+                        categoryData.message || "Failed to fetch categories"
                     );
                 }
 
-                // Find category by name
-                const selectedCategory = categoryData.categories.find(
-                    (item) =>
-                        item.name.toLowerCase() ===
-                        category.toLowerCase()
-                );
+                // Convert URL category
+                // Example: bridal-sets → bridal sets
+                const formattedCategory = category
+                    .replace(/-/g, " ")
+                    .trim()
+                    .toLowerCase();
 
+                // Find selected category
+                const selectedCategory =
+                    categoryData.categories?.find(
+                        (item) =>
+                            item.name.trim().toLowerCase() ===
+                            formattedCategory
+                    );
+
+                // Category not found
                 if (!selectedCategory) {
                     setProducts([]);
                     return;
                 }
 
-                // Fetch products using category ID
-                const response = await fetch(
+                // Fetch products for selected category
+                const productResponse = await fetch(
                     `${API_URL}/products?category=${selectedCategory._id}`
                 );
 
-                const data = await response.json();
+                const productData = await productResponse.json();
 
-                if (!response.ok) {
+                if (!productResponse.ok) {
                     throw new Error(
-                        data.message ||
-                        "Failed to fetch products"
+                        productData.message || "Failed to fetch products"
                     );
                 }
 
-                setProducts(data.products || []);
+                setProducts(productData.products || []);
 
-            } catch (error) {
-                console.error("Product Fetch Error:", error);
+            } catch (err) {
+                console.error("Collection Error:", err);
                 setError("Unable to load products.");
             } finally {
                 setLoading(false);
@@ -71,46 +80,76 @@ function Collection() {
         }
     }, [category]);
 
+    // Loading
     if (loading) {
         return (
-            <div>
-                <h2>Loading products...</h2>
+            <div className="collection-page">
+                <div className="collection-message">
+                    <h2>Loading Collection...</h2>
+                </div>
             </div>
         );
     }
 
+    // Error
     if (error) {
         return (
-            <div>
-                <h2>{error}</h2>
+            <div className="collection-page">
+                <div className="collection-message">
+                    <h2>{error}</h2>
+                </div>
             </div>
         );
     }
 
+    // Format category name for display
+    const displayCategory = category
+        ? category.replace(/-/g, " ")
+        : "Collection";
+
     return (
-        <div>
-            <h2>
-                Category: {category}
-            </h2>
+        <div className="collection-page">
 
-            <h3>
-                Products: {products.length}
-            </h3>
+            {/* Collection Heading */}
+            <div className="collection-header">
 
+                <h1>{displayCategory}</h1>
+
+                <div className="title-line"></div>
+
+                <p>
+                    Timeless beauty, crafted to perfection.
+                </p>
+
+            </div>
+
+            {/* Products */}
             {products.length === 0 ? (
-                <p>No products found.</p>
+                <div className="collection-message">
+                    <h2>No Products Found</h2>
+
+                    <p>
+                        There are currently no products available
+                        in this collection.
+                    </p>
+                </div>
             ) : (
-                <div>
+                <div className="products-container">
+
                     {products.map((product) => (
-                        <Product
+                        <div
+                            className="collection-product"
                             key={product._id}
-                            product={product}
-                        />
+                        >
+                            <Product product={product} />
+                        </div>
                     ))}
+
                 </div>
             )}
+
         </div>
     );
-}
+};
 
 export default Collection;
