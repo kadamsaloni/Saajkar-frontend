@@ -1,714 +1,638 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API_URL from "../api/api";
+import "./AddProduct.css";
 
 function AddProduct() {
-
     const navigate = useNavigate();
 
     const [categories, setCategories] = useState([]);
 
-    const [form, setForm] = useState({
+    const [formData, setFormData] = useState({
         name: "",
         description: "",
         category: "",
         price: "",
         discountPrice: "",
-        material: "",
+        material: "Handcrafted",
         stock: "",
         featured: false,
-        status: "Available"
     });
 
     const [image, setImage] = useState(null);
     const [imagePreview, setImagePreview] = useState("");
 
     const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState("");
+    const [categoryLoading, setCategoryLoading] =
+        useState(true);
+
     const [error, setError] = useState("");
 
-
     // =========================
-    // LOAD CATEGORIES
+    // FETCH CATEGORIES
     // =========================
-
     useEffect(() => {
-
         const fetchCategories = async () => {
-
             try {
-
-                const token = localStorage.getItem("token");
+                setCategoryLoading(true);
 
                 const response = await fetch(
-                    `${API_URL}/categories`,
-                    {
-                        method: "GET",
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
-                    }
+                    `${API_URL}/categories`
                 );
 
                 const data = await response.json();
 
-                console.log("Categories:", data);
-
                 if (!response.ok) {
-
-                    setError(
+                    throw new Error(
                         data.message ||
-                        "Unable to load categories"
+                            "Failed to load categories"
                     );
-
-                    return;
                 }
 
                 setCategories(data.categories || []);
-
-            } catch (err) {
-
-                console.error(err);
-
-                setError(
-                    "Unable to connect to server"
+            } catch (error) {
+                console.error(
+                    "Category Fetch Error:",
+                    error
                 );
 
+                setError(
+                    "Unable to load categories."
+                );
+            } finally {
+                setCategoryLoading(false);
             }
-
         };
 
         fetchCategories();
-
     }, []);
-
 
     // =========================
     // HANDLE INPUT
     // =========================
+    const handleChange = (event) => {
+        const { name, value, type, checked } =
+            event.target;
 
-    const handleChange = (e) => {
-
-        const {
-            name,
-            value,
-            type,
-            checked
-        } = e.target;
-
-        setForm({
-            ...form,
+        setFormData((previous) => ({
+            ...previous,
             [name]:
                 type === "checkbox"
                     ? checked
-                    : value
-        });
-
+                    : value,
+        }));
     };
-
 
     // =========================
     // HANDLE IMAGE
     // =========================
-
-    const handleImageChange = (e) => {
-
+    const handleImageChange = (event) => {
         const selectedImage =
-            e.target.files[0];
+            event.target.files[0];
 
-        if (!selectedImage) {
-            return;
-        }
-
+        if (!selectedImage) return;
 
         // Check image type
-
-        if (!selectedImage.type.startsWith("image/")) {
-
+        if (
+            !selectedImage.type.startsWith(
+                "image/"
+            )
+        ) {
             setError(
-                "Please select a valid image file."
+                "Please select a valid image."
             );
-
-            setImage(null);
-            setImagePreview("");
-
             return;
         }
 
-
-        // Check image size - 5MB
-
-        if (selectedImage.size > 5 * 1024 * 1024) {
-
+        // 5MB limit
+        if (
+            selectedImage.size >
+            5 * 1024 * 1024
+        ) {
             setError(
                 "Image size must be less than 5MB."
             );
-
-            setImage(null);
-            setImagePreview("");
-
             return;
         }
 
-
         setError("");
-
         setImage(selectedImage);
 
         setImagePreview(
-            URL.createObjectURL(selectedImage)
+            URL.createObjectURL(
+                selectedImage
+            )
         );
-
     };
 
-
     // =========================
-    // CREATE PRODUCT
+    // SUBMIT PRODUCT
     // =========================
+    const handleSubmit = async (event) => {
+        event.preventDefault();
 
-    const handleSubmit = async (e) => {
-
-        e.preventDefault();
-
-        setLoading(true);
-        setMessage("");
         setError("");
 
-
-        // Check image
-
-        if (!image) {
-
+        // Basic validation
+        if (!formData.name.trim()) {
             setError(
-                "Please select a product image."
+                "Product name is required."
             );
-
-            setLoading(false);
-
             return;
         }
 
+        if (!formData.description.trim()) {
+            setError(
+                "Product description is required."
+            );
+            return;
+        }
+
+        if (!formData.category) {
+            setError(
+                "Please select a category."
+            );
+            return;
+        }
+
+        if (!formData.price) {
+            setError(
+                "Product price is required."
+            );
+            return;
+        }
+
+        if (!formData.stock) {
+            setError(
+                "Product stock is required."
+            );
+            return;
+        }
+
+        if (!image) {
+            setError(
+                "Please select a product image."
+            );
+            return;
+        }
 
         try {
+            setLoading(true);
 
             const token =
-                localStorage.getItem("token");
-
-
-            // =========================
-            // CREATE FORMDATA
-            // =========================
-
-            const formData = new FormData();
-
-            formData.append(
-                "name",
-                form.name
-            );
-
-            formData.append(
-                "description",
-                form.description
-            );
-
-            formData.append(
-                "category",
-                form.category
-            );
-
-            formData.append(
-                "price",
-                Number(form.price)
-            );
-
-            if (form.discountPrice) {
-
-                formData.append(
-                    "discountPrice",
-                    Number(form.discountPrice)
+                localStorage.getItem(
+                    "token"
                 );
 
-            }
+            const data = new FormData();
 
-            formData.append(
+            data.append(
+                "name",
+                formData.name
+            );
+
+            data.append(
+                "description",
+                formData.description
+            );
+
+            data.append(
+                "category",
+                formData.category
+            );
+
+            data.append(
+                "price",
+                Number(formData.price)
+            );
+
+            data.append(
+                "discountPrice",
+                formData.discountPrice
+                    ? Number(
+                          formData.discountPrice
+                      )
+                    : 0
+            );
+
+            data.append(
                 "material",
-                form.material
+                formData.material
             );
 
-            formData.append(
+            data.append(
                 "stock",
-                Number(form.stock)
+                Number(formData.stock)
             );
 
-            formData.append(
+            data.append(
                 "featured",
-                form.featured
+                formData.featured
             );
 
-            formData.append(
-                "status",
-                form.status
-            );
-
-
-            // IMPORTANT
-            // This must match upload.single("image")
-            formData.append(
+            data.append(
                 "image",
                 image
             );
-
-
-            console.log(
-                "Creating product with image..."
-            );
-
 
             const response = await fetch(
                 `${API_URL}/products`,
                 {
                     method: "POST",
-
                     headers: {
-                        Authorization:
-                            `Bearer ${token}`
+                        Authorization: `Bearer ${token}`,
                     },
-
-                    body: formData
+                    body: data,
                 }
             );
 
-
-            const data =
+            const result =
                 await response.json();
 
-
-            console.log(
-                "Create Product Response:",
-                data
-            );
-
-
             if (!response.ok) {
-
-                setError(
-                    data.message ||
-                    "Product creation failed"
+                throw new Error(
+                    result.message ||
+                        "Failed to create product"
                 );
-
-                return;
             }
 
-
-            // =========================
-            // SUCCESS
-            // =========================
-
-            setMessage(
-                "Product created successfully!"
+            alert(
+                "Product added successfully!"
             );
 
+            navigate("/admin");
 
-            // Clear form
-
-            setForm({
-                name: "",
-                description: "",
-                category: "",
-                price: "",
-                discountPrice: "",
-                material: "",
-                stock: "",
-                featured: false,
-                status: "Available"
-            });
-
-
-            setImage(null);
-            setImagePreview("");
-
-
-        } catch (err) {
-
-            console.error(err);
+        } catch (error) {
+            console.error(
+                "Add Product Error:",
+                error
+            );
 
             setError(
-                "Unable to connect to server"
+                error.message ||
+                    "Unable to add product."
             );
-
         } finally {
-
             setLoading(false);
-
         }
-
     };
 
-
     return (
+        <div className="add-product-page">
 
-        <div>
+            <div className="add-product-container">
 
-            <h1>
-                Add New Product
-            </h1>
+                {/* HEADER */}
 
+                <div className="add-product-header">
 
-            {message && (
-
-                <p style={{ color: "green" }}>
-                    {message}
-                </p>
-
-            )}
-
-
-            {error && (
-
-                <p style={{ color: "red" }}>
-                    {error}
-                </p>
-
-            )}
-
-
-            <form onSubmit={handleSubmit}>
-
-
-                {/* PRODUCT NAME */}
-
-                <div>
-
-                    <label>
-                        Product Name
-                    </label>
-
-                    <br />
-
-                    <input
-                        type="text"
-                        name="name"
-                        value={form.name}
-                        onChange={handleChange}
-                        placeholder="Enter product name"
-                        required
-                    />
-
-                </div>
-
-
-                <br />
-
-
-                {/* DESCRIPTION */}
-
-                <div>
-
-                    <label>
-                        Description
-                    </label>
-
-                    <br />
-
-                    <textarea
-                        name="description"
-                        value={form.description}
-                        onChange={handleChange}
-                        placeholder="Enter product description"
-                        required
-                    />
-
-                </div>
-
-
-                <br />
-
-
-                {/* CATEGORY */}
-
-                <div>
-
-                    <label>
-                        Category
-                    </label>
-
-                    <br />
-
-                    <select
-                        name="category"
-                        value={form.category}
-                        onChange={handleChange}
-                        required
+                    <button
+                        type="button"
+                        className="back-btn"
+                        onClick={() =>
+                            navigate("/admin")
+                        }
                     >
+                        ← Back to Dashboard
+                    </button>
 
-                        <option value="">
-                            Select Category
-                        </option>
+                    <h1>
+                        Add New Product
+                    </h1>
 
-                        {categories.map(
-                            (category) => (
+                    <p>
+                        Add a new jewellery
+                        product to your store.
+                    </p>
 
-                                <option
-                                    key={category._id}
-                                    value={category._id}
+                </div>
+
+                {/* ERROR */}
+
+                {error && (
+                    <div className="form-error">
+                        {error}
+                    </div>
+                )}
+
+                {/* FORM */}
+
+                <form
+                    className="add-product-form"
+                    onSubmit={handleSubmit}
+                >
+
+                    {/* PRODUCT INFORMATION */}
+
+                    <div className="form-section">
+
+                        <h2>
+                            Product Information
+                        </h2>
+
+                        <div className="form-group">
+
+                            <label>
+                                Product Name
+                            </label>
+
+                            <input
+                                type="text"
+                                name="name"
+                                value={
+                                    formData.name
+                                }
+                                onChange={
+                                    handleChange
+                                }
+                                placeholder="Enter product name"
+                            />
+
+                        </div>
+
+                        <div className="form-group">
+
+                            <label>
+                                Description
+                            </label>
+
+                            <textarea
+                                name="description"
+                                value={
+                                    formData.description
+                                }
+                                onChange={
+                                    handleChange
+                                }
+                                placeholder="Enter product description"
+                                rows="5"
+                            />
+
+                        </div>
+
+                        <div className="form-row">
+
+                            <div className="form-group">
+
+                                <label>
+                                    Category
+                                </label>
+
+                                <select
+                                    name="category"
+                                    value={
+                                        formData.category
+                                    }
+                                    onChange={
+                                        handleChange
+                                    }
+                                    disabled={
+                                        categoryLoading
+                                    }
                                 >
-                                    {category.name}
-                                </option>
 
-                            )
-                        )}
+                                    <option value="">
+                                        {categoryLoading
+                                            ? "Loading categories..."
+                                            : "Select Category"}
+                                    </option>
 
-                    </select>
+                                    {categories.map(
+                                        (
+                                            category
+                                        ) => (
+                                            <option
+                                                key={
+                                                    category._id
+                                                }
+                                                value={
+                                                    category._id
+                                                }
+                                            >
+                                                {
+                                                    category.name
+                                                }
+                                            </option>
+                                        )
+                                    )}
 
-                </div>
+                                </select>
 
+                            </div>
 
-                <br />
+                            <div className="form-group">
 
+                                <label>
+                                    Material
+                                </label>
 
-                {/* PRICE */}
+                                <input
+                                    type="text"
+                                    name="material"
+                                    value={
+                                        formData.material
+                                    }
+                                    onChange={
+                                        handleChange
+                                    }
+                                    placeholder="Handcrafted"
+                                />
 
-                <div>
+                            </div>
 
-                    <label>
-                        Price
-                    </label>
-
-                    <br />
-
-                    <input
-                        type="number"
-                        name="price"
-                        value={form.price}
-                        onChange={handleChange}
-                        placeholder="Enter price"
-                        min="0"
-                        required
-                    />
-
-                </div>
-
-
-                <br />
-
-
-                {/* DISCOUNT PRICE */}
-
-                <div>
-
-                    <label>
-                        Discount Price
-                    </label>
-
-                    <br />
-
-                    <input
-                        type="number"
-                        name="discountPrice"
-                        value={form.discountPrice}
-                        onChange={handleChange}
-                        placeholder="Enter discount price"
-                        min="0"
-                    />
-
-                </div>
-
-
-                <br />
-
-
-                {/* MATERIAL */}
-
-                <div>
-
-                    <label>
-                        Material
-                    </label>
-
-                    <br />
-
-                    <input
-                        type="text"
-                        name="material"
-                        value={form.material}
-                        onChange={handleChange}
-                        placeholder="Example: Gold Plated"
-                        required
-                    />
-
-                </div>
-
-
-                <br />
-
-
-                {/* STOCK */}
-
-                <div>
-
-                    <label>
-                        Stock
-                    </label>
-
-                    <br />
-
-                    <input
-                        type="number"
-                        name="stock"
-                        value={form.stock}
-                        onChange={handleChange}
-                        placeholder="Enter stock quantity"
-                        min="0"
-                        required
-                    />
-
-                </div>
-
-
-                <br />
-
-
-                {/* IMAGE */}
-
-                <div>
-
-                    <label>
-                        Product Image
-                    </label>
-
-                    <br />
-
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleImageChange}
-                        required
-                    />
-
-                </div>
-
-
-                <br />
-
-
-                {/* IMAGE PREVIEW */}
-
-                {imagePreview && (
-
-                    <div>
-
-                        <p>
-                            Image Preview:
-                        </p>
-
-                        <img
-                            src={imagePreview}
-                            alt="Product Preview"
-                            style={{
-                                width: "200px",
-                                height: "200px",
-                                objectFit: "cover",
-                                borderRadius: "8px"
-                            }}
-                        />
+                        </div>
 
                     </div>
 
-                )}
+                    {/* PRICE & STOCK */}
 
+                    <div className="form-section">
 
-                <br />
+                        <h2>
+                            Price & Inventory
+                        </h2>
 
+                        <div className="form-row">
 
-                {/* FEATURED */}
+                            <div className="form-group">
 
-                <div>
+                                <label>
+                                    Price (₹)
+                                </label>
 
-                    <label>
+                                <input
+                                    type="number"
+                                    name="price"
+                                    value={
+                                        formData.price
+                                    }
+                                    onChange={
+                                        handleChange
+                                    }
+                                    placeholder="Enter price"
+                                    min="0"
+                                />
 
-                        <input
-                            type="checkbox"
-                            name="featured"
-                            checked={form.featured}
-                            onChange={handleChange}
-                        />
+                            </div>
 
-                        Featured Product
+                            <div className="form-group">
 
-                    </label>
+                                <label>
+                                    Discount Price (₹)
+                                </label>
 
-                </div>
+                                <input
+                                    type="number"
+                                    name="discountPrice"
+                                    value={
+                                        formData.discountPrice
+                                    }
+                                    onChange={
+                                        handleChange
+                                    }
+                                    placeholder="Optional"
+                                    min="0"
+                                />
 
+                            </div>
 
-                <br />
+                        </div>
 
+                        <div className="form-group">
 
-                {/* STATUS */}
+                            <label>
+                                Stock
+                            </label>
 
-                <div>
+                            <input
+                                type="number"
+                                name="stock"
+                                value={
+                                    formData.stock
+                                }
+                                onChange={
+                                    handleChange
+                                }
+                                placeholder="Enter stock quantity"
+                                min="0"
+                            />
 
-                    <label>
-                        Status
-                    </label>
+                        </div>
 
-                    <br />
+                        <label className="featured-checkbox">
 
-                    <select
-                        name="status"
-                        value={form.status}
-                        onChange={handleChange}
-                    >
+                            <input
+                                type="checkbox"
+                                name="featured"
+                                checked={
+                                    formData.featured
+                                }
+                                onChange={
+                                    handleChange
+                                }
+                            />
 
-                        <option value="Available">
-                            Available
-                        </option>
+                            <span>
+                                Mark as Featured Product
+                            </span>
 
-                        <option value="Out of Stock">
-                            Out of Stock
-                        </option>
+                        </label>
 
-                    </select>
+                    </div>
 
-                </div>
+                    {/* IMAGE */}
 
+                    <div className="form-section">
 
-                <br />
+                        <h2>
+                            Product Image
+                        </h2>
 
+                        <div className="image-upload">
 
-                {/* CREATE BUTTON */}
+                            <label
+                                htmlFor="product-image"
+                                className="upload-box"
+                            >
 
-                <button
-                    type="submit"
-                    disabled={loading}
-                >
+                                {imagePreview ? (
+                                    <img
+                                        src={
+                                            imagePreview
+                                        }
+                                        alt="Preview"
+                                        className="image-preview"
+                                    />
+                                ) : (
+                                    <div>
+                                        <span className="upload-icon">
+                                            +
+                                        </span>
 
-                    {loading
-                        ? "Creating Product..."
-                        : "Create Product"
-                    }
+                                        <p>
+                                            Click to
+                                            upload
+                                            image
+                                        </p>
 
-                </button>
+                                        <small>
+                                            JPG, PNG,
+                                            WEBP up
+                                            to 5MB
+                                        </small>
+                                    </div>
+                                )}
 
+                            </label>
 
-                <button
-                    type="button"
-                    onClick={() =>
-                        navigate("/admin")
-                    }
-                    style={{
-                        marginLeft: "10px"
-                    }}
-                >
-                    Back to Dashboard
-                </button>
+                            <input
+                                id="product-image"
+                                type="file"
+                                accept="image/*"
+                                onChange={
+                                    handleImageChange
+                                }
+                            />
 
+                        </div>
 
-            </form>
+                    </div>
+
+                    {/* SUBMIT */}
+
+                    <div className="form-actions">
+
+                        <button
+                            type="button"
+                            className="cancel-btn"
+                            onClick={() =>
+                                navigate(
+                                    "/admin"
+                                )
+                            }
+                            disabled={loading}
+                        >
+                            Cancel
+                        </button>
+
+                        <button
+                            type="submit"
+                            className="submit-btn"
+                            disabled={loading}
+                        >
+                            {loading
+                                ? "Adding Product..."
+                                : "Add Product"}
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
 
         </div>
-
     );
-
 }
 
 export default AddProduct;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API_URL from "../api/api";
+import "./AdminDashboard.css";
 
 function AdminDashboard() {
     const navigate = useNavigate();
@@ -11,6 +12,7 @@ function AdminDashboard() {
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+
     const [deletingId, setDeletingId] = useState(null);
     const [deletingAll, setDeletingAll] = useState(false);
 
@@ -19,34 +21,20 @@ function AdminDashboard() {
     // =========================
     const fetchCategories = async () => {
         try {
-            const token = localStorage.getItem("token");
-
-            const response = await fetch(
-                `${API_URL}/categories`,
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }
-            );
+            const response = await fetch(`${API_URL}/categories`);
 
             const data = await response.json();
 
-            console.log("Categories from backend:", data);
-
             if (!response.ok) {
-                setError(
+                throw new Error(
                     data.message || "Failed to load categories"
                 );
-                return;
             }
 
             setCategories(data.categories || []);
-
         } catch (error) {
-            console.error(error);
-            setError("Unable to load categories");
+            console.error("Category Error:", error);
+            setError("Unable to load categories.");
         }
     };
 
@@ -58,58 +46,40 @@ function AdminDashboard() {
             setLoading(true);
             setError("");
 
-            const token = localStorage.getItem("token");
-
             let url = `${API_URL}/products`;
 
             if (categoryId !== "all") {
                 url += `?category=${categoryId}`;
             }
 
-            const response = await fetch(
-                url,
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }
-            );
+            const response = await fetch(url);
 
             const data = await response.json();
 
-            console.log("Products:", data);
-
             if (!response.ok) {
-                setError(
+                throw new Error(
                     data.message || "Failed to load products"
                 );
-                return;
             }
 
             setProducts(data.products || []);
-
         } catch (error) {
-            console.error(error);
-            setError("Unable to connect to server");
-
+            console.error("Product Error:", error);
+            setError("Unable to load products.");
         } finally {
             setLoading(false);
         }
     };
 
     // =========================
-    // DELETE ONE PRODUCT
+    // DELETE SINGLE PRODUCT
     // =========================
     const handleDelete = async (productId) => {
-
         const confirmed = window.confirm(
             "Are you sure you want to delete this product?"
         );
 
-        if (!confirmed) {
-            return;
-        }
+        if (!confirmed) return;
 
         try {
             setDeletingId(productId);
@@ -121,30 +91,25 @@ function AdminDashboard() {
                 {
                     method: "DELETE",
                     headers: {
-                        Authorization: `Bearer ${token}`
-                    }
+                        Authorization: `Bearer ${token}`,
+                    },
                 }
             );
 
             const data = await response.json();
 
             if (!response.ok) {
-                alert(
-                    data.message ||
-                    "Failed to delete product"
+                throw new Error(
+                    data.message || "Failed to delete product"
                 );
-                return;
             }
 
-            alert("Product deleted successfully");
+            alert("Product deleted successfully.");
 
-            // Refresh current category
             fetchProducts(selectedCategory);
-
         } catch (error) {
-            console.error(error);
-            alert("Unable to connect to server");
-
+            console.error("Delete Error:", error);
+            alert(error.message || "Unable to delete product.");
         } finally {
             setDeletingId(null);
         }
@@ -154,14 +119,16 @@ function AdminDashboard() {
     // DELETE ALL PRODUCTS
     // =========================
     const handleDeleteAll = async () => {
+        if (products.length === 0) {
+            alert("There are no products to delete.");
+            return;
+        }
 
         const confirmed = window.confirm(
             "WARNING!\n\nThis will permanently delete ALL products.\n\nAre you sure you want to continue?"
         );
 
-        if (!confirmed) {
-            return;
-        }
+        if (!confirmed) return;
 
         try {
             setDeletingAll(true);
@@ -173,38 +140,39 @@ function AdminDashboard() {
                 {
                     method: "DELETE",
                     headers: {
-                        Authorization: `Bearer ${token}`
-                    }
+                        Authorization: `Bearer ${token}`,
+                    },
                 }
             );
 
             const data = await response.json();
 
             if (!response.ok) {
-                alert(
-                    data.message ||
-                    "Failed to delete all products"
+                throw new Error(
+                    data.message || "Failed to delete all products"
                 );
-                return;
             }
 
             alert(
-                `All products deleted successfully.\nDeleted: ${data.deletedCount}`
+                `All products deleted successfully.\nDeleted: ${
+                    data.deletedCount || 0
+                }`
             );
 
             setProducts([]);
-
         } catch (error) {
-            console.error(error);
-            alert("Unable to connect to server");
-
+            console.error("Delete All Error:", error);
+            alert(
+                error.message ||
+                    "Unable to delete all products."
+            );
         } finally {
             setDeletingAll(false);
         }
     };
 
     // =========================
-    // CATEGORY CHANGE
+    // CATEGORY FILTER
     // =========================
     const handleCategoryChange = (categoryId) => {
         setSelectedCategory(categoryId);
@@ -216,222 +184,265 @@ function AdminDashboard() {
     // =========================
     useEffect(() => {
         fetchCategories();
-        fetchProducts();
+        fetchProducts("all");
     }, []);
 
-    // =========================
-    // PAGE
-    // =========================
     return (
-        <div style={{ padding: "30px" }}>
+        <div className="admin-dashboard">
 
-            <h1>
-                Admin Dashboard
-            </h1>
+            {/* HEADER */}
+            <div className="admin-header">
 
-            {/* ACTION BUTTONS */}
-            <div
-                style={{
-                    display: "flex",
-                    gap: "10px",
-                    marginBottom: "25px"
-                }}
-            >
+                <div>
+                    <h1>Admin Dashboard</h1>
+                    <p>Manage your Saajkar products</p>
+                </div>
 
-                <button
-                    onClick={() =>
-                        navigate("/admin/add-product")
-                    }
-                    style={{
-                        padding: "10px 20px",
-                        cursor: "pointer"
-                    }}
-                >
-                    + Add Product
-                </button>
-
-                <button
-                    onClick={handleDeleteAll}
-                    disabled={deletingAll}
-                    style={{
-                        padding: "10px 20px",
-                        cursor: deletingAll
-                            ? "not-allowed"
-                            : "pointer"
-                    }}
-                >
-                    {deletingAll
-                        ? "Deleting..."
-                        : "Delete All Products"}
-                </button>
-
-            </div>
-
-            <h2>
-                Inventory
-            </h2>
-
-            {/* CATEGORY BUTTONS */}
-            <div
-                style={{
-                    display: "flex",
-                    gap: "10px",
-                    flexWrap: "wrap",
-                    marginBottom: "25px"
-                }}
-            >
-
-                {/* ALL PRODUCTS */}
-                <button
-                    onClick={() =>
-                        handleCategoryChange("all")
-                    }
-                    style={{
-                        padding: "10px 18px",
-                        cursor: "pointer",
-                        fontWeight:
-                            selectedCategory === "all"
-                                ? "bold"
-                                : "normal"
-                    }}
-                >
-                    All Products
-                </button>
-
-                {/* CATEGORIES */}
-                {categories.map((category) => (
+                <div className="admin-actions">
 
                     <button
-                        key={category._id}
+                        className="add-product-btn"
                         onClick={() =>
-                            handleCategoryChange(
-                                category._id
-                            )
+                            navigate("/admin/add-product")
                         }
-                        style={{
-                            padding: "10px 18px",
-                            cursor: "pointer",
-                            fontWeight:
-                                selectedCategory ===
-                                category._id
-                                    ? "bold"
-                                    : "normal"
-                        }}
                     >
-                        {category.name}
+                        + Add Product
                     </button>
 
-                ))}
+                    <button
+                        className="delete-all-btn"
+                        onClick={handleDeleteAll}
+                        disabled={deletingAll}
+                    >
+                        {deletingAll
+                            ? "Deleting..."
+                            : "Delete All Products"}
+                    </button>
+
+                </div>
 
             </div>
 
-            {/* LOADING */}
-            {loading && (
-                <p>
-                    Loading products...
-                </p>
-            )}
+            {/* INVENTORY */}
+            <div className="inventory-section">
 
-            {/* ERROR */}
-            {error && (
-                <p style={{ color: "red" }}>
-                    {error}
-                </p>
-            )}
+                <div className="inventory-header">
+                    <div>
+                        <h2>Inventory</h2>
+                        <p>
+                            {products.length} product
+                            {products.length !== 1
+                                ? "s"
+                                : ""}
+                        </p>
+                    </div>
+                </div>
 
-            {/* NO PRODUCTS */}
-            {!loading &&
-                !error &&
-                products.length === 0 && (
-                    <p>
-                        No products found in this category.
-                    </p>
-                )}
+                {/* CATEGORY FILTERS */}
+                <div className="category-filters">
 
-            {/* PRODUCTS */}
-            <div>
-
-                {products.map((product) => (
-
-                    <div
-                        key={product._id}
-                        style={{
-                            border: "1px solid #ddd",
-                            padding: "15px",
-                            margin: "10px 0",
-                            borderRadius: "8px"
-                        }}
+                    <button
+                        className={
+                            selectedCategory === "all"
+                                ? "category-btn active"
+                                : "category-btn"
+                        }
+                        onClick={() =>
+                            handleCategoryChange("all")
+                        }
                     >
+                        All Products
+                    </button>
 
-                        {/* PRODUCT IMAGE */}
-                        {product.images?.[0]?.url && (
-                            <img
-                                src={
-                                    product.images[0].url
-                                }
-                                alt={product.name}
-                                style={{
-                                    width: "120px",
-                                    height: "120px",
-                                    objectFit: "cover",
-                                    borderRadius: "6px"
-                                }}
-                            />
-                        )}
-
-                        <h3>
-                            {product.name}
-                        </h3>
-
-                        <p>
-                            Category:{" "}
-                            {product.category?.name ||
-                                "Unknown"}
-                        </p>
-
-                        <p>
-                            Price: ₹
-                            {product.discountPrice ||
-                                product.price}
-                        </p>
-
-                        <p>
-                            Stock: {product.stock}
-                        </p>
-
-                        <p>
-                            Status: {product.status}
-                        </p>
-
-                        {/* DELETE */}
+                    {categories.map((category) => (
                         <button
+                            key={category._id}
+                            className={
+                                selectedCategory ===
+                                category._id
+                                    ? "category-btn active"
+                                    : "category-btn"
+                            }
                             onClick={() =>
-                                handleDelete(
-                                    product._id
+                                handleCategoryChange(
+                                    category._id
                                 )
                             }
-                            disabled={
-                                deletingId ===
-                                product._id
-                            }
-                            style={{
-                                padding: "8px 15px",
-                                cursor:
-                                    deletingId ===
-                                    product._id
-                                        ? "not-allowed"
-                                        : "pointer"
-                            }}
                         >
-                            {deletingId ===
-                            product._id
-                                ? "Deleting..."
-                                : "Delete"}
+                            {category.name}
                         </button>
+                    ))}
 
+                </div>
+
+                {/* LOADING */}
+                {loading && (
+                    <div className="status-message">
+                        Loading products...
                     </div>
+                )}
 
-                ))}
+                {/* ERROR */}
+                {error && (
+                    <div className="error-message">
+                        {error}
+                    </div>
+                )}
+
+                {/* NO PRODUCTS */}
+                {!loading &&
+                    !error &&
+                    products.length === 0 && (
+                        <div className="empty-message">
+                            <h3>No products found</h3>
+                            <p>
+                                There are no products in this
+                                category.
+                            </p>
+
+                            <button
+                                onClick={() =>
+                                    navigate(
+                                        "/admin/add-product"
+                                    )
+                                }
+                            >
+                                + Add Product
+                            </button>
+                        </div>
+                    )}
+
+                {/* PRODUCT GRID */}
+                {!loading &&
+                    !error &&
+                    products.length > 0 && (
+                        <div className="product-grid">
+
+                            {products.map((product) => {
+
+                                const image =
+                                    product.images?.[0]?.url;
+
+                                const sellingPrice =
+                                    product.discountPrice &&
+                                    product.discountPrice > 0
+                                        ? product.discountPrice
+                                        : product.price;
+
+                                return (
+                                    <div
+                                        className="admin-product-card"
+                                        key={product._id}
+                                    >
+
+                                        {/* IMAGE */}
+                                        <div className="product-image-container">
+
+                                            {image ? (
+                                                <img
+                                                    src={image}
+                                                    alt={
+                                                        product.name
+                                                    }
+                                                    className="admin-product-image"
+                                                />
+                                            ) : (
+                                                <div className="no-image">
+                                                    No Image
+                                                </div>
+                                            )}
+
+                                        </div>
+
+                                        {/* DETAILS */}
+                                        <div className="product-details">
+
+                                            <h3>
+                                                {
+                                                    product.name
+                                                }
+                                            </h3>
+
+                                            <p className="product-category">
+                                                Category:{" "}
+                                                {
+                                                    product
+                                                        .category
+                                                        ?.name ||
+                                                    "Unknown"
+                                                }
+                                            </p>
+
+                                            <div className="price-row">
+
+                                                <span className="price">
+                                                    ₹
+                                                    {
+                                                        sellingPrice
+                                                    }
+                                                </span>
+
+                                                {product.discountPrice >
+                                                    0 &&
+                                                    product.discountPrice <
+                                                        product.price && (
+                                                        <span className="original-price">
+                                                            ₹
+                                                            {
+                                                                product.price
+                                                            }
+                                                        </span>
+                                                    )}
+
+                                            </div>
+
+                                            <p className="stock">
+                                                Stock:{" "}
+                                                {
+                                                    product.stock
+                                                }
+                                            </p>
+
+                                            <p
+                                                className={
+                                                    product.status ===
+                                                    "Available"
+                                                        ? "status available"
+                                                        : "status out-of-stock"
+                                                }
+                                            >
+                                                {
+                                                    product.status
+                                                }
+                                            </p>
+
+                                            {/* DELETE */}
+                                            <button
+                                                className="delete-btn"
+                                                onClick={() =>
+                                                    handleDelete(
+                                                        product._id
+                                                    )
+                                                }
+                                                disabled={
+                                                    deletingId ===
+                                                    product._id
+                                                }
+                                            >
+                                                {deletingId ===
+                                                product._id
+                                                    ? "Deleting..."
+                                                    : "Delete"}
+                                            </button>
+
+                                        </div>
+
+                                    </div>
+                                );
+                            })}
+
+                        </div>
+                    )}
 
             </div>
 
