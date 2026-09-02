@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Categories.css";
 
-import ring from "../../assets/nath.jpg";
 import necklace from "../../assets/necklace.jpg";
 import earring from "../../assets/Earring.jpg";
 import bridal from "../../assets/bridalset.jpg";
@@ -10,15 +9,13 @@ import nath from "../../assets/nath.jpg";
 import hairpin from "../../assets/hairpin.jpg";
 import ring1 from "../../assets/ring1.jpg";
 
-
 const categories = [
-  
   {
     name: "Ring",
     image: ring1,
   },
   {
-    name: "Necklaces",
+    name: "Necklace",
     image: necklace,
   },
   {
@@ -34,11 +31,10 @@ const categories = [
     image: nath,
   },
   {
-    name: "Hair Accesories",
+    name: "Hair Accessories",
     image: hairpin,
   },
 ];
-
 
 function Categories() {
   return (
@@ -47,7 +43,6 @@ function Categories() {
       <h2 className="category-title">
         Explore Our Product
       </h2>
-
 
       <div className="categories">
 
@@ -63,13 +58,11 @@ function Categories() {
 
             <h2>{item.name}</h2>
 
-
             <Link to={`/collection/${item.name}`}>
               <button>
                 Explore Now
               </button>
             </Link>
-
 
           </div>
 
@@ -80,6 +73,5 @@ function Categories() {
     </section>
   );
 }
-
 
 export default Categories;

@@ -16,12 +16,43 @@ function Collection() {
                 setLoading(true);
                 setError("");
 
-                const response = await fetch(`${API_URL}/products`);
+                // Get all categories
+                const categoryResponse = await fetch(
+                    `${API_URL}/categories`
+                );
+
+                const categoryData = await categoryResponse.json();
+
+                if (!categoryResponse.ok) {
+                    throw new Error(
+                        categoryData.message ||
+                        "Failed to fetch categories"
+                    );
+                }
+
+                // Find category by name
+                const selectedCategory = categoryData.categories.find(
+                    (item) =>
+                        item.name.toLowerCase() ===
+                        category.toLowerCase()
+                );
+
+                if (!selectedCategory) {
+                    setProducts([]);
+                    return;
+                }
+
+                // Fetch products using category ID
+                const response = await fetch(
+                    `${API_URL}/products?category=${selectedCategory._id}`
+                );
+
                 const data = await response.json();
 
                 if (!response.ok) {
                     throw new Error(
-                        data.message || "Failed to fetch products"
+                        data.message ||
+                        "Failed to fetch products"
                     );
                 }
 
@@ -35,8 +66,10 @@ function Collection() {
             }
         };
 
-        fetchProducts();
-    }, []);
+        if (category) {
+            fetchProducts();
+        }
+    }, [category]);
 
     if (loading) {
         return (
