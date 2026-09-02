@@ -41,6 +41,7 @@ function App() {
             <Route path="/admin/add-product" element={<AddProduct />} />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/my-orders" element={<MyOrders />} />
+           <Route path="/collection" element={<Collection />} />
             <Route path="/track-order" element={<OrderTracking />} />
         </Routes>
     );
