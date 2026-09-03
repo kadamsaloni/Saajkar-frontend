@@ -355,3 +355,179 @@
     }
 
 }
+/* =================================
+   DELIVERY DETAILS
+================================= */
+
+.delivery-details {
+    margin-top: 30px;
+}
+
+.delivery-details h2 {
+    margin-bottom: 15px;
+}
+
+.delivery-box {
+    border: 1px solid #d4af37;
+    padding: 20px;
+    background: #fffdf8;
+}
+
+.delivery-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.delivery-text {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.delivery-icon {
+    font-size: 22px;
+}
+
+.delivery-text strong {
+    display: block;
+    font-size: 14px;
+    color: #800020;
+    margin-bottom: 5px;
+}
+
+.delivery-text p {
+    margin: 3px 0;
+    font-size: 13px;
+    color: #555;
+}
+
+.delivery-line {
+    height: 1px;
+    background: #d4af37;
+    margin: 18px 0;
+}
+
+.selected-delivery {
+    text-align: right;
+}
+
+.selected-delivery small {
+    display: block;
+    font-size: 11px;
+    color: #777;
+    margin-bottom: 3px;
+}
+
+.selected-delivery strong {
+    font-family: "Cinzel", serif;
+    font-size: 18px;
+    color: #800020;
+}
+
+
+/* =================================
+   CITY DROPDOWN
+================================= */
+
+.checkout-form select {
+    width: 100%;
+    padding: 13px;
+    margin-bottom: 15px;
+
+    border: 1px solid #ccc;
+    background: #fff;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+
+    outline: none;
+}
+
+.checkout-form select:focus {
+    border-color: #d4af37;
+}
+
+
+/* =================================
+   ORDER SUMMARY
+================================= */
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 12px 0;
+
+    font-size: 14px;
+}
+
+.summary-divider {
+    height: 1px;
+    background: #800020;
+    margin: 15px 0;
+}
+
+.total-row {
+    font-family: "Cinzel", serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #800020;
+}
+
+.item-total {
+    font-weight: 600;
+    color: #800020;
+}
+
+
+/* =================================
+   PAYMENT
+================================= */
+
+.payment-section {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+}
+
+.payment-section h3 {
+    font-family: "Cinzel", serif;
+    color: #800020;
+    margin-bottom: 12px;
+}
+
+.payment-section label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    font-size: 14px;
+}
+
+
+/* =================================
+   MOBILE
+================================= */
+
+@media (max-width: 600px) {
+
+    .delivery-row {
+        align-items: flex-start;
+    }
+
+    .selected-delivery {
+        min-width: 65px;
+    }
+
+    .summary-row {
+        font-size: 13px;
+    }
+
+    .total-row {
+        font-size: 16px;
+    }
+
+}
