@@ -111,14 +111,13 @@ function Search() {
             >
 
               <img
-                src={product.image}
-                alt={product.name}
+                
+                
               />
 
               <h3>{product.name}</h3>
 
-              <p>₹{product.price}</p>
-
+              
               {/* Explore Button */}
               <Link
                 to={`/collection/${product.category}`}

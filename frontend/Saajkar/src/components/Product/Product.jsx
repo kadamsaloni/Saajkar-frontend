@@ -119,25 +119,28 @@ const Product = ({ product }) => {
                 ₹{productPrice}
             </p>
 
-            <button
-                onClick={handleAddToWishlist}
-                disabled={wishlistLoading}
-            >
-                {wishlistLoading ? "Adding..." : "♡ Wishlist"}
-            </button>
+                        <button
+    className="wishlist-btn"
+    onClick={handleAddToWishlist}
+    disabled={wishlistLoading}
+>
+    <span className="heart-icon">♡</span>
+    <span>
+        {wishlistLoading ? "Adding..." : "Wishlist"}
+    </span>
+</button>
+            
 
-            {wishlistMessage && (
-                <p>
-                    {wishlistMessage}
-                </p>
-            )}
-
             <button
-                onClick={handleAddToCart}
-                disabled={cartLoading}
-            >
-                {cartLoading ? "Adding..." : "Add To Cart"}
-            </button>
+    className="cart-btn"
+    onClick={handleAddToCart}
+    disabled={cartLoading}
+>
+    <span className="cart-icon">🛒</span>
+    <span>
+        {cartLoading ? "Adding..." : "Add To Cart"}
+    </span>
+</button>
 
             {cartMessage && (
                 <p>

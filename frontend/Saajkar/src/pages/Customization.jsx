@@ -60,6 +60,48 @@ function Customization() {
   };
 
 
+  // ================= SUBMIT FORM =================
+
+  const handleSubmit = (e) => {
+
+    e.preventDefault();
+
+    const form = e.target;
+
+    // Check browser validation
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    // Check phone number
+    const phoneInput = form.querySelector(
+      'input[name="phone"]'
+    );
+
+    if (phoneInput.value.length !== 10) {
+      alert("Please enter a valid 10-digit phone number.");
+      phoneInput.focus();
+      return;
+    }
+
+    // Check email
+    const emailInput = form.querySelector(
+      'input[name="email"]'
+    );
+
+    if (!emailInput.value.includes("@")) {
+      alert("Please enter a valid email address containing @.");
+      emailInput.focus();
+      return;
+    }
+
+    alert(
+      "Your customization request has been submitted successfully!"
+    );
+  };
+
+
   return (
 
     <div className="custom-page">
@@ -151,7 +193,10 @@ function Customization() {
         <h2>Customization Request</h2>
 
 
-        <div className="custom-form">
+        <form
+          className="custom-form"
+          onSubmit={handleSubmit}
+        >
 
 
           {/* ================= FULL NAME ================= */}
@@ -163,6 +208,8 @@ function Customization() {
             <input
               type="text"
               placeholder="Enter your name"
+              name="fullName"
+              required
             />
 
           </div>
@@ -177,6 +224,10 @@ function Customization() {
             <input
               type="email"
               placeholder="Enter your email"
+              name="email"
+              pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+              title="Please enter a valid email address containing @"
+              required
             />
 
           </div>
@@ -190,7 +241,18 @@ function Customization() {
 
             <input
               type="text"
-              placeholder="Enter phone number"
+              placeholder="Enter 10-digit phone number"
+              name="phone"
+              maxLength="10"
+              inputMode="numeric"
+              pattern="[0-9]{10}"
+              title="Phone number must contain exactly 10 digits"
+              onInput={(e) => {
+                e.target.value = e.target.value
+                  .replace(/\D/g, "")
+                  .slice(0, 10);
+              }}
+              required
             />
 
           </div>
@@ -202,7 +264,10 @@ function Customization() {
 
             <label>Jewellery Type</label>
 
-            <select defaultValue="">
+            <select
+              defaultValue=""
+              required
+            >
 
               <option value="" disabled>
                 Select Jewellery
@@ -231,7 +296,10 @@ function Customization() {
 
             <label>Material</label>
 
-            <select defaultValue="">
+            <select
+              defaultValue=""
+              required
+            >
 
               <option value="" disabled>
                 Select Material
@@ -250,7 +318,10 @@ function Customization() {
 
             <label>Budget Range</label>
 
-            <select defaultValue="">
+            <select
+              defaultValue=""
+              required
+            >
 
               <option value="" disabled>
                 Select Budget
@@ -287,6 +358,7 @@ function Customization() {
 
             <textarea
               placeholder="Explain your jewellery design idea..."
+              required
             ></textarea>
 
           </div>
@@ -373,18 +445,13 @@ function Customization() {
 
           <button
             className="submit-btn"
-            type="button"
-            onClick={() =>
-              alert(
-                "Your customization request has been submitted successfully!"
-              )
-            }
+            type="submit"
           >
             Submit Custom Request
           </button>
 
 
-        </div>
+        </form>
 
       </section>
 
