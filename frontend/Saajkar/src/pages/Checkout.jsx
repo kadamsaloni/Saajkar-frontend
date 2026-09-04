@@ -17,474 +17,49 @@ const Checkout = () => {
     const [phone, setPhone] = useState("");
     const [address, setAddress] = useState("");
     const [city, setCity] = useState("");
-    const [state, setState] = useState("");
+    const [state, setState] = useState("Maharashtra");
     const [pincode, setPincode] = useState("");
+
+    // Pincode validation
+    const [pincodeChecking, setPincodeChecking] = useState(false);
+    const [pincodeMessage, setPincodeMessage] = useState("");
+    const [pincodeValid, setPincodeValid] = useState(false);
 
     // Payment method
     const [paymentMethod, setPaymentMethod] = useState("COD");
 
 
     // =====================================================
-    // ALL INDIAN STATES, UNION TERRITORIES AND CITIES
+    // MAHARASHTRA CITIES
     // =====================================================
 
-    const indianStates = {
-
-        "Andhra Pradesh": [
-            "Visakhapatnam",
-            "Vijayawada",
-            "Guntur",
-            "Nellore",
-            "Kurnool",
-            "Tirupati",
-            "Rajahmundry",
-            "Kakinada",
-            "Kadapa",
-            "Anantapur",
-            "Chittoor",
-            "Eluru",
-            "Ongole",
-            "Srikakulam",
-            "Vizianagaram"
-        ],
-
-        "Arunachal Pradesh": [
-            "Itanagar",
-            "Naharlagun",
-            "Tawang",
-            "Pasighat",
-            "Bomdila",
-            "Ziro",
-            "Aalo",
-            "Tezu",
-            "Namsai"
-        ],
-
-        "Assam": [
-            "Guwahati",
-            "Dibrugarh",
-            "Silchar",
-            "Jorhat",
-            "Tezpur",
-            "Nagaon",
-            "Tinsukia",
-            "Sivasagar",
-            "Dhubri",
-            "Barpeta"
-        ],
-
-        "Bihar": [
-            "Patna",
-            "Gaya",
-            "Bhagalpur",
-            "Muzaffarpur",
-            "Darbhanga",
-            "Purnia",
-            "Ara",
-            "Begusarai",
-            "Katihar",
-            "Munger",
-            "Chapra"
-        ],
-
-        "Chhattisgarh": [
-            "Raipur",
-            "Bhilai",
-            "Bilaspur",
-            "Korba",
-            "Durg",
-            "Rajnandgaon",
-            "Jagdalpur",
-            "Ambikapur",
-            "Raigarh"
-        ],
-
-        "Goa": [
-            "Panaji",
-            "Margao",
-            "Vasco da Gama",
-            "Mapusa",
-            "Ponda",
-            "Bicholim",
-            "Curchorem"
-        ],
-
-        "Gujarat": [
-            "Ahmedabad",
-            "Surat",
-            "Vadodara",
-            "Rajkot",
-            "Bhavnagar",
-            "Jamnagar",
-            "Gandhinagar",
-            "Junagadh",
-            "Anand",
-            "Vapi",
-            "Bharuch",
-            "Navsari",
-            "Morbi",
-            "Mehsana",
-            "Porbandar"
-        ],
-
-        "Haryana": [
-            "Gurugram",
-            "Faridabad",
-            "Panipat",
-            "Ambala",
-            "Hisar",
-            "Rohtak",
-            "Karnal",
-            "Sonipat",
-            "Yamunanagar",
-            "Panchkula",
-            "Rewari",
-            "Bhiwani"
-        ],
-
-        "Himachal Pradesh": [
-            "Shimla",
-            "Dharamshala",
-            "Solan",
-            "Mandi",
-            "Kullu",
-            "Manali",
-            "Baddi",
-            "Bilaspur",
-            "Chamba",
-            "Hamirpur",
-            "Nahan"
-        ],
-
-        "Jharkhand": [
-            "Ranchi",
-            "Jamshedpur",
-            "Dhanbad",
-            "Bokaro",
-            "Deoghar",
-            "Hazaribagh",
-            "Giridih",
-            "Ramgarh",
-            "Chaibasa"
-        ],
-
-        "Karnataka": [
-            "Bengaluru",
-            "Mysuru",
-            "Mangaluru",
-            "Hubballi",
-            "Dharwad",
-            "Belagavi",
-            "Shivamogga",
-            "Tumakuru",
-            "Ballari",
-            "Udupi",
-            "Davangere",
-            "Kalaburagi",
-            "Hassan",
-            "Mandya",
-            "Raichur"
-        ],
-
-        "Kerala": [
-            "Thiruvananthapuram",
-            "Kochi",
-            "Kozhikode",
-            "Kollam",
-            "Thrissur",
-            "Kannur",
-            "Alappuzha",
-            "Kottayam",
-            "Palakkad",
-            "Malappuram",
-            "Kasaragod",
-            "Pathanamthitta",
-            "Idukki"
-        ],
-
-        "Madhya Pradesh": [
-            "Bhopal",
-            "Indore",
-            "Gwalior",
-            "Jabalpur",
-            "Ujjain",
-            "Sagar",
-            "Dewas",
-            "Satna",
-            "Ratlam",
-            "Rewa",
-            "Burhanpur",
-            "Khandwa",
-            "Chhindwara"
-        ],
-
-        "Maharashtra": [
-            "Mumbai",
-            "Pune",
-            "Nagpur",
-            "Nashik",
-            "Thane",
-            "Navi Mumbai",
-            "Aurangabad",
-            "Kolhapur",
-            "Solapur",
-            "Amravati",
-            "Sangli",
-            "Satara",
-            "Latur",
-            "Akola",
-            "Ahmednagar",
-            "Jalgaon",
-            "Nanded",
-            "Dhule",
-            "Ratnagiri",
-            "Chandrapur",
-            "Parbhani",
-            "Beed",
-            "Wardha",
-            "Buldhana",
-            "Yavatmal"
-        ],
-
-        "Manipur": [
-            "Imphal",
-            "Thoubal",
-            "Bishnupur",
-            "Churachandpur",
-            "Ukhrul",
-            "Senapati"
-        ],
-
-        "Meghalaya": [
-            "Shillong",
-            "Tura",
-            "Jowai",
-            "Nongpoh",
-            "Williamnagar",
-            "Baghmara"
-        ],
-
-        "Mizoram": [
-            "Aizawl",
-            "Lunglei",
-            "Champhai",
-            "Kolasib",
-            "Serchhip",
-            "Saiha"
-        ],
-
-        "Nagaland": [
-            "Kohima",
-            "Dimapur",
-            "Mokokchung",
-            "Tuensang",
-            "Wokha",
-            "Mon",
-            "Zunheboto"
-        ],
-
-        "Odisha": [
-            "Bhubaneswar",
-            "Cuttack",
-            "Rourkela",
-            "Berhampur",
-            "Sambalpur",
-            "Puri",
-            "Balasore",
-            "Baripada",
-            "Bhadrak",
-            "Jharsuguda",
-            "Angul",
-            "Bargarh"
-        ],
-
-        "Punjab": [
-            "Amritsar",
-            "Ludhiana",
-            "Jalandhar",
-            "Patiala",
-            "Bathinda",
-            "Mohali",
-            "Pathankot",
-            "Hoshiarpur",
-            "Moga",
-            "Batala",
-            "Firozpur"
-        ],
-
-        "Rajasthan": [
-            "Jaipur",
-            "Jodhpur",
-            "Udaipur",
-            "Kota",
-            "Ajmer",
-            "Bikaner",
-            "Alwar",
-            "Bharatpur",
-            "Sikar",
-            "Bhilwara",
-            "Sri Ganganagar",
-            "Pali",
-            "Chittorgarh"
-        ],
-
-        "Sikkim": [
-            "Gangtok",
-            "Namchi",
-            "Gyalshing",
-            "Mangan",
-            "Ravangla"
-        ],
-
-        "Tamil Nadu": [
-            "Chennai",
-            "Coimbatore",
-            "Madurai",
-            "Tiruchirappalli",
-            "Salem",
-            "Tirunelveli",
-            "Erode",
-            "Vellore",
-            "Thoothukudi",
-            "Thanjavur",
-            "Dindigul",
-            "Tiruppur",
-            "Nagercoil",
-            "Kanchipuram",
-            "Hosur"
-        ],
-
-        "Telangana": [
-            "Hyderabad",
-            "Warangal",
-            "Nizamabad",
-            "Karimnagar",
-            "Khammam",
-            "Ramagundam",
-            "Mahbubnagar",
-            "Nalgonda",
-            "Adilabad"
-        ],
-
-        "Tripura": [
-            "Agartala",
-            "Udaipur",
-            "Dharmanagar",
-            "Kailasahar",
-            "Ambassa",
-            "Belonia"
-        ],
-
-        "Uttar Pradesh": [
-            "Lucknow",
-            "Kanpur",
-            "Agra",
-            "Varanasi",
-            "Prayagraj",
-            "Ghaziabad",
-            "Noida",
-            "Meerut",
-            "Bareilly",
-            "Aligarh",
-            "Moradabad",
-            "Gorakhpur",
-            "Mathura",
-            "Firozabad",
-            "Saharanpur",
-            "Jhansi",
-            "Ayodhya",
-            "Muzaffarnagar"
-        ],
-
-        "Uttarakhand": [
-            "Dehradun",
-            "Haridwar",
-            "Rishikesh",
-            "Haldwani",
-            "Nainital",
-            "Roorkee",
-            "Almora",
-            "Mussoorie",
-            "Rudrapur",
-            "Kashipur",
-            "Pithoragarh"
-        ],
-
-        "West Bengal": [
-            "Kolkata",
-            "Howrah",
-            "Durgapur",
-            "Asansol",
-            "Siliguri",
-            "Darjeeling",
-            "Kharagpur",
-            "Malda",
-            "Bardhaman",
-            "Haldia",
-            "Jalpaiguri"
-        ],
-
-
-        // =====================================================
-        // UNION TERRITORIES
-        // =====================================================
-
-        "Andaman and Nicobar Islands": [
-            "Port Blair",
-            "Diglipur",
-            "Mayabunder",
-            "Rangat"
-        ],
-
-        "Chandigarh": [
-            "Chandigarh"
-        ],
-
-        "Dadra and Nagar Haveli and Daman and Diu": [
-            "Daman",
-            "Diu",
-            "Silvassa"
-        ],
-
-        "Delhi": [
-            "New Delhi",
-            "Delhi"
-        ],
-
-        "Jammu and Kashmir": [
-            "Srinagar",
-            "Jammu",
-            "Anantnag",
-            "Baramulla",
-            "Kathua",
-            "Udhampur",
-            "Kupwara",
-            "Pulwama"
-        ],
-
-        "Ladakh": [
-            "Leh",
-            "Kargil",
-            "Nubra",
-            "Diskit"
-        ],
-
-        "Lakshadweep": [
-            "Kavaratti",
-            "Agatti",
-            "Andrott",
-            "Amini",
-            "Kalpeni",
-            "Minicoy"
-        ],
-
-        "Puducherry": [
-            "Puducherry",
-            "Karaikal",
-            "Mahe",
-            "Yanam"
-        ]
-    };
+    const maharashtraCities = [
+        "Mumbai",
+        "Pune",
+        "Nagpur",
+        "Nashik",
+        "Thane",
+        "Navi Mumbai",
+        "Aurangabad",
+        "Kolhapur",
+        "Solapur",
+        "Amravati",
+        "Sangli",
+        "Satara",
+        "Latur",
+        "Akola",
+        "Ahmednagar",
+        "Jalgaon",
+        "Nanded",
+        "Dhule",
+        "Ratnagiri",
+        "Chandrapur",
+        "Parbhani",
+        "Beed",
+        "Wardha",
+        "Buldhana",
+        "Yavatmal"
+    ];
 
 
     // =====================================================
@@ -492,14 +67,11 @@ const Checkout = () => {
     // =====================================================
 
     const deliveryRates = {
-
         Mumbai: 70,
-
         Pune: 100
-
     };
 
-    // Other cities get ₹100
+    // Other Maharashtra cities get ₹100
     const deliveryCharges =
         city
             ? deliveryRates[city] || 100
@@ -623,6 +195,296 @@ const Checkout = () => {
 
 
     // =====================================================
+    // VALIDATE PINCODE
+    // =====================================================
+
+    const validatePincode = async (pin) => {
+
+        if (pin.length !== 6) {
+
+            setPincodeMessage("");
+            setPincodeValid(false);
+
+            return;
+
+        }
+
+        if (!city) {
+
+            setPincodeMessage(
+                "Please select a city first."
+            );
+
+            setPincodeValid(false);
+
+            return;
+
+        }
+
+
+        try {
+
+            setPincodeChecking(true);
+            setPincodeMessage("");
+            setPincodeValid(false);
+
+
+            const response =
+                await fetch(
+                    `https://api.postalpincode.in/pincode/${pin}`
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (
+                !data ||
+                !data[0] ||
+                data[0].Status !== "Success" ||
+                !data[0].PostOffice ||
+                data[0].PostOffice.length === 0
+            ) {
+
+                setPincodeMessage(
+                    "Invalid pincode. Please enter a valid pincode."
+                );
+
+                return;
+
+            }
+
+
+            const postOffices =
+                data[0].PostOffice;
+
+
+            // =================================================
+            // CHECK MAHARASHTRA
+            // =================================================
+
+            const isMaharashtra =
+                postOffices.some(
+                    (office) =>
+                        office.State &&
+                        office.State.toLowerCase() ===
+                            "maharashtra"
+                );
+
+
+            if (!isMaharashtra) {
+
+                setPincodeMessage(
+                    "This pincode is not from Maharashtra."
+                );
+
+                return;
+
+            }
+
+
+            // =================================================
+            // CHECK CITY / DISTRICT
+            // =================================================
+
+            const normalizedCity =
+                city
+                    .toLowerCase()
+                    .trim();
+
+
+            const cityAliases = {
+
+                "mumbai": [
+                    "mumbai",
+                    "mumbai suburban",
+                    "mumbai city"
+                ],
+
+                "navi mumbai": [
+                    "navi mumbai",
+                    "thane"
+                ],
+
+                "thane": [
+                    "thane"
+                ],
+
+                "pune": [
+                    "pune"
+                ],
+
+                "nagpur": [
+                    "nagpur"
+                ],
+
+                "nashik": [
+                    "nashik"
+                ],
+
+                "aurangabad": [
+                    "aurangabad",
+                    "chhatrapati sambhajinagar"
+                ],
+
+                "ahmednagar": [
+                    "ahmednagar",
+                    "ahilyanagar"
+                ],
+
+                "solapur": [
+                    "solapur"
+                ],
+
+                "kolhapur": [
+                    "kolhapur"
+                ],
+
+                "sangli": [
+                    "sangli"
+                ],
+
+                "satara": [
+                    "satara"
+                ],
+
+                "latur": [
+                    "latur"
+                ],
+
+                "akola": [
+                    "akola"
+                ],
+
+                "amravati": [
+                    "amravati"
+                ],
+
+                "jalgaon": [
+                    "jalgaon"
+                ],
+
+                "nanded": [
+                    "nanded"
+                ],
+
+                "dhule": [
+                    "dhule"
+                ],
+
+                "ratnagiri": [
+                    "ratnagiri"
+                ],
+
+                "chandrapur": [
+                    "chandrapur"
+                ],
+
+                "parbhani": [
+                    "parbhani"
+                ],
+
+                "beed": [
+                    "beed"
+                ],
+
+                "wardha": [
+                    "wardha"
+                ],
+
+                "buldhana": [
+                    "buldhana"
+                ],
+
+                "yavatmal": [
+                    "yavatmal"
+                ]
+
+            };
+
+
+            const validDistricts =
+                cityAliases[normalizedCity] || [
+                    normalizedCity
+                ];
+
+
+            const cityMatch =
+                postOffices.some(
+                    (office) => {
+
+                        const district =
+                            office.District
+                                ?.toLowerCase()
+                                .trim();
+
+                        const name =
+                            office.Name
+                                ?.toLowerCase()
+                                .trim();
+
+                        return (
+                            validDistricts.includes(
+                                district
+                            ) ||
+                            validDistricts.includes(
+                                name
+                            )
+                        );
+
+                    }
+                );
+
+
+            if (!cityMatch) {
+
+                setPincodeMessage(
+                    `Pincode ${pin} does not belong to ${city}.`
+                );
+
+                setPincodeValid(false);
+
+                return;
+
+            }
+
+
+            // =================================================
+            // PINCODE VALID
+            // =================================================
+
+            setPincodeValid(true);
+
+            setPincodeMessage(
+                `✓ Pincode is valid for ${city}, Maharashtra`
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Pincode validation error:",
+                error
+            );
+
+            setPincodeMessage(
+                "Unable to verify pincode. Please try again."
+            );
+
+            setPincodeValid(false);
+
+
+        } finally {
+
+            setPincodeChecking(false);
+
+        }
+
+    };
+
+
+    // =====================================================
     // PLACE ORDER
     // =====================================================
 
@@ -642,7 +504,9 @@ const Checkout = () => {
             }
 
 
-            // Check cart
+            // =================================================
+            // CHECK CART
+            // =================================================
 
             if (cartItems.length === 0) {
 
@@ -655,7 +519,9 @@ const Checkout = () => {
             }
 
 
-            // Validate fields
+            // =================================================
+            // VALIDATE FIELDS
+            // =================================================
 
             if (
                 !fullName ||
@@ -675,7 +541,24 @@ const Checkout = () => {
             }
 
 
-            // Pincode validation
+            // =================================================
+            // PHONE VALIDATION
+            // =================================================
+
+            if (phone.length !== 10) {
+
+                alert(
+                    "Please enter a valid 10-digit phone number."
+                );
+
+                return;
+
+            }
+
+
+            // =================================================
+            // PINCODE LENGTH
+            // =================================================
 
             if (pincode.length !== 6) {
 
@@ -688,12 +571,14 @@ const Checkout = () => {
             }
 
 
-            // Phone validation
+            // =================================================
+            // PINCODE VERIFIED
+            // =================================================
 
-            if (phone.length !== 10) {
+            if (!pincodeValid) {
 
                 alert(
-                    "Please enter a valid 10-digit phone number."
+                    "Please enter a valid pincode for the selected city."
                 );
 
                 return;
@@ -774,9 +659,9 @@ const Checkout = () => {
                 );
 
 
-                // =====================================================
+                // =================================================
                 // PREPARE INVOICE DATA
-                // =====================================================
+                // =================================================
 
                 const invoiceItems =
                     cartItems.map(
@@ -820,9 +705,9 @@ const Checkout = () => {
                     );
 
 
-                // =====================================================
+                // =================================================
                 // SAVE INVOICE DATA
-                // =====================================================
+                // =================================================
 
                 const invoiceData = {
 
@@ -903,7 +788,9 @@ const Checkout = () => {
                 };
 
 
-                // Save invoice
+                // =================================================
+                // SAVE INVOICE
+                // =================================================
 
                 localStorage.setItem(
                     "orderDetails",
@@ -913,9 +800,12 @@ const Checkout = () => {
                 );
 
 
-                // Go to invoice
+                // =================================================
+                // GO TO INVOICE
+                // =================================================
 
                 navigate("/invoice");
+
 
             } catch (error) {
 
@@ -927,6 +817,7 @@ const Checkout = () => {
                 alert(
                     "Unable to connect to server"
                 );
+
 
             } finally {
 
@@ -1039,7 +930,8 @@ const Checkout = () => {
                                     .replace(
                                         /\D/g,
                                         ""
-                                    );
+                                    )
+                                    .slice(0, 10);
 
                             setPhone(value);
 
@@ -1062,22 +954,24 @@ const Checkout = () => {
 
 
                     {/* =================================================
-                        STATE DROPDOWN
+                        STATE
                     ================================================= */}
 
                     <select
                         value={state}
                         onChange={(e) => {
 
-                            const selectedState =
-                                e.target.value;
-
                             setState(
-                                selectedState
+                                e.target.value
                             );
 
-                            // Reset city when state changes
                             setCity("");
+
+                            setPincode("");
+
+                            setPincodeMessage("");
+
+                            setPincodeValid(false);
 
                         }}
                     >
@@ -1086,37 +980,33 @@ const Checkout = () => {
                             Select State
                         </option>
 
-
-                        {Object.keys(
-                            indianStates
-                        ).map(
-                            (stateName) => (
-
-                                <option
-                                    key={stateName}
-                                    value={stateName}
-                                >
-                                    {stateName}
-                                </option>
-
-                            )
-                        )}
+                        <option value="Maharashtra">
+                            Maharashtra
+                        </option>
 
                     </select>
 
 
                     {/* =================================================
-                        CITY DROPDOWN
+                        CITY
                     ================================================= */}
 
                     <select
                         value={city}
                         disabled={!state}
-                        onChange={(e) =>
+                        onChange={(e) => {
+
                             setCity(
                                 e.target.value
-                            )
-                        }
+                            );
+
+                            setPincode("");
+
+                            setPincodeMessage("");
+
+                            setPincodeValid(false);
+
+                        }}
                     >
 
                         <option value="">
@@ -1126,8 +1016,8 @@ const Checkout = () => {
                         </option>
 
 
-                        {state &&
-                            indianStates[state]?.map(
+                        {state === "Maharashtra" &&
+                            maharashtraCities.map(
                                 (cityName) => (
 
                                     <option
@@ -1138,12 +1028,15 @@ const Checkout = () => {
                                     </option>
 
                                 )
-                            )}
+                            )
+                        }
 
                     </select>
 
 
-                    {/* PINCODE */}
+                    {/* =================================================
+                        PINCODE
+                    ================================================= */}
 
                     <input
                         type="text"
@@ -1158,12 +1051,61 @@ const Checkout = () => {
                                     .replace(
                                         /\D/g,
                                         ""
-                                    );
+                                    )
+                                    .slice(0, 6);
 
                             setPincode(value);
 
+                            setPincodeMessage("");
+
+                            setPincodeValid(false);
+
+
+                            if (
+                                value.length === 6 &&
+                                city
+                            ) {
+
+                                validatePincode(
+                                    value
+                                );
+
+                            }
+
                         }}
                     />
+
+
+                    {/* PINCODE MESSAGE */}
+
+                    {pincodeChecking && (
+
+                        <p className="pincode-message">
+
+                            Checking pincode...
+
+                        </p>
+
+                    )}
+
+
+                    {!pincodeChecking &&
+                        pincodeMessage && (
+
+                            <p
+                                className={
+                                    pincodeValid
+                                        ? "pincode-message valid"
+                                        : "pincode-message invalid"
+                                }
+                            >
+
+                                {pincodeMessage}
+
+                            </p>
+
+                        )
+                    }
 
 
                     {/* =====================================================
@@ -1228,19 +1170,8 @@ const Checkout = () => {
                                             Delivery Charges
                                         </strong>
 
-
                                         <p>
-                                           
-                                        </p>
-
-
-                                        <p>
-                                           
-                                        </p>
-
-
-                                        <p>
-                                          
+                                            Maharashtra
                                         </p>
 
                                     </div>
@@ -1486,7 +1417,7 @@ const Checkout = () => {
                                 }
                             />
 
-                            Cash on Delivery
+                            Online Payment 
 
                         </label>
 

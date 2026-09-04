@@ -1,0 +1,300 @@
+/* =====================================
+   NEW ARRIVAL PAGE
+===================================== */
+
+.new-arrival-page {
+  min-height: 100vh;
+  background: #fffdf8;
+  font-family: "Poppins", sans-serif;
+}
+
+
+/* =====================================
+   BANNER
+===================================== */
+
+.new-arrival-banner {
+  min-height: 500px;
+
+  background-image: url("/src/assets/banner1.jpg");
+  background-size: cover;
+  background-position: center;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* =====================================
+   OVERLAY
+===================================== */
+
+.new-arrival-overlay {
+  width: 100%;
+  min-height: 500px;
+
+  background: rgba(0, 0, 0, 0.55);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 40px 20px;
+
+  color: white;
+}
+
+
+/* =====================================
+   SMALL TEXT
+===================================== */
+
+.arrival-small {
+  font-size: 14px;
+
+  letter-spacing: 4px;
+
+  margin-bottom: 15px;
+
+  color: #d4af37;
+
+  text-transform: uppercase;
+}
+
+
+/* =====================================
+   TITLE
+===================================== */
+
+.new-arrival-overlay h1 {
+  font-family: "Cinzel", serif;
+
+  font-size: 55px;
+
+  letter-spacing: 8px;
+
+  margin: 0;
+
+  font-weight: 500;
+}
+
+
+/* =====================================
+   LINE
+===================================== */
+
+.arrival-line {
+  width: 90px;
+  height: 1px;
+
+  background: #d4af37;
+
+  margin: 25px 0;
+}
+
+
+/* =====================================
+   MESSAGE
+===================================== */
+
+.arrival-message {
+  font-family: "Cinzel", serif;
+
+  font-size: 23px;
+
+  margin: 0 0 15px;
+
+  letter-spacing: 1px;
+}
+
+
+.arrival-description {
+  max-width: 600px;
+
+  font-size: 15px;
+
+  line-height: 1.8;
+
+  color: #eee;
+
+  margin-bottom: 30px;
+}
+
+
+/* =====================================
+   BUTTON
+===================================== */
+
+.arrival-button {
+  padding: 13px 35px;
+
+  background: #d4af37;
+
+  color: #111;
+
+  border: 1px solid #d4af37;
+
+  font-family: "Poppins", sans-serif;
+
+  font-size: 12px;
+
+  letter-spacing: 2px;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+
+
+.arrival-button:hover {
+  background: transparent;
+
+  color: white;
+
+  border-color: white;
+}
+
+
+/* =====================================
+   NOTIFICATION
+===================================== */
+
+.arrival-notification {
+  width: 80%;
+  max-width: 900px;
+
+  margin: 60px auto;
+
+  padding: 30px 40px;
+
+  background: white;
+
+  border: 1px solid #e8dfc9;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 25px;
+
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.06);
+}
+
+
+/* =====================================
+   ICON
+===================================== */
+
+.notification-icon {
+  width: 55px;
+  height: 55px;
+
+  border-radius: 50%;
+
+  background: #111;
+
+  color: #d4af37;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  font-size: 22px;
+
+  flex-shrink: 0;
+}
+
+
+/* =====================================
+   NOTIFICATION CONTENT
+===================================== */
+
+.notification-content span {
+  font-size: 11px;
+
+  letter-spacing: 3px;
+
+  color: #b8941f;
+
+  font-weight: 600;
+}
+
+
+.notification-content h2 {
+  font-family: "Cinzel", serif;
+
+  font-size: 22px;
+
+  font-weight: 500;
+
+  margin: 8px 0;
+}
+
+
+.notification-content p {
+  margin: 0;
+
+  font-size: 14px;
+
+  color: #777;
+}
+
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media (max-width: 600px) {
+
+  .new-arrival-banner {
+    min-height: 450px;
+  }
+
+  .new-arrival-overlay {
+    min-height: 450px;
+  }
+
+  .new-arrival-overlay h1 {
+    font-size: 35px;
+
+    letter-spacing: 4px;
+  }
+
+  .arrival-message {
+    font-size: 19px;
+  }
+
+  .arrival-description {
+    font-size: 13px;
+  }
+
+  .arrival-notification {
+    width: 85%;
+
+    padding: 25px 20px;
+
+    gap: 15px;
+  }
+
+  .notification-icon {
+    width: 45px;
+    height: 45px;
+
+    font-size: 18px;
+  }
+
+  .notification-content h2 {
+    font-size: 17px;
+  }
+
+  .notification-content p {
+    font-size: 12px;
+  }
+}

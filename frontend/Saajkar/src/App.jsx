@@ -18,7 +18,8 @@ import AddProduct from "./pages/AddProduct";
 import AdminLogin from "./pages/AdminLogin";
 import MyOrders from "./pages/MyOrders";
 import OrderTracking from "./pages/OrderTracking";
-
+import Shop from "./pages/Shop";
+import NewArrival from "./pages/NewArrival";
 function App() {
 
 
@@ -42,7 +43,9 @@ function App() {
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/my-orders" element={<MyOrders />} />
            <Route path="/collection" element={<Collection />} />
+            <Route path="/shop" element={<Shop />} />
             <Route path="/track-order" element={<OrderTracking />} />
+            <Route path="/new-arrival" element={<NewArrival />} />
         </Routes>
     );
 }

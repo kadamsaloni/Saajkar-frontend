@@ -31,7 +31,7 @@ const About = () => {
           </h2>
 
           <p>
-            Saajkar is a luxury jewellery brand inspired by
+            Saajkar is a renowned jewellery brand inspired by
             India's rich heritage and traditional craftsmanship.
             We create elegant pieces that blend royal designs
             with modern fashion.
@@ -54,7 +54,7 @@ const About = () => {
           </h3>
 
           <ul>
-            <li>✨ Premium handcrafted jewellery</li>
+            <li>✨ Traditional Craftsmanship</li>
             <li>✨ Traditional Indian designs</li>
             <li>✨ High quality materials</li>
             <li>✨ Elegant luxury experience</li>

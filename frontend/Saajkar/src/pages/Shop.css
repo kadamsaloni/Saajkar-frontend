@@ -1,0 +1,358 @@
+.shop-page {
+  min-height: 100vh;
+  background: #fffdf8;
+  padding-bottom: 100px;
+  font-family: "Poppins", sans-serif;
+}
+
+
+/* ================================
+   HEADER
+================================ */
+
+.shop-header {
+  text-align: center;
+  padding: 70px 20px 60px;
+}
+
+.shop-small-title {
+  color: #b8941f;
+  font-size: 12px;
+  letter-spacing: 4px;
+  margin: 0 0 12px;
+}
+
+.shop-header h1 {
+  margin: 0;
+
+  font-family: "Cinzel", serif;
+  font-size: 45px;
+  font-weight: 500;
+
+  letter-spacing: 6px;
+
+  color: #111;
+}
+
+.shop-description {
+  margin-top: 15px;
+
+  color: #777;
+  font-size: 14px;
+}
+
+
+/* ================================
+   CONTENT
+================================ */
+
+.shop-content {
+  width: 90%;
+  max-width: 1250px;
+  margin: auto;
+}
+
+
+/* ================================
+   CATEGORY
+================================ */
+
+.shop-category-section {
+  margin-bottom: 85px;
+}
+
+
+/* ================================
+   CATEGORY TITLE
+================================ */
+
+.category-title {
+  display: flex;
+  align-items: center;
+
+  gap: 25px;
+
+  margin-bottom: 35px;
+}
+
+.category-title h2 {
+  margin: 0;
+
+  font-family: "Cinzel", serif;
+
+  font-size: 27px;
+  font-weight: 500;
+
+  letter-spacing: 3px;
+
+  color: #111;
+
+  white-space: nowrap;
+}
+
+.category-line {
+  flex: 1;
+
+  height: 1px;
+
+  background: #d4af37;
+}
+
+
+/* ================================
+   PRODUCT GRID
+================================ */
+
+.shop-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 35px;
+}
+
+
+/* ================================
+   PRODUCT CARD
+================================ */
+
+.shop-card {
+  background: #fff;
+
+  border: 1px solid #eee;
+
+  overflow: hidden;
+
+  transition: 0.3s ease;
+}
+
+.shop-card:hover {
+  transform: translateY(-7px);
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+
+/* ================================
+   IMAGE
+================================ */
+
+.shop-image {
+  position: relative;
+
+  width: 100%;
+  height: 350px;
+
+  background: #f5f2ea;
+
+  overflow: hidden;
+}
+
+.shop-image img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  display: block;
+
+  transition: 0.4s ease;
+}
+
+.shop-card:hover .shop-image img {
+  transform: scale(1.04);
+}
+
+
+/* ================================
+   WISHLIST
+================================ */
+
+.wishlist-button {
+  position: absolute;
+
+  top: 15px;
+  right: 15px;
+
+  width: 42px;
+  height: 42px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: white;
+
+  font-size: 25px;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+
+.wishlist-button:hover {
+  background: #d4af37;
+  color: white;
+}
+
+
+/* ================================
+   PRODUCT INFO
+================================ */
+
+.shop-info {
+  text-align: center;
+
+  padding: 25px 20px 30px;
+}
+
+.product-category {
+  margin: 0 0 8px;
+
+  color: #999;
+
+  font-size: 12px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 2px;
+}
+
+.shop-info h3 {
+  margin: 0;
+
+  font-family: "Cinzel", serif;
+
+  font-size: 20px;
+
+  font-weight: 500;
+
+  color: #222;
+}
+
+.shop-price {
+  margin: 12px 0 20px;
+
+  color: #b8941f;
+
+  font-size: 19px;
+
+  font-weight: 600;
+}
+
+
+/* ================================
+   CART BUTTON
+================================ */
+
+.add-cart-button {
+  width: 85%;
+
+  padding: 13px;
+
+  background: #111;
+
+  color: white;
+
+  border: 1px solid #111;
+
+  font-family: "Poppins", sans-serif;
+
+  font-size: 12px;
+
+  letter-spacing: 1.5px;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+
+.add-cart-button:hover {
+  background: #d4af37;
+
+  border-color: #d4af37;
+
+  color: #111;
+}
+
+
+/* ================================
+   LOADING
+================================ */
+
+.shop-loading {
+  min-height: 70vh;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background: #fffdf8;
+
+  font-family: "Poppins", sans-serif;
+
+  color: #777;
+
+  font-size: 16px;
+}
+
+
+/* ================================
+   TABLET
+================================ */
+
+@media (max-width: 900px) {
+
+  .shop-grid {
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 25px;
+  }
+
+  .shop-header h1 {
+    font-size: 38px;
+  }
+
+  .shop-image {
+    height: 300px;
+  }
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 600px) {
+
+  .shop-header {
+    padding: 50px 15px 40px;
+  }
+
+  .shop-header h1 {
+    font-size: 30px;
+
+    letter-spacing: 4px;
+  }
+
+  .shop-content {
+    width: 92%;
+  }
+
+  .category-title h2 {
+    font-size: 21px;
+
+    letter-spacing: 2px;
+  }
+
+  .shop-grid {
+    grid-template-columns: 1fr;
+
+    gap: 25px;
+  }
+
+  .shop-image {
+    height: 330px;
+  }
+}
