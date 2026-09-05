@@ -4,33 +4,24 @@
     box-sizing: border-box;
 }
 
-html,
-body,
-#root {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    min-height: 100%;
-}
-
 /* ================================
-   LOGIN PAGE
+   ADMIN LOGIN PAGE
 ================================ */
 
-.login-page {
-    width: 100%;
+.admin-login-page {
     min-height: 100vh;
+    width: 100%;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    padding: 40px 20px;
+    padding: 30px 20px;
 
     background-image:
         linear-gradient(
-            rgba(255, 253, 248, 0.88),
-            rgba(255, 253, 248, 0.88)
+            rgba(15, 15, 15, 0.72),
+            rgba(15, 15, 15, 0.72)
         ),
         url("../assets/banner1.jpg");
 
@@ -40,11 +31,11 @@ body,
 }
 
 /* ================================
-   LOGIN CARD
+   ADMIN CARD
 ================================ */
 
-.login-card {
-    width: 420px;
+.admin-login-card {
+    width: 430px;
     max-width: 100%;
 
     padding: 40px;
@@ -53,22 +44,19 @@ body,
 
     border-radius: 22px;
 
-    box-shadow:
-        0 15px 40px rgba(0, 0, 0, 0.18);
-
     text-align: center;
 
-    animation: fadeIn 0.7s ease;
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.35);
+
+    animation: adminFade 0.7s ease;
 }
 
-/* ================================
-   ANIMATION
-================================ */
+@keyframes adminFade {
 
-@keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(25px);
+        transform: translateY(30px);
     }
 
     to {
@@ -78,32 +66,25 @@ body,
 }
 
 /* ================================
-   IMAGE
+   LOGO
 ================================ */
 
-.top-image {
-    width: 125px;
-    height: 125px;
+.admin-logo {
+    width: 170px;
+    height: 100px;
 
-    object-fit: cover;
+    object-fit: contain;
+
+    margin: 0 auto 10px;
 
     display: block;
-
-    margin: 0 auto 20px;
-
-    border-radius: 50%;
-
-    border: 4px solid #8B0000;
-
-    box-shadow:
-        0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* ================================
    HEADING
 ================================ */
 
-.login-card h2 {
+.admin-login-card h1 {
     margin: 0 0 8px;
 
     font-family: "Cinzel", serif;
@@ -113,8 +94,8 @@ body,
     color: #0F0F0F;
 }
 
-.login-subtitle {
-    margin: 0 0 25px;
+.admin-subtitle {
+    margin: 0 0 28px;
 
     font-family: "Poppins", sans-serif;
 
@@ -124,92 +105,136 @@ body,
 }
 
 /* ================================
-   INPUTS
+   ERROR
 ================================ */
 
-.login-card input {
+.admin-error {
+    width: 100%;
+
+    padding: 10px;
+
+    margin-bottom: 18px;
+
+    border-radius: 8px;
+
+    background: #ffe6e6;
+
+    color: #b00000;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 13px;
+}
+
+/* ================================
+   INPUT GROUP
+================================ */
+
+.admin-input-group {
+    width: 100%;
+
+    text-align: left;
+
+    margin-bottom: 20px;
+}
+
+.admin-input-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+    color: #222;
+}
+
+/* ================================
+   INPUT
+================================ */
+
+.admin-input-group input {
     width: 100%;
 
     height: 52px;
 
-    padding: 0 16px;
-
-    margin-bottom: 17px;
+    padding: 0 15px;
 
     border: 1px solid #ccc;
 
     border-radius: 10px;
 
-    background: white;
-
-    color: #333;
-
-    font-size: 15px;
+    outline: none;
 
     font-family: "Poppins", sans-serif;
 
-    outline: none;
+    font-size: 14px;
+
+    color: #333;
+
+    background: #fff;
 
     transition: 0.3s;
 }
 
-.login-card input:focus {
+.admin-input-group input:focus {
     border-color: #D4AF37;
 
     box-shadow:
         0 0 8px rgba(212, 175, 55, 0.25);
 }
 
-.login-card input::placeholder {
-    color: #777;
-}
-
 /* ================================
-   FORGOT PASSWORD
+   PASSWORD
 ================================ */
 
-.forgot {
-    text-align: right;
+.password-box {
+    position: relative;
 
-    margin-bottom: 20px;
+    width: 100%;
 }
 
-.forgot a {
+.password-box input {
+    padding-right: 65px;
+}
+
+.show-password {
+    position: absolute;
+
+    right: 10px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    border: none;
+
+    background: transparent;
+
     color: #8B0000;
 
     font-family: "Poppins", sans-serif;
 
-    font-size: 13px;
+    font-size: 12px;
 
-    text-decoration: none;
-}
+    font-weight: 600;
 
-.forgot a:hover {
-    color: #D4AF37;
-}
-
-/* ================================
-   ERROR
-================================ */
-
-.error-message {
-    color: #d00000;
-
-    font-family: "Poppins", sans-serif;
-
-    font-size: 13px;
-
-    margin: 0 0 15px;
+    cursor: pointer;
 }
 
 /* ================================
-   LOGIN BUTTON
+   ADMIN LOGIN BUTTON
 ================================ */
 
-.login-btn {
+.admin-login-btn {
     width: 100%;
 
-    height: 52px;
+    height: 53px;
+
+    margin-top: 5px;
 
     border: none;
 
@@ -227,18 +252,19 @@ body,
 
     cursor: pointer;
 
-    margin-bottom: 13px;
-
     transition: 0.3s;
 }
 
-.login-btn:hover {
+.admin-login-btn:hover {
     background: #b8932d;
 
     transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 15px rgba(212, 175, 55, 0.3);
 }
 
-.login-btn:disabled {
+.admin-login-btn:disabled {
     opacity: 0.6;
 
     cursor: not-allowed;
@@ -250,10 +276,12 @@ body,
    HOME BUTTON
 ================================ */
 
-.home-btn {
+.admin-home-btn {
     width: 100%;
 
-    height: 52px;
+    height: 50px;
+
+    margin-top: 15px;
 
     border: none;
 
@@ -269,69 +297,36 @@ body,
 
     cursor: pointer;
 
-    margin-bottom: 20px;
-
     transition: 0.3s;
 }
 
-.home-btn:hover {
+.admin-home-btn:hover {
     background: #8B0000;
-}
-
-/* ================================
-   REGISTER LINK
-================================ */
-
-.register {
-    font-family: "Poppins", sans-serif;
-
-    font-size: 14px;
-
-    color: #333;
-}
-
-.register a {
-    color: #D4AF37;
-
-    font-weight: 600;
-
-    text-decoration: none;
-}
-
-.register a:hover {
-    color: #8B0000;
-
-    text-decoration: underline;
 }
 
 /* ================================
    MOBILE
 ================================ */
 
-@media (max-width: 480px) {
+@media (max-width: 500px) {
 
-    .login-page {
+    .admin-login-page {
         padding: 20px 15px;
     }
 
-    .login-card {
-        width: 100%;
-
+    .admin-login-card {
         padding: 30px 22px;
 
         border-radius: 18px;
     }
 
-    .top-image {
-        width: 100px;
-        height: 100px;
+    .admin-logo {
+        width: 145px;
+        height: 85px;
     }
 
-    .login-card h2 {
+    .admin-login-card h1 {
         font-size: 25px;
     }
 
-    .login-card input {
-        height: 50px;
-    }
 }

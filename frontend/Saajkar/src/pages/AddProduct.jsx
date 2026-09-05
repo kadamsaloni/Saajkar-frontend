@@ -23,8 +23,7 @@ function AddProduct() {
     const [imagePreview, setImagePreview] = useState("");
 
     const [loading, setLoading] = useState(false);
-    const [categoryLoading, setCategoryLoading] =
-        useState(true);
+    const [categoryLoading, setCategoryLoading] = useState(true);
 
     const [error, setError] = useState("");
 
@@ -44,21 +43,14 @@ function AddProduct() {
 
                 if (!response.ok) {
                     throw new Error(
-                        data.message ||
-                            "Failed to load categories"
+                        data.message || "Failed to load categories"
                     );
                 }
 
                 setCategories(data.categories || []);
             } catch (error) {
-                console.error(
-                    "Category Fetch Error:",
-                    error
-                );
-
-                setError(
-                    "Unable to load categories."
-                );
+                console.error("Category Fetch Error:", error);
+                setError("Unable to load categories.");
             } finally {
                 setCategoryLoading(false);
             }
@@ -71,15 +63,11 @@ function AddProduct() {
     // HANDLE INPUT
     // =========================
     const handleChange = (event) => {
-        const { name, value, type, checked } =
-            event.target;
+        const { name, value, type, checked } = event.target;
 
         setFormData((previous) => ({
             ...previous,
-            [name]:
-                type === "checkbox"
-                    ? checked
-                    : value,
+            [name]: type === "checkbox" ? checked : value,
         }));
     };
 
@@ -87,31 +75,17 @@ function AddProduct() {
     // HANDLE IMAGE
     // =========================
     const handleImageChange = (event) => {
-        const selectedImage =
-            event.target.files[0];
+        const selectedImage = event.target.files[0];
 
         if (!selectedImage) return;
 
-        // Check image type
-        if (
-            !selectedImage.type.startsWith(
-                "image/"
-            )
-        ) {
-            setError(
-                "Please select a valid image."
-            );
+        if (!selectedImage.type.startsWith("image/")) {
+            setError("Please select a valid image.");
             return;
         }
 
-        // 5MB limit
-        if (
-            selectedImage.size >
-            5 * 1024 * 1024
-        ) {
-            setError(
-                "Image size must be less than 5MB."
-            );
+        if (selectedImage.size > 5 * 1024 * 1024) {
+            setError("Image size must be less than 5MB.");
             return;
         }
 
@@ -119,9 +93,7 @@ function AddProduct() {
         setImage(selectedImage);
 
         setImagePreview(
-            URL.createObjectURL(
-                selectedImage
-            )
+            URL.createObjectURL(selectedImage)
         );
     };
 
@@ -133,107 +105,59 @@ function AddProduct() {
 
         setError("");
 
-        // Basic validation
         if (!formData.name.trim()) {
-            setError(
-                "Product name is required."
-            );
+            setError("Product name is required.");
             return;
         }
 
         if (!formData.description.trim()) {
-            setError(
-                "Product description is required."
-            );
+            setError("Product description is required.");
             return;
         }
 
         if (!formData.category) {
-            setError(
-                "Please select a category."
-            );
+            setError("Please select a category.");
             return;
         }
 
         if (!formData.price) {
-            setError(
-                "Product price is required."
-            );
+            setError("Product price is required.");
             return;
         }
 
         if (!formData.stock) {
-            setError(
-                "Product stock is required."
-            );
+            setError("Product stock is required.");
             return;
         }
 
         if (!image) {
-            setError(
-                "Please select a product image."
-            );
+            setError("Please select a product image.");
             return;
         }
 
         try {
             setLoading(true);
 
-            const token =
-                localStorage.getItem(
-                    "token"
-                );
+            const token = localStorage.getItem("token");
 
             const data = new FormData();
 
-            data.append(
-                "name",
-                formData.name
-            );
-
-            data.append(
-                "description",
-                formData.description
-            );
-
-            data.append(
-                "category",
-                formData.category
-            );
-
-            data.append(
-                "price",
-                Number(formData.price)
-            );
+            data.append("name", formData.name);
+            data.append("description", formData.description);
+            data.append("category", formData.category);
+            data.append("price", Number(formData.price));
 
             data.append(
                 "discountPrice",
                 formData.discountPrice
-                    ? Number(
-                          formData.discountPrice
-                      )
+                    ? Number(formData.discountPrice)
                     : 0
             );
 
-            data.append(
-                "material",
-                formData.material
-            );
-
-            data.append(
-                "stock",
-                Number(formData.stock)
-            );
-
-            data.append(
-                "featured",
-                formData.featured
-            );
-
-            data.append(
-                "image",
-                image
-            );
+            data.append("material", formData.material);
+            data.append("stock", Number(formData.stock));
+            data.append("featured", formData.featured);
+            data.append("image", image);
 
             const response = await fetch(
                 `${API_URL}/products`,
@@ -246,31 +170,23 @@ function AddProduct() {
                 }
             );
 
-            const result =
-                await response.json();
+            const result = await response.json();
 
             if (!response.ok) {
                 throw new Error(
-                    result.message ||
-                        "Failed to create product"
+                    result.message || "Failed to create product"
                 );
             }
 
-            alert(
-                "Product added successfully!"
-            );
+            alert("Product added successfully!");
 
             navigate("/admin");
 
         } catch (error) {
-            console.error(
-                "Add Product Error:",
-                error
-            );
+            console.error("Add Product Error:", error);
 
             setError(
-                error.message ||
-                    "Unable to add product."
+                error.message || "Unable to add product."
             );
         } finally {
             setLoading(false);
@@ -282,32 +198,23 @@ function AddProduct() {
 
             <div className="add-product-container">
 
-                {/* HEADER */}
+                {/* =========================
+                    PAGE TITLE
+                ========================= */}
 
-                <div className="add-product-header">
+                <div className="add-product-title">
 
-                    <button
-                        type="button"
-                        className="back-btn"
-                        onClick={() =>
-                            navigate("/admin")
-                        }
-                    >
-                        ← Back to Dashboard
-                    </button>
-
-                    <h1>
-                        Add New Product
-                    </h1>
+                    <h1>Add New Product</h1>
 
                     <p>
-                        Add a new jewellery
-                        product to your store.
+                        Add a new jewellery product to your store.
                     </p>
 
                 </div>
 
-                {/* ERROR */}
+                {/* =========================
+                    ERROR
+                ========================= */}
 
                 {error && (
                     <div className="form-error">
@@ -315,36 +222,32 @@ function AddProduct() {
                     </div>
                 )}
 
-                {/* FORM */}
+                {/* =========================
+                    FORM
+                ========================= */}
 
                 <form
                     className="add-product-form"
                     onSubmit={handleSubmit}
                 >
 
-                    {/* PRODUCT INFORMATION */}
+                    {/* =========================
+                        PRODUCT INFORMATION
+                    ========================= */}
 
                     <div className="form-section">
 
-                        <h2>
-                            Product Information
-                        </h2>
+                        <h2>Product Information</h2>
 
                         <div className="form-group">
 
-                            <label>
-                                Product Name
-                            </label>
+                            <label>Product Name</label>
 
                             <input
                                 type="text"
                                 name="name"
-                                value={
-                                    formData.name
-                                }
-                                onChange={
-                                    handleChange
-                                }
+                                value={formData.name}
+                                onChange={handleChange}
                                 placeholder="Enter product name"
                             />
 
@@ -352,18 +255,12 @@ function AddProduct() {
 
                         <div className="form-group">
 
-                            <label>
-                                Description
-                            </label>
+                            <label>Description</label>
 
                             <textarea
                                 name="description"
-                                value={
-                                    formData.description
-                                }
-                                onChange={
-                                    handleChange
-                                }
+                                value={formData.description}
+                                onChange={handleChange}
                                 placeholder="Enter product description"
                                 rows="5"
                             />
@@ -374,21 +271,13 @@ function AddProduct() {
 
                             <div className="form-group">
 
-                                <label>
-                                    Category
-                                </label>
+                                <label>Category</label>
 
                                 <select
                                     name="category"
-                                    value={
-                                        formData.category
-                                    }
-                                    onChange={
-                                        handleChange
-                                    }
-                                    disabled={
-                                        categoryLoading
-                                    }
+                                    value={formData.category}
+                                    onChange={handleChange}
+                                    disabled={categoryLoading}
                                 >
 
                                     <option value="">
@@ -397,24 +286,14 @@ function AddProduct() {
                                             : "Select Category"}
                                     </option>
 
-                                    {categories.map(
-                                        (
-                                            category
-                                        ) => (
-                                            <option
-                                                key={
-                                                    category._id
-                                                }
-                                                value={
-                                                    category._id
-                                                }
-                                            >
-                                                {
-                                                    category.name
-                                                }
-                                            </option>
-                                        )
-                                    )}
+                                    {categories.map((category) => (
+                                        <option
+                                            key={category._id}
+                                            value={category._id}
+                                        >
+                                            {category.name}
+                                        </option>
+                                    ))}
 
                                 </select>
 
@@ -422,19 +301,13 @@ function AddProduct() {
 
                             <div className="form-group">
 
-                                <label>
-                                    Material
-                                </label>
+                                <label>Material</label>
 
                                 <input
                                     type="text"
                                     name="material"
-                                    value={
-                                        formData.material
-                                    }
-                                    onChange={
-                                        handleChange
-                                    }
+                                    value={formData.material}
+                                    onChange={handleChange}
                                     placeholder="Handcrafted"
                                 />
 
@@ -444,31 +317,25 @@ function AddProduct() {
 
                     </div>
 
-                    {/* PRICE & STOCK */}
+                    {/* =========================
+                        PRICE & INVENTORY
+                    ========================= */}
 
                     <div className="form-section">
 
-                        <h2>
-                            Price & Inventory
-                        </h2>
+                        <h2>Price & Inventory</h2>
 
                         <div className="form-row">
 
                             <div className="form-group">
 
-                                <label>
-                                    Price (₹)
-                                </label>
+                                <label>Price (₹)</label>
 
                                 <input
                                     type="number"
                                     name="price"
-                                    value={
-                                        formData.price
-                                    }
-                                    onChange={
-                                        handleChange
-                                    }
+                                    value={formData.price}
+                                    onChange={handleChange}
                                     placeholder="Enter price"
                                     min="0"
                                 />
@@ -484,12 +351,8 @@ function AddProduct() {
                                 <input
                                     type="number"
                                     name="discountPrice"
-                                    value={
-                                        formData.discountPrice
-                                    }
-                                    onChange={
-                                        handleChange
-                                    }
+                                    value={formData.discountPrice}
+                                    onChange={handleChange}
                                     placeholder="Optional"
                                     min="0"
                                 />
@@ -500,19 +363,13 @@ function AddProduct() {
 
                         <div className="form-group">
 
-                            <label>
-                                Stock
-                            </label>
+                            <label>Stock</label>
 
                             <input
                                 type="number"
                                 name="stock"
-                                value={
-                                    formData.stock
-                                }
-                                onChange={
-                                    handleChange
-                                }
+                                value={formData.stock}
+                                onChange={handleChange}
                                 placeholder="Enter stock quantity"
                                 min="0"
                             />
@@ -524,12 +381,8 @@ function AddProduct() {
                             <input
                                 type="checkbox"
                                 name="featured"
-                                checked={
-                                    formData.featured
-                                }
-                                onChange={
-                                    handleChange
-                                }
+                                checked={formData.featured}
+                                onChange={handleChange}
                             />
 
                             <span>
@@ -540,13 +393,13 @@ function AddProduct() {
 
                     </div>
 
-                    {/* IMAGE */}
+                    {/* =========================
+                        PRODUCT IMAGE
+                    ========================= */}
 
                     <div className="form-section">
 
-                        <h2>
-                            Product Image
-                        </h2>
+                        <h2>Product Image</h2>
 
                         <div className="image-upload">
 
@@ -557,29 +410,25 @@ function AddProduct() {
 
                                 {imagePreview ? (
                                     <img
-                                        src={
-                                            imagePreview
-                                        }
+                                        src={imagePreview}
                                         alt="Preview"
                                         className="image-preview"
                                     />
                                 ) : (
-                                    <div>
+                                    <div className="upload-content">
+
                                         <span className="upload-icon">
                                             +
                                         </span>
 
                                         <p>
-                                            Click to
-                                            upload
-                                            image
+                                            Click to upload image
                                         </p>
 
                                         <small>
-                                            JPG, PNG,
-                                            WEBP up
-                                            to 5MB
+                                            JPG, PNG, WEBP up to 5MB
                                         </small>
+
                                     </div>
                                 )}
 
@@ -589,41 +438,50 @@ function AddProduct() {
                                 id="product-image"
                                 type="file"
                                 accept="image/*"
-                                onChange={
-                                    handleImageChange
-                                }
+                                onChange={handleImageChange}
                             />
 
                         </div>
 
                     </div>
 
-                    {/* SUBMIT */}
+                    {/* =========================
+                        BOTTOM BUTTONS
+                    ========================= */}
 
                     <div className="form-actions">
 
                         <button
                             type="button"
-                            className="cancel-btn"
-                            onClick={() =>
-                                navigate(
-                                    "/admin"
-                                )
-                            }
+                            className="back-dashboard-btn"
+                            onClick={() => navigate("/admin")}
                             disabled={loading}
                         >
-                            Cancel
+                            ← Back to Dashboard
                         </button>
 
-                        <button
-                            type="submit"
-                            className="submit-btn"
-                            disabled={loading}
-                        >
-                            {loading
-                                ? "Adding Product..."
-                                : "Add Product"}
-                        </button>
+                        <div className="right-actions">
+
+                            <button
+                                type="button"
+                                className="cancel-btn"
+                                onClick={() => navigate("/admin")}
+                                disabled={loading}
+                            >
+                                Cancel
+                            </button>
+
+                            <button
+                                type="submit"
+                                className="submit-btn"
+                                disabled={loading}
+                            >
+                                {loading
+                                    ? "Adding Product..."
+                                    : "Add Product"}
+                            </button>
+
+                        </div>
 
                     </div>
 

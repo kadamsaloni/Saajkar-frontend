@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API_URL from "../api/api";
+import "./AdminLogin.css";
+import logo from "../assets/saajkar-logo.png";
 
 function AdminLogin() {
 
@@ -9,9 +11,9 @@ function AdminLogin() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
-
 
     const handleLogin = async (e) => {
 
@@ -19,8 +21,14 @@ function AdminLogin() {
 
         setError("");
 
-        if (!email || !password) {
-            setError("Email and password are required");
+        // Validation
+        if (!email.trim()) {
+            setError("Admin email is required");
+            return;
+        }
+
+        if (!password) {
+            setError("Password is required");
             return;
         }
 
@@ -38,7 +46,7 @@ function AdminLogin() {
                     },
 
                     body: JSON.stringify({
-                        email,
+                        email: email.trim(),
                         password
                     })
                 }
@@ -48,19 +56,15 @@ function AdminLogin() {
 
             console.log("Admin Login Response:", data);
 
-
             if (!response.ok) {
-
                 setError(
-                    data.message || "Login failed"
+                    data.message || "Invalid email or password"
                 );
-
                 return;
             }
 
-
-            // Check admin role
-            if (data.user.role !== "admin") {
+            // Check whether the logged-in user is an admin
+            if (!data.user || data.user.role !== "admin") {
 
                 setError(
                     "Access denied. Admin account required."
@@ -68,7 +72,6 @@ function AdminLogin() {
 
                 return;
             }
-
 
             // Save admin authentication
             localStorage.setItem(
@@ -81,17 +84,18 @@ function AdminLogin() {
                 JSON.stringify(data.user)
             );
 
-
-            // Go to admin dashboard
+            // Go to Admin Dashboard
             navigate("/admin");
-
 
         } catch (error) {
 
-            console.error(error);
+            console.error(
+                "Admin Login Error:",
+                error
+            );
 
             setError(
-                "Unable to connect to server"
+                "Unable to connect to server. Please try again."
             );
 
         } finally {
@@ -99,95 +103,123 @@ function AdminLogin() {
             setLoading(false);
 
         }
-
     };
-
 
     return (
 
-        <div>
+        <div className="admin-login-page">
 
-            <h1>
-                Admin Login
-            </h1>
+            <div className="admin-login-card">
 
+                {/* Logo */}
 
-            {error && (
-                <p style={{ color: "red" }}>
-                    {error}
+                <img
+                    src={logo}
+                    alt="Saajkar Logo"
+                    className="admin-logo"
+                />
+
+                {/* Heading */}
+
+                <h1>Admin Login</h1>
+
+                <p className="admin-subtitle">
+                    Welcome to Saajkar Admin Panel
                 </p>
-            )}
 
+                {/* Error */}
 
-            <form onSubmit={handleLogin}>
+                {error && (
+                    <div className="admin-error">
+                        {error}
+                    </div>
+                )}
 
-                <div>
+                {/* Login Form */}
 
-                    <label>
-                        Admin Email
-                    </label>
+                <form onSubmit={handleLogin}>
 
-                    <br />
+                    {/* Email */}
 
-                    <input
-                        type="email"
-                        placeholder="Enter admin email"
-                        value={email}
-                        onChange={(e) =>
-                            setEmail(e.target.value)
+                    <div className="admin-input-group">
+
+                        <label>
+                            Admin Email
+                        </label>
+
+                        <input
+                            type="email"
+                            placeholder="Enter admin email"
+                            value={email}
+                            onChange={(e) =>
+                                setEmail(e.target.value)
+                            }
+                        />
+
+                    </div>
+
+                    {/* Password */}
+
+                    <div className="admin-input-group">
+
+                        <label>
+                            Password
+                        </label>
+
+                        <div className="password-box">
+
+                            <input
+                                type={
+                                    showPassword
+                                        ? "text"
+                                        : "password"
+                                }
+                                placeholder="Enter admin password"
+                                value={password}
+                                onChange={(e) =>
+                                    setPassword(e.target.value)
+                                }
+                            />
+
+                            <button
+                                type="button"
+                                className="show-password"
+                                onClick={() =>
+                                    setShowPassword(!showPassword)
+                                }
+                            >
+                                {showPassword ? "Hide" : "Show"}
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    {/* Login Button */}
+
+                    <button
+                        type="submit"
+                        className="admin-login-btn"
+                        disabled={loading}
+                    >
+                        {loading
+                            ? "Logging in..."
+                            : "Admin Login"
                         }
-                    />
+                    </button>
 
-                </div>
+                </form>
 
-
-                <br />
-
-
-                <div>
-
-                    <label>
-                        Password
-                    </label>
-
-                    <br />
-
-                    <input
-                        type="password"
-                        placeholder="Enter admin password"
-                        value={password}
-                        onChange={(e) =>
-                            setPassword(e.target.value)
-                        }
-                    />
-
-                </div>
-
-
-                <br />
-
+                {/* Back Home */}
 
                 <button
-                    type="submit"
-                    disabled={loading}
+                    className="admin-home-btn"
+                    onClick={() => navigate("/")}
                 >
-                    {loading
-                        ? "Logging in..."
-                        : "Admin Login"
-                    }
+                    Back to Home
                 </button>
 
-            </form>
-
-
-            <br />
-
-
-            <button
-                onClick={() => navigate("/")}
-            >
-                Back to Home
-            </button>
+            </div>
 
         </div>
 

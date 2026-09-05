@@ -13,8 +13,8 @@ function Login() {
     const [loading, setLoading] = useState(false);
 
     const handleLogin = async () => {
+        setError("");
 
-        // Email validation
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (email === "") {
@@ -32,11 +32,9 @@ function Login() {
             return;
         }
 
-        setError("");
         setLoading(true);
 
         try {
-
             const response = await fetch(`${API_URL}/auth/login`, {
                 method: "POST",
                 headers: {
@@ -55,20 +53,13 @@ function Login() {
                 return;
             }
 
-            // Save login information
             localStorage.setItem("token", data.token);
             localStorage.setItem("user", JSON.stringify(data.user));
 
-            console.log("Login successful:", data);
-
-            // Go to home page
             navigate("/");
-
         } catch (error) {
-
             console.error("Login Error:", error);
             setError("Unable to connect to server. Please try again.");
-
         } finally {
             setLoading(false);
         }
@@ -81,9 +72,15 @@ function Login() {
 
                 <img
                     src={registerLogo}
-                    alt="Login"
+                    alt="Saajkar"
                     className="top-image"
                 />
+
+                <h2>Welcome Back</h2>
+
+                <p className="login-subtitle">
+                    Login to your Saajkar account
+                </p>
 
                 {error && (
                     <p className="error-message">

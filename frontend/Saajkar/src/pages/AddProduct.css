@@ -1,83 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Poppins:wght@300;400;500;600&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+}
+
+/* =====================================
+   PAGE
+===================================== */
+
 .add-product-page {
     min-height: 100vh;
+
     background: rgb(255, 229, 217);
-    padding: 40px 6%;
+
+    padding: 45px 6% 60px;
 }
 
 .add-product-container {
-    max-width: 900px;
-    margin: 0 auto;
+    width: 100%;
+    max-width: 1000px;
+
+    margin: auto;
 }
 
-/* HEADER */
+/* =====================================
+   TITLE
+===================================== */
 
-.add-product-header {
-    margin-bottom: 30px;
+.add-product-title {
+    text-align: center;
+
+    margin-bottom: 35px;
 }
 
-.add-product-header h1 {
-    margin: 20px 0 8px;
-    color: #2d2522;
-    font-size: 34px;
-}
-
-.add-product-header p {
-    color: #777;
+.add-product-title h1 {
     margin: 0;
+
+    font-family: "Cinzel", serif;
+
+    font-size: 36px;
+    font-weight: 600;
+
+    color: #000;
+
+    letter-spacing: 1px;
 }
 
-.back-btn {
-    border: none;
-    background: transparent;
-    color: #2d2522;
-    cursor: pointer;
-    padding: 0;
-    font-size: 14px;
+.add-product-title p {
+    margin: 8px 0 0;
+
+    color: #555;
+
+    font-size: 13px;
 }
 
-.back-btn:hover {
-    text-decoration: underline;
-}
-
-/* ERROR */
+/* =====================================
+   ERROR
+===================================== */
 
 .form-error {
-    background: #ffebee;
-    color: #c62828;
-    border: 1px solid #ffcdd2;
-    padding: 12px 15px;
-    border-radius: 6px;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
+
+    padding: 13px 17px;
+
+    background: #fff;
+
+    color: #800020;
+
+    border-left: 4px solid #800020;
+
+    font-size: 12px;
 }
 
-/* FORM */
+/* =====================================
+   FORM
+===================================== */
 
 .add-product-form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+
+    gap: 22px;
 }
 
+/* =====================================
+   SECTIONS
+===================================== */
+
 .form-section {
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    border: 1px solid #eee;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+    background: #fff;
+
+    padding: 30px 32px;
+
+    border: 1px solid rgba(0, 0, 0, 0.08);
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
 }
 
 .form-section h2 {
     margin: 0 0 25px;
-    color: #2d2522;
-    font-size: 21px;
+
+    padding-bottom: 12px;
+
+    border-bottom: 1px solid #eeeeee;
+
+    font-family: "Cinzel", serif;
+
+    font-size: 19px;
+    font-weight: 600;
+
+    color: #000;
 }
 
-/* FORM GROUP */
+/* =====================================
+   FORM GROUP
+===================================== */
 
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+
     margin-bottom: 20px;
 }
 
@@ -86,61 +134,106 @@
 }
 
 .form-group label {
-    font-size: 14px;
+    margin-bottom: 7px;
+
+    color: #222;
+
+    font-size: 12px;
     font-weight: 600;
-    color: #444;
 }
+
+/* =====================================
+   INPUTS
+===================================== */
 
 .form-group input,
 .form-group textarea,
 .form-group select {
     width: 100%;
-    box-sizing: border-box;
+
     padding: 12px 14px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    background: white;
-    font-family: inherit;
-    font-size: 14px;
+
+    border: 1px solid #d6d6d6;
+
+    border-radius: 3px;
+
     outline: none;
+
+    background: #fff;
+
+    color: #222;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 12px;
+
+    transition: 0.25s ease;
 }
 
-.form-group textarea {
-    resize: vertical;
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #aaa;
 }
 
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
-    border-color: #2d2522;
+    border-color: #800020;
+
+    box-shadow: 0 0 0 2px rgba(128, 0, 32, 0.06);
 }
 
-/* ROW */
+.form-group textarea {
+    min-height: 120px;
+
+    resize: vertical;
+
+    line-height: 1.6;
+}
+
+/* =====================================
+   TWO COLUMNS
+===================================== */
 
 .form-row {
     display: grid;
+
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
+
+    gap: 25px;
 }
 
-/* FEATURED */
+/* =====================================
+   FEATURED
+===================================== */
 
 .featured-checkbox {
     display: flex;
     align-items: center;
-    gap: 10px;
+
+    gap: 9px;
+
+    margin-top: 18px;
+
+    color: #333;
+
+    font-size: 12px;
+
     cursor: pointer;
-    color: #444;
-    font-size: 14px;
 }
 
 .featured-checkbox input {
-    width: 17px;
-    height: 17px;
+    width: 16px;
+    height: 16px;
+
+    accent-color: #800020;
+
     cursor: pointer;
 }
 
-/* IMAGE */
+/* =====================================
+   IMAGE UPLOAD
+===================================== */
 
 .image-upload {
     width: 100%;
@@ -152,117 +245,303 @@
 
 .upload-box {
     width: 100%;
-    height: 300px;
-    border: 2px dashed #d5cdca;
-    border-radius: 8px;
+    height: 280px;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
+
+    border: 1px dashed #aaa;
+
+    background: #faf7f5;
+
     cursor: pointer;
-    background: #fcfaf9;
+
     overflow: hidden;
-    box-sizing: border-box;
-    transition: 0.2s ease;
+
+    transition: 0.3s ease;
 }
 
 .upload-box:hover {
-    border-color: #2d2522;
-    background: #faf7f5;
+    border-color: #800020;
+
+    background: #fff;
+}
+
+.upload-content {
+    text-align: center;
 }
 
 .upload-icon {
-    display: block;
-    font-size: 45px;
-    color: #777;
-    margin-bottom: 10px;
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 12px;
+
+    border: 1px solid #800020;
+
+    border-radius: 50%;
+
+    color: #800020;
+
+    font-size: 28px;
+    font-weight: 300;
+
+    transition: 0.3s ease;
+}
+
+.upload-box:hover .upload-icon {
+    background: #800020;
+
+    color: #fff;
 }
 
 .upload-box p {
-    margin: 0 0 8px;
-    color: #555;
-    font-size: 15px;
+    margin: 0 0 5px;
+
+    color: #333;
+
+    font-size: 13px;
+    font-weight: 500;
 }
 
 .upload-box small {
     color: #999;
+
+    font-size: 10px;
 }
 
 .image-preview {
     width: 100%;
     height: 100%;
+
     object-fit: contain;
+
+    padding: 15px;
+
+    background: #fff;
 }
 
-/* ACTIONS */
+/* =====================================
+   BOTTOM ACTION AREA
+===================================== */
 
 .form-actions {
+    width: 100%;
+
     display: flex;
-    justify-content: flex-end;
-    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+
+    padding-top: 5px;
 }
 
-.form-actions button {
-    padding: 12px 25px;
-    border-radius: 6px;
+/* =====================================
+   BACK DASHBOARD
+===================================== */
+
+.back-dashboard-btn {
+    padding: 10px 17px;
+
+    background: transparent;
+
+    color: #800020;
+
+    border: 1px solid #800020;
+
+    border-radius: 3px;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 11px;
+    font-weight: 500;
+
     cursor: pointer;
-    font-size: 14px;
-    border: none;
+
+    transition: 0.3s ease;
 }
+
+.back-dashboard-btn:hover {
+    background: #800020;
+
+    color: #fff;
+}
+
+/* =====================================
+   RIGHT BUTTONS
+===================================== */
+
+.right-actions {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+}
+
+.right-actions button {
+    height: 42px;
+
+    padding: 0 22px;
+
+    border-radius: 3px;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 11px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+/* CANCEL */
 
 .cancel-btn {
-    background: white;
-    color: #555;
-    border: 1px solid #ddd !important;
+    background: #fff;
+
+    color: #333;
+
+    border: 1px solid #ccc;
 }
 
 .cancel-btn:hover {
-    background: #f4f4f4;
+    background: #f3f3f3;
 }
 
+/* ADD PRODUCT */
+
 .submit-btn {
-    background: #2d2522;
-    color: white;
+    background: #000;
+
+    color: #fff;
+
+    border: 1px solid #000;
 }
 
 .submit-btn:hover {
-    opacity: 0.85;
+    background: #800020;
+
+    border-color: #800020;
 }
 
-.form-actions button:disabled {
-    opacity: 0.6;
+/* DISABLED */
+
+button:disabled {
+    opacity: 0.5;
+
     cursor: not-allowed;
 }
 
-/* RESPONSIVE */
+/* =====================================
+   TABLET
+===================================== */
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
+
     .add-product-page {
-        padding: 25px 4%;
+        padding: 35px 4% 50px;
+    }
+
+    .add-product-title h1 {
+        font-size: 31px;
     }
 
     .form-section {
-        padding: 20px;
+        padding: 27px;
+    }
+}
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media (max-width: 650px) {
+
+    .add-product-page {
+        padding: 25px 15px 40px;
+    }
+
+    .add-product-title {
+        margin-bottom: 25px;
+    }
+
+    .add-product-title h1 {
+        font-size: 26px;
+    }
+
+    .add-product-title p {
+        font-size: 11px;
+    }
+
+    .form-section {
+        padding: 22px 18px;
+    }
+
+    .form-section h2 {
+        font-size: 17px;
     }
 
     .form-row {
         grid-template-columns: 1fr;
+
         gap: 0;
     }
 
-    .add-product-header h1 {
-        font-size: 28px;
+    .upload-box {
+        height: 230px;
     }
+
+    /* Bottom buttons */
 
     .form-actions {
-        flex-direction: column-reverse;
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 12px;
     }
 
-    .form-actions button {
+    .back-dashboard-btn {
         width: 100%;
     }
 
+    .right-actions {
+        width: 100%;
+    }
+
+    .right-actions button {
+        flex: 1;
+    }
+}
+
+/* =====================================
+   SMALL PHONE
+===================================== */
+
+@media (max-width: 400px) {
+
+    .add-product-page {
+        padding: 20px 12px 35px;
+    }
+
+    .add-product-title h1 {
+        font-size: 23px;
+    }
+
+    .form-section {
+        padding: 20px 15px;
+    }
+
     .upload-box {
-        height: 250px;
+        height: 210px;
+    }
+
+    .right-actions button {
+        padding: 0 15px;
     }
 }

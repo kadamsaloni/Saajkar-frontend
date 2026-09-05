@@ -1,239 +1,352 @@
-/* Register Page */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
 
-.register-container{
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:#FFFDF8;
-    padding:20px;
+* {
+    box-sizing: border-box;
 }
 
+/* ================================
+   REGISTER PAGE
+================================ */
 
-/* Main Card */
+.register-container {
+    width: 100%;
 
-.register-card{
-    width:420px;
-    background:#ffffff;
+    min-height: 100vh;
 
-    padding:35px 40px;
+    display: flex;
 
-    border-radius:25px;
+    justify-content: center;
 
-    box-shadow:0 15px 35px rgba(0,0,0,0.12);
+    align-items: center;
 
-    display:flex;
-    flex-direction:column;
-    align-items:center;
+    padding: 40px 20px;
 
-    box-sizing:border-box;
+    background-image:
+        linear-gradient(
+            rgba(255, 253, 248, 0.88),
+            rgba(255, 253, 248, 0.88)
+        ),
+        url("../assets/banner1.jpg");
+
+    background-size: cover;
+
+    background-position: center;
+
+    background-repeat: no-repeat;
 }
 
+/* ================================
+   REGISTER CARD
+================================ */
 
+.register-card {
+    width: 440px;
 
-/* Logo */
+    max-width: 100%;
 
-.register-logo{
+    padding: 35px 40px;
 
-    width:190px;
-    height:120px;
+    background: rgba(255, 255, 255, 0.97);
 
-    object-fit:contain;
+    border-radius: 22px;
 
-    display:block;
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.18);
 
-    margin:0 auto 25px;
+    display: flex;
 
+    flex-direction: column;
+
+    align-items: center;
+
+    animation: registerFade 0.7s ease;
 }
 
-
-
-/* Heading */
-
-.register-card h2{
-
-    font-family:"Cinzel",serif;
-
-    font-size:30px;
-
-    color:#0F0F0F;
-
-    margin:0 0 10px;
-
-    text-align:center;
-
-}
-
-
-
-/* Description */
-
-.register-card p{
-
-    font-size:15px;
-
-    color:#555;
-
-    text-align:center;
-
-    margin-bottom:25px;
-
-}
-
-
-
-/* Inputs */
-
-.register-card input{
-
-    width:100%;
-
-    height:55px;
-
-    padding:0 20px;
-
-    margin-bottom:18px;
-
-    border:1.5px solid #ccc;
-
-    border-radius:12px;
-
-    font-size:17px;
-
-    outline:none;
-
-    box-sizing:border-box;
-
-}
-
-
-
-.register-card input:focus{
-
-    border-color:#7B1E1E;
-
-}
-
-
-
-/* Error */
-
-.error{
-
-    width:100%;
-
-    text-align:center;
-
-    color:red;
-
-    font-size:14px;
-
-    margin-bottom:15px;
-
-}
-
-
-
-/* Buttons */
-
-.register-card button{
-
-    width:100%;
-
-    height:55px;
-
-    border:none;
-
-    border-radius:12px;
-
-    font-size:17px;
-
-    cursor:pointer;
-
-    margin-bottom:15px;
-
-    transition:0.3s;
-
-}
-
-
-
-/* Send OTP */
-
-.otp-btn{
-
-    background:#7B2E26;
-
-    color:white;
-
-}
-
-
-.otp-btn:hover{
-
-    background:#5A1712;
-
-}
-
-
-
-/* Verify OTP */
-
-.verify-btn{
-
-    background:#D4AF37;
-
-    color:white;
-
-}
-
-
-.verify-btn:hover{
-
-    background:#B89220;
-
-}
-
-
-
-/* Back Button */
-
-.back-btn{
-
-    background:#111;
-
-    color:white;
-
-}
-
-
-.back-btn:hover{
-
-    background:#333;
-
-}
-
-
-
-/* Mobile */
-
-@media(max-width:500px){
-
-    .register-card{
-
-        width:90%;
-
-        padding:30px 25px;
-
+/* ================================
+   ANIMATION
+================================ */
+
+@keyframes registerFade {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px);
     }
 
-
-    .register-logo{
-
-        width:150px;
-
-        height:100px;
-
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 
+}
+
+/* ================================
+   LOGO
+================================ */
+
+.register-logo {
+    width: 170px;
+
+    height: 100px;
+
+    object-fit: contain;
+
+    display: block;
+
+    margin-bottom: 15px;
+}
+
+/* ================================
+   HEADING
+================================ */
+
+.register-card h2 {
+    font-family: "Cinzel", serif;
+
+    font-size: 30px;
+
+    color: #0F0F0F;
+
+    margin: 0 0 7px;
+
+    text-align: center;
+}
+
+/* ================================
+   SUBTITLE
+================================ */
+
+.register-subtitle {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+
+    color: #666;
+
+    margin: 0 0 22px;
+
+    text-align: center;
+}
+
+/* ================================
+   INPUTS
+================================ */
+
+.register-card input {
+    width: 100%;
+
+    height: 52px;
+
+    padding: 0 16px;
+
+    margin-bottom: 15px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 10px;
+
+    background: white;
+
+    color: #333;
+
+    font-size: 15px;
+
+    font-family: "Poppins", sans-serif;
+
+    outline: none;
+
+    transition: 0.3s;
+}
+
+.register-card input:focus {
+    border-color: #D4AF37;
+
+    box-shadow:
+        0 0 8px rgba(212, 175, 55, 0.25);
+}
+
+.register-card input::placeholder {
+    color: #777;
+}
+
+/* ================================
+   ERROR
+================================ */
+
+.register-error {
+    width: 100%;
+
+    text-align: center;
+
+    color: #d00000;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 13px;
+
+    margin: 0 0 15px;
+}
+
+/* ================================
+   SUCCESS
+================================ */
+
+.register-success {
+    width: 100%;
+
+    text-align: center;
+
+    color: green;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 13px;
+
+    margin: 0 0 15px;
+}
+
+/* ================================
+   REGISTER BUTTON
+================================ */
+
+.register-btn {
+    width: 100%;
+
+    height: 52px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #D4AF37;
+
+    color: white;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    margin-top: 5px;
+
+    margin-bottom: 12px;
+
+    transition: 0.3s;
+}
+
+.register-btn:hover {
+    background: #b8932d;
+
+    transform: translateY(-2px);
+}
+
+.register-btn:disabled {
+    opacity: 0.6;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+/* ================================
+   BACK BUTTON
+================================ */
+
+.back-btn {
+    width: 100%;
+
+    height: 52px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #111;
+
+    color: white;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    margin-bottom: 18px;
+
+    transition: 0.3s;
+}
+
+.back-btn:hover {
+    background: #8B0000;
+}
+
+/* ================================
+   LOGIN LINK
+================================ */
+
+.login-link {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+
+    color: #333;
+
+    text-align: center;
+}
+
+.login-link a {
+    color: #D4AF37;
+
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+.login-link a:hover {
+    color: #8B0000;
+
+    text-decoration: underline;
+}
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 500px) {
+
+    .register-container {
+        padding: 20px 15px;
+    }
+
+    .register-card {
+        width: 100%;
+
+        padding: 30px 22px;
+
+        border-radius: 18px;
+    }
+
+    .register-logo {
+        width: 145px;
+
+        height: 85px;
+    }
+
+    .register-card h2 {
+        font-size: 25px;
+    }
+
+    .register-card input {
+        height: 50px;
+
+        font-size: 14px;
+    }
+
+    .register-btn,
+    .back-btn {
+        height: 50px;
+    }
 }

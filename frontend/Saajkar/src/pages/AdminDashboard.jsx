@@ -19,6 +19,7 @@ function AdminDashboard() {
     // =========================
     // FETCH CATEGORIES
     // =========================
+
     const fetchCategories = async () => {
         try {
             const response = await fetch(`${API_URL}/categories`);
@@ -41,6 +42,7 @@ function AdminDashboard() {
     // =========================
     // FETCH PRODUCTS
     // =========================
+
     const fetchProducts = async (categoryId = "all") => {
         try {
             setLoading(true);
@@ -74,6 +76,7 @@ function AdminDashboard() {
     // =========================
     // DELETE SINGLE PRODUCT
     // =========================
+
     const handleDelete = async (productId) => {
         const confirmed = window.confirm(
             "Are you sure you want to delete this product?"
@@ -109,7 +112,10 @@ function AdminDashboard() {
             fetchProducts(selectedCategory);
         } catch (error) {
             console.error("Delete Error:", error);
-            alert(error.message || "Unable to delete product.");
+
+            alert(
+                error.message || "Unable to delete product."
+            );
         } finally {
             setDeletingId(null);
         }
@@ -118,6 +124,7 @@ function AdminDashboard() {
     // =========================
     // DELETE ALL PRODUCTS
     // =========================
+
     const handleDeleteAll = async () => {
         if (products.length === 0) {
             alert("There are no products to delete.");
@@ -162,6 +169,7 @@ function AdminDashboard() {
             setProducts([]);
         } catch (error) {
             console.error("Delete All Error:", error);
+
             alert(
                 error.message ||
                     "Unable to delete all products."
@@ -174,6 +182,7 @@ function AdminDashboard() {
     // =========================
     // CATEGORY FILTER
     // =========================
+
     const handleCategoryChange = (categoryId) => {
         setSelectedCategory(categoryId);
         fetchProducts(categoryId);
@@ -182,6 +191,7 @@ function AdminDashboard() {
     // =========================
     // INITIAL LOAD
     // =========================
+
     useEffect(() => {
         fetchCategories();
         fetchProducts("all");
@@ -190,12 +200,18 @@ function AdminDashboard() {
     return (
         <div className="admin-dashboard">
 
-            {/* HEADER */}
+            {/* =========================
+                HEADER
+            ========================= */}
+
             <div className="admin-header">
 
                 <div>
                     <h1>Admin Dashboard</h1>
-                    <p>Manage your Saajkar products</p>
+
+                    <p>
+                        Manage your Saajkar products
+                    </p>
                 </div>
 
                 <div className="admin-actions">
@@ -223,22 +239,35 @@ function AdminDashboard() {
 
             </div>
 
-            {/* INVENTORY */}
+
+            {/* =========================
+                INVENTORY
+            ========================= */}
+
             <div className="inventory-section">
 
                 <div className="inventory-header">
+
                     <div>
+
                         <h2>Inventory</h2>
+
                         <p>
                             {products.length} product
                             {products.length !== 1
                                 ? "s"
                                 : ""}
                         </p>
+
                     </div>
+
                 </div>
 
-                {/* CATEGORY FILTERS */}
+
+                {/* =========================
+                    CATEGORY FILTER
+                ========================= */}
+
                 <div className="category-filters">
 
                     <button
@@ -255,6 +284,7 @@ function AdminDashboard() {
                     </button>
 
                     {categories.map((category) => (
+
                         <button
                             key={category._id}
                             className={
@@ -271,33 +301,51 @@ function AdminDashboard() {
                         >
                             {category.name}
                         </button>
+
                     ))}
 
                 </div>
 
-                {/* LOADING */}
+
+                {/* =========================
+                    LOADING
+                ========================= */}
+
                 {loading && (
                     <div className="status-message">
                         Loading products...
                     </div>
                 )}
 
-                {/* ERROR */}
+
+                {/* =========================
+                    ERROR
+                ========================= */}
+
                 {error && (
                     <div className="error-message">
                         {error}
                     </div>
                 )}
 
-                {/* NO PRODUCTS */}
+
+                {/* =========================
+                    NO PRODUCTS
+                ========================= */}
+
                 {!loading &&
                     !error &&
                     products.length === 0 && (
+
                         <div className="empty-message">
-                            <h3>No products found</h3>
+
+                            <h3>
+                                No products found
+                            </h3>
+
                             <p>
-                                There are no products in this
-                                category.
+                                There are no products in
+                                this category.
                             </p>
 
                             <button
@@ -309,13 +357,20 @@ function AdminDashboard() {
                             >
                                 + Add Product
                             </button>
+
                         </div>
+
                     )}
 
-                {/* PRODUCT GRID */}
+
+                {/* =========================
+                    PRODUCT GRID
+                ========================= */}
+
                 {!loading &&
                     !error &&
                     products.length > 0 && (
+
                         <div className="product-grid">
 
                             {products.map((product) => {
@@ -330,118 +385,128 @@ function AdminDashboard() {
                                         : product.price;
 
                                 return (
+
                                     <div
                                         className="admin-product-card"
                                         key={product._id}
                                     >
 
                                         {/* IMAGE */}
+
                                         <div className="product-image-container">
 
                                             {image ? (
+
                                                 <img
                                                     src={image}
-                                                    alt={
-                                                        product.name
-                                                    }
+                                                    alt={product.name}
                                                     className="admin-product-image"
                                                 />
+
                                             ) : (
+
                                                 <div className="no-image">
                                                     No Image
                                                 </div>
+
                                             )}
 
                                         </div>
 
+
                                         {/* DETAILS */}
+
                                         <div className="product-details">
 
                                             <h3>
-                                                {
-                                                    product.name
-                                                }
+                                                {product.name}
                                             </h3>
 
                                             <p className="product-category">
                                                 Category:{" "}
-                                                {
-                                                    product
-                                                        .category
-                                                        ?.name ||
-                                                    "Unknown"
-                                                }
+                                                {product.category?.name ||
+                                                    "Unknown"}
                                             </p>
+
+
+                                            {/* PRICE */}
 
                                             <div className="price-row">
 
                                                 <span className="price">
-                                                    ₹
-                                                    {
-                                                        sellingPrice
-                                                    }
+                                                    ₹{sellingPrice}
                                                 </span>
 
                                                 {product.discountPrice >
                                                     0 &&
                                                     product.discountPrice <
                                                         product.price && (
+
                                                         <span className="original-price">
                                                             ₹
                                                             {
                                                                 product.price
                                                             }
                                                         </span>
+
                                                     )}
 
                                             </div>
 
+
+                                            {/* STOCK */}
+
                                             <p className="stock">
                                                 Stock:{" "}
-                                                {
-                                                    product.stock
-                                                }
+                                                {product.stock}
                                             </p>
 
-                                            <p
-                                                className={
-                                                    product.status ===
-                                                    "Available"
-                                                        ? "status available"
-                                                        : "status out-of-stock"
-                                                }
-                                            >
-                                                {
-                                                    product.status
-                                                }
-                                            </p>
 
-                                            {/* DELETE */}
-                                            <button
-                                                className="delete-btn"
-                                                onClick={() =>
-                                                    handleDelete(
+                                            {/* AVAILABLE + DELETE */}
+
+                                            <div className="product-bottom">
+
+                                                <p
+                                                    className={
+                                                        product.status ===
+                                                        "Available"
+                                                            ? "status available"
+                                                            : "status out-of-stock"
+                                                    }
+                                                >
+                                                    {product.status}
+                                                </p>
+
+                                                <button
+                                                    className="delete-btn"
+                                                    onClick={() =>
+                                                        handleDelete(
+                                                            product._id
+                                                        )
+                                                    }
+                                                    disabled={
+                                                        deletingId ===
                                                         product._id
-                                                    )
-                                                }
-                                                disabled={
-                                                    deletingId ===
+                                                    }
+                                                >
+                                                    {deletingId ===
                                                     product._id
-                                                }
-                                            >
-                                                {deletingId ===
-                                                product._id
-                                                    ? "Deleting..."
-                                                    : "Delete"}
-                                            </button>
+                                                        ? "Deleting..."
+                                                        : "Delete"}
+                                                </button>
+
+                                            </div>
 
                                         </div>
 
                                     </div>
+
                                 );
+
                             })}
 
                         </div>
+
                     )}
 
             </div>

@@ -510,3 +510,104 @@
         gap: 25px;
     }
 }
+/* =========================================
+   COLLECTION TOOLBAR
+========================================= */
+
+.collection-toolbar {
+    width: 90%;
+    margin: 0 auto 30px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 0;
+
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.collection-toolbar p {
+    margin: 0;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+
+    color: #555;
+}
+
+
+/* =========================================
+   SORT BOX
+========================================= */
+
+.sort-box {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+}
+
+.sort-box label {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+
+    color: #222;
+}
+
+.sort-box select {
+    min-width: 190px;
+
+    padding: 10px 35px 10px 12px;
+
+    border: 1px solid #d4af37;
+
+    background: #fffdf8;
+
+    color: #222;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 13px;
+
+    cursor: pointer;
+
+    outline: none;
+
+    border-radius: 2px;
+}
+
+.sort-box select:focus {
+    border-color: #0f0f0f;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .collection-toolbar {
+        width: 90%;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+    .sort-box {
+        width: 100%;
+
+        justify-content: space-between;
+    }
+
+    .sort-box select {
+        min-width: 170px;
+    }
+}
