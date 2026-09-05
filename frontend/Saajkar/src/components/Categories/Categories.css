@@ -9,12 +9,18 @@
 /* Heading */
 
 .category-title {
-  text-align: center;
-  color: #000;
-  font-size: 36px;
-  font-family: Georgia, serif;
-  font-weight: 700;
-  margin-bottom: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: #000;
+    font-size: 36px;
+    font-family: Georgia, serif;
+    font-weight: 700;
+
+    margin: 0 0 50px 0;
+    text-align: center !important;
 }
 
 
