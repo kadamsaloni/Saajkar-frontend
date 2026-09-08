@@ -17,6 +17,7 @@ function AddProduct() {
         material: "Handcrafted",
         stock: "",
         featured: false,
+        bestSeller: false,
     });
 
     const [image, setImage] = useState(null);
@@ -48,9 +49,11 @@ function AddProduct() {
                 }
 
                 setCategories(data.categories || []);
+
             } catch (error) {
                 console.error("Category Fetch Error:", error);
                 setError("Unable to load categories.");
+
             } finally {
                 setCategoryLoading(false);
             }
@@ -63,11 +66,18 @@ function AddProduct() {
     // HANDLE INPUT
     // =========================
     const handleChange = (event) => {
-        const { name, value, type, checked } = event.target;
+        const {
+            name,
+            value,
+            type,
+            checked
+        } = event.target;
 
         setFormData((previous) => ({
             ...previous,
-            [name]: type === "checkbox" ? checked : value,
+            [name]: type === "checkbox"
+                ? checked
+                : value,
         }));
     };
 
@@ -90,6 +100,7 @@ function AddProduct() {
         }
 
         setError("");
+
         setImage(selectedImage);
 
         setImagePreview(
@@ -105,6 +116,7 @@ function AddProduct() {
 
         setError("");
 
+        // Validation
         if (!formData.name.trim()) {
             setError("Product name is required.");
             return;
@@ -142,10 +154,26 @@ function AddProduct() {
 
             const data = new FormData();
 
-            data.append("name", formData.name);
-            data.append("description", formData.description);
-            data.append("category", formData.category);
-            data.append("price", Number(formData.price));
+            // Product details
+            data.append(
+                "name",
+                formData.name
+            );
+
+            data.append(
+                "description",
+                formData.description
+            );
+
+            data.append(
+                "category",
+                formData.category
+            );
+
+            data.append(
+                "price",
+                Number(formData.price)
+            );
 
             data.append(
                 "discountPrice",
@@ -154,40 +182,79 @@ function AddProduct() {
                     : 0
             );
 
-            data.append("material", formData.material);
-            data.append("stock", Number(formData.stock));
-            data.append("featured", formData.featured);
-            data.append("image", image);
+            data.append(
+                "material",
+                formData.material
+            );
 
+            data.append(
+                "stock",
+                Number(formData.stock)
+            );
+
+            // Featured
+            data.append(
+                "featured",
+                formData.featured
+            );
+
+            // Best Seller
+            data.append(
+                "bestSeller",
+                formData.bestSeller
+            );
+
+            // Image
+            data.append(
+                "image",
+                image
+            );
+
+            // Send request
             const response = await fetch(
                 `${API_URL}/products`,
                 {
                     method: "POST",
+
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        Authorization:
+                            `Bearer ${token}`,
                     },
+
                     body: data,
                 }
             );
 
-            const result = await response.json();
+            const result =
+                await response.json();
 
             if (!response.ok) {
                 throw new Error(
-                    result.message || "Failed to create product"
+                    result.message ||
+                    "Failed to create product"
                 );
             }
 
-            alert("Product added successfully!");
+            alert(
+                formData.bestSeller
+                    ? "Product added successfully and marked as Best Seller!"
+                    : "Product added successfully!"
+            );
 
             navigate("/admin");
 
         } catch (error) {
-            console.error("Add Product Error:", error);
+
+            console.error(
+                "Add Product Error:",
+                error
+            );
 
             setError(
-                error.message || "Unable to add product."
+                error.message ||
+                "Unable to add product."
             );
+
         } finally {
             setLoading(false);
         }
@@ -204,13 +271,17 @@ function AddProduct() {
 
                 <div className="add-product-title">
 
-                    <h1>Add New Product</h1>
+                    <h1>
+                        Add New Product
+                    </h1>
 
                     <p>
-                        Add a new jewellery product to your store.
+                        Add a new jewellery product
+                        to your store.
                     </p>
 
                 </div>
+
 
                 {/* =========================
                     ERROR
@@ -222,6 +293,7 @@ function AddProduct() {
                     </div>
                 )}
 
+
                 {/* =========================
                     FORM
                 ========================= */}
@@ -231,17 +303,25 @@ function AddProduct() {
                     onSubmit={handleSubmit}
                 >
 
+
                     {/* =========================
                         PRODUCT INFORMATION
                     ========================= */}
 
                     <div className="form-section">
 
-                        <h2>Product Information</h2>
+                        <h2>
+                            Product Information
+                        </h2>
+
+
+                        {/* PRODUCT NAME */}
 
                         <div className="form-group">
 
-                            <label>Product Name</label>
+                            <label>
+                                Product Name
+                            </label>
 
                             <input
                                 type="text"
@@ -253,9 +333,14 @@ function AddProduct() {
 
                         </div>
 
+
+                        {/* DESCRIPTION */}
+
                         <div className="form-group">
 
-                            <label>Description</label>
+                            <label>
+                                Description
+                            </label>
 
                             <textarea
                                 name="description"
@@ -267,11 +352,16 @@ function AddProduct() {
 
                         </div>
 
+
+                        {/* CATEGORY + MATERIAL */}
+
                         <div className="form-row">
 
                             <div className="form-group">
 
-                                <label>Category</label>
+                                <label>
+                                    Category
+                                </label>
 
                                 <select
                                     name="category"
@@ -286,22 +376,29 @@ function AddProduct() {
                                             : "Select Category"}
                                     </option>
 
-                                    {categories.map((category) => (
-                                        <option
-                                            key={category._id}
-                                            value={category._id}
-                                        >
-                                            {category.name}
-                                        </option>
-                                    ))}
+                                    {categories.map(
+                                        (category) => (
+
+                                            <option
+                                                key={category._id}
+                                                value={category._id}
+                                            >
+                                                {category.name}
+                                            </option>
+
+                                        )
+                                    )}
 
                                 </select>
 
                             </div>
 
+
                             <div className="form-group">
 
-                                <label>Material</label>
+                                <label>
+                                    Material
+                                </label>
 
                                 <input
                                     type="text"
@@ -317,19 +414,27 @@ function AddProduct() {
 
                     </div>
 
+
                     {/* =========================
                         PRICE & INVENTORY
                     ========================= */}
 
                     <div className="form-section">
 
-                        <h2>Price & Inventory</h2>
+                        <h2>
+                            Price & Inventory
+                        </h2>
+
+
+                        {/* PRICE + DISCOUNT */}
 
                         <div className="form-row">
 
                             <div className="form-group">
 
-                                <label>Price (₹)</label>
+                                <label>
+                                    Price (₹)
+                                </label>
 
                                 <input
                                     type="number"
@@ -342,6 +447,7 @@ function AddProduct() {
 
                             </div>
 
+
                             <div className="form-group">
 
                                 <label>
@@ -351,7 +457,9 @@ function AddProduct() {
                                 <input
                                     type="number"
                                     name="discountPrice"
-                                    value={formData.discountPrice}
+                                    value={
+                                        formData.discountPrice
+                                    }
                                     onChange={handleChange}
                                     placeholder="Optional"
                                     min="0"
@@ -361,9 +469,14 @@ function AddProduct() {
 
                         </div>
 
+
+                        {/* STOCK */}
+
                         <div className="form-group">
 
-                            <label>Stock</label>
+                            <label>
+                                Stock
+                            </label>
 
                             <input
                                 type="number"
@@ -376,12 +489,19 @@ function AddProduct() {
 
                         </div>
 
+
+                        {/* =========================
+                            FEATURED
+                        ========================= */}
+
                         <label className="featured-checkbox">
 
                             <input
                                 type="checkbox"
                                 name="featured"
-                                checked={formData.featured}
+                                checked={
+                                    formData.featured
+                                }
                                 onChange={handleChange}
                             />
 
@@ -391,7 +511,30 @@ function AddProduct() {
 
                         </label>
 
+
+                        {/* =========================
+                            BEST SELLER
+                        ========================= */}
+
+                        <label className="featured-checkbox">
+
+                            <input
+                                type="checkbox"
+                                name="bestSeller"
+                                checked={
+                                    formData.bestSeller
+                                }
+                                onChange={handleChange}
+                            />
+
+                            <span>
+                                Add to Best Sellers
+                            </span>
+
+                        </label>
+
                     </div>
+
 
                     {/* =========================
                         PRODUCT IMAGE
@@ -399,7 +542,10 @@ function AddProduct() {
 
                     <div className="form-section">
 
-                        <h2>Product Image</h2>
+                        <h2>
+                            Product Image
+                        </h2>
+
 
                         <div className="image-upload">
 
@@ -409,12 +555,15 @@ function AddProduct() {
                             >
 
                                 {imagePreview ? (
+
                                     <img
                                         src={imagePreview}
                                         alt="Preview"
                                         className="image-preview"
                                     />
+
                                 ) : (
+
                                     <div className="upload-content">
 
                                         <span className="upload-icon">
@@ -430,9 +579,11 @@ function AddProduct() {
                                         </small>
 
                                     </div>
+
                                 )}
 
                             </label>
+
 
                             <input
                                 id="product-image"
@@ -445,40 +596,57 @@ function AddProduct() {
 
                     </div>
 
+
                     {/* =========================
                         BOTTOM BUTTONS
                     ========================= */}
 
                     <div className="form-actions">
 
+
+                        {/* BACK TO DASHBOARD */}
+
                         <button
                             type="button"
                             className="back-dashboard-btn"
-                            onClick={() => navigate("/admin")}
+                            onClick={() =>
+                                navigate("/admin")
+                            }
                             disabled={loading}
                         >
                             ← Back to Dashboard
                         </button>
 
+
                         <div className="right-actions">
+
+
+                            {/* CANCEL */}
 
                             <button
                                 type="button"
                                 className="cancel-btn"
-                                onClick={() => navigate("/admin")}
+                                onClick={() =>
+                                    navigate("/admin")
+                                }
                                 disabled={loading}
                             >
                                 Cancel
                             </button>
+
+
+                            {/* ADD PRODUCT */}
 
                             <button
                                 type="submit"
                                 className="submit-btn"
                                 disabled={loading}
                             >
+
                                 {loading
                                     ? "Adding Product..."
                                     : "Add Product"}
+
                             </button>
 
                         </div>

@@ -2,64 +2,109 @@ import React from "react";
 import "./NewArrival.css";
 
 const NewArrival = () => {
-  return (
-    <div className="new-arrival-page">
+    return (
+        <div className="new-arrival-page">
 
-      {/* New Arrival Banner */}
-      <section className="new-arrival-banner">
+            {/* HEADER */}
+            <section className="new-arrival-header">
+                <p>✦ SAAJKAR PRESENTS ✦</p>
 
-        <div className="new-arrival-overlay">
+                <h1>NEW ARRIVALS</h1>
 
-          <p className="arrival-small">
-            ✦ SAajkar presents ✦
-          </p>
+                <div className="arrival-line"></div>
 
-          <h1>NEW ARRIVALS</h1>
+                <span>
+                    Discover our latest jewellery collection.
+                </span>
+            </section>
 
-          <div className="arrival-line"></div>
 
-          <p className="arrival-message">
-            Something beautiful has just arrived.
-          </p>
+            {/* PRODUCTS */}
+            <section className="new-arrival-products">
 
-          <p className="arrival-description">
-            Discover our latest collection of elegant jewellery,
-            thoughtfully designed to celebrate your special moments.
-          </p>
+                <div className="arrival-heading">
+                    <p>JUST IN</p>
 
-          <button className="arrival-button">
-            EXPLORE NOW
-          </button>
+                    <h2>Latest Arrivals</h2>
+                </div>
+
+
+                <div className="arrival-grid">
+
+                    {/* PRODUCT 1 */}
+                    <div className="arrival-card">
+
+                        <div className="arrival-image">
+                            Product Image
+                            <button>♡</button>
+                        </div>
+
+                        <h3>Traditional Nath</h3>
+
+                        <p>Handcrafted</p>
+
+                        <strong>₹300</strong>
+
+                    </div>
+
+
+                    {/* PRODUCT 2 */}
+                    <div className="arrival-card">
+
+                        <div className="arrival-image">
+                            Product Image
+                            <button>♡</button>
+                        </div>
+
+                        <h3>Gold Necklace</h3>
+
+                        <p>Traditional Jewellery</p>
+
+                        <strong>₹850</strong>
+
+                    </div>
+
+
+                    {/* PRODUCT 3 */}
+                    <div className="arrival-card">
+
+                        <div className="arrival-image">
+                            Product Image
+                            <button>♡</button>
+                        </div>
+
+                        <h3>Chandbali Earrings</h3>
+
+                        <p>Handcrafted</p>
+
+                        <strong>₹650</strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            {/* BOTTOM MESSAGE */}
+            <section className="arrival-bottom">
+
+                <p>✦ SAAJKAR ✦</p>
+
+                <h2>
+                    NEW STORIES,
+                    <br />
+                    NEW JEWELLERY.
+                </h2>
+
+                <span>
+                    Made to celebrate your beautiful moments.
+                </span>
+
+            </section>
 
         </div>
-
-      </section>
-
-
-      {/* Notification */}
-      <section className="arrival-notification">
-
-        <div className="notification-icon">
-          ✦
-        </div>
-
-        <div className="notification-content">
-          <span>JUST IN</span>
-
-          <h2>
-            New Jewellery Collection Has Arrived
-          </h2>
-
-          <p>
-            Stay tuned for our newest designs, traditional
-            treasures and timeless pieces.
-          </p>
-        </div>
-
-      </section>
-
-    </div>
-  );
+    );
 };
 
 export default NewArrival;

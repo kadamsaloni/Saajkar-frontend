@@ -1,249 +1,259 @@
 /* =====================================
-   NEW ARRIVAL PAGE
+   NEW ARRIVAL
 ===================================== */
 
 .new-arrival-page {
-  min-height: 100vh;
-  background: #fffdf8;
-  font-family: "Poppins", sans-serif;
+    width: 100%;
+    min-height: 100vh;
+    background: #fffdf8;
+    font-family: "Poppins", sans-serif;
+    color: #000;
 }
 
 
 /* =====================================
-   BANNER
+   HEADER
 ===================================== */
 
-.new-arrival-banner {
-  min-height: 500px;
-
-  background-image: url("/src/assets/banner1.jpg");
-  background-size: cover;
-  background-position: center;
-
-  position: relative;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.new-arrival-header {
+    text-align: center;
+    background: rgb(255, 229, 217);
+    padding: 90px 20px;
 }
 
 
-/* =====================================
-   OVERLAY
-===================================== */
-
-.new-arrival-overlay {
-  width: 100%;
-  min-height: 500px;
-
-  background: rgba(0, 0, 0, 0.55);
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  text-align: center;
-
-  padding: 40px 20px;
-
-  color: white;
+.new-arrival-header p {
+    margin: 0 0 18px;
+    color: #800020;
+    font-size: 16px;
+    letter-spacing: 4px;
+    font-weight: 600;
 }
 
 
-/* =====================================
-   SMALL TEXT
-===================================== */
-
-.arrival-small {
-  font-size: 14px;
-
-  letter-spacing: 4px;
-
-  margin-bottom: 15px;
-
-  color: #d4af37;
-
-  text-transform: uppercase;
+.new-arrival-header h1 {
+    margin: 0;
+    font-family: "Cinzel", serif;
+    font-size: 48px;
+    font-weight: 500;
+    letter-spacing: 5px;
+    color: #000000;
 }
 
-
-/* =====================================
-   TITLE
-===================================== */
-
-.new-arrival-overlay h1 {
-  font-family: "Cinzel", serif;
-
-  font-size: 55px;
-
-  letter-spacing: 8px;
-
-  margin: 0;
-
-  font-weight: 500;
-}
-
-
-/* =====================================
-   LINE
-===================================== */
 
 .arrival-line {
-  width: 90px;
-  height: 1px;
+    width: 60px;
+    height: 1px;
+    background: #d4af37;
+    margin: 25px auto;
+}
 
-  background: #d4af37;
 
-  margin: 25px 0;
+.new-arrival-header span {
+    color: #555;
+    font-size: 12px;
 }
 
 
 /* =====================================
-   MESSAGE
+   PRODUCTS SECTION
 ===================================== */
 
-.arrival-message {
-  font-family: "Cinzel", serif;
-
-  font-size: 23px;
-
-  margin: 0 0 15px;
-
-  letter-spacing: 1px;
+.new-arrival-products {
+    padding: 80px 7%;
+    text-align: center;
 }
 
 
-.arrival-description {
-  max-width: 600px;
+.arrival-heading {
+    margin-bottom: 45px;
+}
 
-  font-size: 15px;
 
-  line-height: 1.8;
+.arrival-heading p {
+    margin: 0 0 10px;
+    color: #800020;
+    font-size: 10px;
+    letter-spacing: 3px;
+}
 
-  color: #eee;
 
-  margin-bottom: 30px;
+.arrival-heading h2 {
+    margin: 0;
+    font-family: "Cinzel", serif;
+    font-size: 34px;
+    font-weight: 500;
 }
 
 
 /* =====================================
-   BUTTON
+   PRODUCT GRID
 ===================================== */
 
-.arrival-button {
-  padding: 13px 35px;
-
-  background: #d4af37;
-
-  color: #111;
-
-  border: 1px solid #d4af37;
-
-  font-family: "Poppins", sans-serif;
-
-  font-size: 12px;
-
-  letter-spacing: 2px;
-
-  cursor: pointer;
-
-  transition: 0.3s ease;
-}
-
-
-.arrival-button:hover {
-  background: transparent;
-
-  color: white;
-
-  border-color: white;
+.arrival-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
 }
 
 
 /* =====================================
-   NOTIFICATION
+   PRODUCT CARD
 ===================================== */
 
-.arrival-notification {
-  width: 80%;
-  max-width: 900px;
+.arrival-card {
+    background: #fff;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
 
-  margin: 60px auto;
 
-  padding: 30px 40px;
-
-  background: white;
-
-  border: 1px solid #e8dfc9;
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 25px;
-
-  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.06);
+.arrival-card:hover {
+    transform: translateY(-5px);
 }
 
 
 /* =====================================
-   ICON
+   IMAGE
 ===================================== */
 
-.notification-icon {
-  width: 55px;
-  height: 55px;
+.arrival-image {
+    height: 380px;
+    background: #f3eee9;
 
-  border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  background: #111;
+    position: relative;
 
-  color: #d4af37;
+    color: #999;
 
-  display: flex;
+    font-family: "Cinzel", serif;
+}
 
-  align-items: center;
-  justify-content: center;
 
-  font-size: 22px;
+.arrival-image button {
+    position: absolute;
 
-  flex-shrink: 0;
+    top: 15px;
+    right: 15px;
+
+    width: 38px;
+    height: 38px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: white;
+
+    font-size: 20px;
+
+    cursor: pointer;
+}
+
+
+.arrival-image button:hover {
+    background: #800020;
+    color: white;
 }
 
 
 /* =====================================
-   NOTIFICATION CONTENT
+   PRODUCT DETAILS
 ===================================== */
 
-.notification-content span {
-  font-size: 11px;
+.arrival-card h3 {
+    margin: 18px 0 5px;
 
-  letter-spacing: 3px;
+    font-family: "Cinzel", serif;
 
-  color: #b8941f;
+    font-size: 15px;
 
-  font-weight: 600;
+    font-weight: 500;
 }
 
 
-.notification-content h2 {
-  font-family: "Cinzel", serif;
+.arrival-card p {
+    margin: 0 0 7px;
 
-  font-size: 22px;
+    color: #999;
 
-  font-weight: 500;
+    font-size: 10px;
 
-  margin: 8px 0;
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
 }
 
 
-.notification-content p {
-  margin: 0;
+.arrival-card strong {
+    color: #800020;
 
-  font-size: 14px;
+    font-size: 12px;
+}
 
-  color: #777;
+
+/* =====================================
+   BOTTOM SECTION
+===================================== */
+
+.arrival-bottom {
+    padding: 90px 20px;
+
+    text-align: center;
+
+    background: #000;
+
+    color: white;
+}
+
+
+.arrival-bottom p {
+    margin: 0 0 15px;
+
+    color: #d4af37;
+
+    font-size: 10px;
+
+    letter-spacing: 4px;
+}
+
+
+.arrival-bottom h2 {
+    margin: 0 0 20px;
+
+    font-family: "Cinzel", serif;
+
+    font-size: 35px;
+
+    font-weight: 500;
+
+    line-height: 1.4;
+}
+
+
+.arrival-bottom span {
+    color: #aaa;
+
+    font-size: 11px;
+}
+
+
+/* =====================================
+   TABLET
+===================================== */
+
+@media (max-width: 900px) {
+
+    .arrival-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .arrival-image {
+        height: 330px;
+    }
+
 }
 
 
@@ -253,48 +263,76 @@
 
 @media (max-width: 600px) {
 
-  .new-arrival-banner {
-    min-height: 450px;
-  }
+    .new-arrival-header {
+        padding: 65px 20px;
+    }
 
-  .new-arrival-overlay {
-    min-height: 450px;
-  }
 
-  .new-arrival-overlay h1 {
-    font-size: 35px;
+    .new-arrival-header h1 {
+        font-size: 32px;
+        letter-spacing: 3px;
+    }
 
-    letter-spacing: 4px;
-  }
 
-  .arrival-message {
-    font-size: 19px;
-  }
+    .new-arrival-header span {
+        font-size: 10px;
+    }
 
-  .arrival-description {
-    font-size: 13px;
-  }
 
-  .arrival-notification {
-    width: 85%;
+    .new-arrival-products {
+        padding: 60px 15px;
+    }
 
-    padding: 25px 20px;
 
-    gap: 15px;
-  }
+    .arrival-heading h2 {
+        font-size: 28px;
+    }
 
-  .notification-icon {
-    width: 45px;
-    height: 45px;
 
-    font-size: 18px;
-  }
+    .arrival-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
 
-  .notification-content h2 {
-    font-size: 17px;
-  }
 
-  .notification-content p {
-    font-size: 12px;
-  }
+    .arrival-image {
+        height: 240px;
+    }
+
+
+    .arrival-image button {
+        width: 30px;
+        height: 30px;
+
+        top: 8px;
+        right: 8px;
+
+        font-size: 16px;
+    }
+
+
+    .arrival-card h3 {
+        font-size: 11px;
+    }
+
+
+    .arrival-card p {
+        font-size: 8px;
+    }
+
+
+    .arrival-card strong {
+        font-size: 10px;
+    }
+
+
+    .arrival-bottom {
+        padding: 70px 20px;
+    }
+
+
+    .arrival-bottom h2 {
+        font-size: 27px;
+    }
+
 }

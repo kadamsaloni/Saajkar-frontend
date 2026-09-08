@@ -1,0 +1,400 @@
+/* =====================================
+   BEST SELLER PAGE
+===================================== */
+
+.best-seller-page {
+    min-height: 100vh;
+    background: #fffdf8;
+    color: #0f0f0f;
+    font-family: "Poppins", sans-serif;
+}
+
+
+/* =====================================
+   HEADER
+===================================== */
+
+.best-seller-header {
+    text-align: center;
+    padding: 70px 20px 60px;
+    background: rgb(255, 229, 217);
+}
+
+
+.best-seller-header p {
+    margin: 0 0 12px;
+    color: #800020;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 2px;
+}
+
+
+.best-seller-header h1 {
+    margin: 0;
+    color: #000000;
+    font-family: "Cinzel", serif;
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+
+.best-seller-line {
+    width: 70px;
+    height: 2px;
+    background: #d4af37;
+    margin: 22px auto;
+}
+
+
+.best-seller-header span {
+    color: #555;
+    font-size: 14px;
+}
+
+
+/* =====================================
+   PRODUCT SECTION
+===================================== */
+
+.best-seller-products {
+    max-width: 1200px;
+    margin: auto;
+    padding: 70px 30px 90px;
+}
+
+
+.best-seller-heading {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+
+.best-seller-heading p {
+    margin: 0 0 8px;
+    color: #800020;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 3px;
+}
+
+
+.best-seller-heading h2 {
+    margin: 0;
+    font-family: "Cinzel", serif;
+    font-size: 30px;
+    font-weight: 600;
+    color: #000;
+}
+
+
+/* =====================================
+   GRID
+===================================== */
+
+.best-seller-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+
+/* =====================================
+   CARD
+===================================== */
+
+.best-seller-card {
+    background: #ffffff;
+    border: 1px solid #eee;
+    transition: 0.3s ease;
+}
+
+
+.best-seller-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =====================================
+   IMAGE
+===================================== */
+
+.best-seller-image {
+    position: relative;
+    width: 100%;
+    height: 360px;
+    overflow: hidden;
+    background: #f7f2ed;
+}
+
+
+.best-seller-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+
+.no-image {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777;
+}
+
+
+/* =====================================
+   WISHLIST BUTTON
+===================================== */
+
+.wishlist-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+
+    width: 40px;
+    height: 40px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    font-size: 23px;
+    color: #800020;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: 0.3s;
+}
+
+
+.wishlist-btn:hover {
+    background: #800020;
+    color: #ffffff;
+}
+
+
+/* =====================================
+   BEST SELLER BADGE
+===================================== */
+
+.best-seller-badge {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+
+    padding: 7px 12px;
+
+    background: #800020;
+    color: #ffffff;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    letter-spacing: 1px;
+}
+
+
+/* =====================================
+   DETAILS
+===================================== */
+
+.best-seller-details {
+    padding: 22px;
+    text-align: center;
+}
+
+
+.best-seller-details h3 {
+    margin: 0 0 7px;
+
+    font-family: "Cinzel", serif;
+
+    font-size: 19px;
+    font-weight: 600;
+
+    color: #000;
+}
+
+
+.best-seller-details p {
+    margin: 0 0 12px;
+
+    color: #777;
+
+    font-size: 12px;
+}
+
+
+/* =====================================
+   PRICE
+===================================== */
+
+.best-seller-price {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.best-seller-price strong {
+    color: #800020;
+    font-size: 17px;
+}
+
+
+.old-price {
+    color: #999;
+    font-size: 14px;
+    text-decoration: line-through;
+}
+
+
+/* =====================================
+   MESSAGE
+===================================== */
+
+.best-seller-message {
+    text-align: center;
+    padding: 70px 20px;
+
+    color: #555;
+
+    font-size: 15px;
+}
+
+
+.best-seller-message h3 {
+    margin-bottom: 10px;
+
+    font-family: "Cinzel", serif;
+    color: #000;
+}
+
+
+.best-seller-message p {
+    margin: 0;
+}
+
+
+.best-seller-message.error {
+    color: #800020;
+}
+
+
+/* =====================================
+   BOTTOM SECTION
+===================================== */
+
+.best-seller-bottom {
+    text-align: center;
+
+    padding: 80px 20px;
+
+    background: rgb(255, 229, 217);
+}
+
+
+.best-seller-bottom p {
+    margin: 0 0 15px;
+
+    color: #800020;
+
+    font-size: 13px;
+    letter-spacing: 3px;
+}
+
+
+.best-seller-bottom h2 {
+    margin: 0 0 20px;
+
+    color: #000;
+
+    font-family: "Cinzel", serif;
+
+    font-size: 34px;
+    line-height: 1.4;
+}
+
+
+.best-seller-bottom span {
+    color: #555;
+    font-size: 14px;
+}
+
+
+/* =====================================
+   TABLET
+===================================== */
+
+@media (max-width: 900px) {
+
+    .best-seller-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .best-seller-header h1 {
+        font-size: 40px;
+    }
+
+}
+
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media (max-width: 600px) {
+
+    .best-seller-header {
+        padding: 50px 15px 45px;
+    }
+
+
+    .best-seller-header h1 {
+        font-size: 30px;
+        letter-spacing: 2px;
+    }
+
+
+    .best-seller-products {
+        padding: 50px 15px 60px;
+    }
+
+
+    .best-seller-heading h2 {
+        font-size: 24px;
+    }
+
+
+    .best-seller-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+
+    .best-seller-image {
+        height: 330px;
+    }
+
+
+    .best-seller-bottom {
+        padding: 60px 15px;
+    }
+
+
+    .best-seller-bottom h2 {
+        font-size: 27px;
+    }
+
+}

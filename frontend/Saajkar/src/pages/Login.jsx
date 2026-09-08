@@ -53,10 +53,21 @@ function Login() {
                 return;
             }
 
+            // Save login information
             localStorage.setItem("token", data.token);
             localStorage.setItem("user", JSON.stringify(data.user));
 
-            navigate("/");
+            // Check if user came from checkout
+            const checkoutAfterLogin =
+                localStorage.getItem("checkoutAfterLogin");
+
+            if (checkoutAfterLogin === "true") {
+                localStorage.removeItem("checkoutAfterLogin");
+                navigate("/checkout");
+            } else {
+                navigate("/");
+            }
+
         } catch (error) {
             console.error("Login Error:", error);
             setError("Unable to connect to server. Please try again.");

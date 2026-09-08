@@ -51,13 +51,20 @@ const Footer = () => {
 
                         <li>
                             <Link to="/collection">
-                                Collection
+                               Best Sellers
                             </Link>
                         </li>
+                            
 
                         <li>
                             <Link to="/customization">
                                 Customization
+                            </Link>
+                        </li>
+
+                        <li>
+                            <Link to="/jewellery-care">
+                                Jewellery Care
                             </Link>
                         </li>
 
@@ -80,14 +87,14 @@ const Footer = () => {
                     <ul>
 
                         <li>
-                            <Link to="/collection/rings">
-                                Rings
+                            <Link to="/collection/ring">
+                                Ring
                             </Link>
                         </li>
 
                         <li>
-                            <Link to="/collection/necklaces">
-                                Necklaces
+                            <Link to="/collection/necklace">
+                                Necklace
                             </Link>
                         </li>
 

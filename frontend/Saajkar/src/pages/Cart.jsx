@@ -146,14 +146,33 @@ const Cart = () => {
     }
 
     // Error
-    if (error) {
-        return (
-            <div className="cart-page">
-                <h1>Your Cart</h1>
-                <h2>{error}</h2>
+    // Error
+if (error) {
+    return (
+        <div className="cart-page">
+
+            <h1>
+                Your Cart
+            </h1>
+
+            <div className="login-required">
+
+                <h2>
+                    {error}
+                </h2>
+
+                <button
+                    className="login-first-btn"
+                    onClick={() => navigate("/login")}
+                >
+                    Login First
+                </button>
+
             </div>
-        );
-    }
+
+        </div>
+    );
+}
 
     return (
         <div className="cart-page">
@@ -273,14 +292,21 @@ const Cart = () => {
                         </h2>
 
                         <button
-                            type="button"
-                            className="checkout-btn"
-                            onClick={() =>
-                                navigate("/checkout")
-                            }
-                        >
-                            Proceed to Checkout
-                        </button>
+    type="button"
+    className="checkout-btn"
+    onClick={() => {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            localStorage.setItem("checkoutAfterLogin", "true");
+            navigate("/register");
+        } else {
+            navigate("/checkout");
+        }
+    }}
+>
+    Proceed to Checkout
+</button>
 
                     </div>
 

@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/saajkar-logo.png";
 import loginLogo from "../../assets/logo-for-login.jpg";
 
-import Filter from "../Filter/Filter";
+
 
 import {
-    FaBars,
+    
     FaSearch,
     FaHeart,
     FaShoppingBag
@@ -17,8 +17,7 @@ import {
 
 const Navbar = () => {
 
-    const [showFilter, setShowFilter] = useState(false);
-
+    
     return (
         <header className="navbar">
 
@@ -82,18 +81,7 @@ const Navbar = () => {
 
             <nav className="menu">
 
-                {/* Filter */}
-                <button
-                    type="button"
-                    className="filter-btn"
-                    onClick={() => setShowFilter(true)}
-                >
-                    <FaBars />
-
-                    <span>
-                        Filter
-                    </span>
-                </button>
+                
 
 
                 {/* Home */}
@@ -108,10 +96,7 @@ const Navbar = () => {
                 </Link>
 
 
-                {/* New Arrival */}
-                <Link to="/new-arrival">
-                    New Arrival
-                </Link>
+                
 
 
                 {/* About */}
@@ -120,11 +105,9 @@ const Navbar = () => {
                 </Link>
 
 
-                {/* Best Seller */}
-                <Link to="/best-sellers">
+                <Link to="/best-seller">
                     Best Seller
-                </Link>
-
+            </Link>
 
                 {/* Customization */}
                 <Link to="/customization">
@@ -142,11 +125,7 @@ const Navbar = () => {
 
             {/* ================= FILTER ================= */}
 
-            {showFilter && (
-                <Filter
-                    closeFilter={() => setShowFilter(false)}
-                />
-            )}
+            
 
         </header>
     );
