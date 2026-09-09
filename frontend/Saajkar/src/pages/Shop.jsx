@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Shop.css";
@@ -14,6 +13,10 @@ const Shop = () => {
     const [addingCart, setAddingCart] = useState(null);
     const [addingWishlist, setAddingWishlist] = useState(null);
 
+    // SORT
+    const [sortBy, setSortBy] = useState("default");
+
+
     // =========================
     // FETCH ALL PRODUCTS
     // =========================
@@ -24,7 +27,9 @@ const Shop = () => {
                 setLoading(true);
                 setError("");
 
-                const response = await fetch(`${API_URL}/products`);
+                const response = await fetch(
+                    `${API_URL}/products?limit=100`
+                );
 
                 const data = await response.json();
 
@@ -36,12 +41,7 @@ const Shop = () => {
 
                 const allProducts = data.products || [];
 
-                // Mix products from all categories
-                const shuffledProducts = [...allProducts].sort(
-                    () => Math.random() - 0.5
-                );
-
-                setProducts(shuffledProducts);
+                setProducts(allProducts);
 
             } catch (error) {
                 console.error("Shop Product Error:", error);
@@ -53,6 +53,65 @@ const Shop = () => {
 
         fetchProducts();
     }, []);
+
+
+    // =========================
+    // SORT PRODUCTS
+    // =========================
+
+    const sortedProducts = [...products].sort((a, b) => {
+
+        const priceA =
+            Number(
+                a.discountPrice &&
+                Number(a.discountPrice) > 0
+                    ? a.discountPrice
+                    : a.price
+            ) || 0;
+
+        const priceB =
+            Number(
+                b.discountPrice &&
+                Number(b.discountPrice) > 0
+                    ? b.discountPrice
+                    : b.price
+            ) || 0;
+
+
+        if (sortBy === "price-low") {
+            return priceA - priceB;
+        }
+
+
+        if (sortBy === "price-high") {
+            return priceB - priceA;
+        }
+
+
+        if (sortBy === "name-az") {
+            return (a.name || "").localeCompare(
+                b.name || ""
+            );
+        }
+
+
+        if (sortBy === "name-za") {
+            return (b.name || "").localeCompare(
+                a.name || ""
+            );
+        }
+
+
+        if (sortBy === "newest") {
+            return (
+                new Date(b.createdAt || 0) -
+                new Date(a.createdAt || 0)
+            );
+        }
+
+
+        return 0;
+    });
 
 
     // =========================
@@ -71,33 +130,41 @@ const Shop = () => {
         try {
             setAddingCart(product._id);
 
-            const response = await fetch(`${API_URL}/cart`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                },
-                body: JSON.stringify({
-                    productId: product._id,
-                    quantity: 1
-                })
-            });
+            const response = await fetch(
+                `${API_URL}/cart`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        productId: product._id,
+                        quantity: 1
+                    })
+                }
+            );
 
             const data = await response.json();
 
             if (!response.ok) {
                 throw new Error(
-                    data.message || "Failed to add product to cart"
+                    data.message ||
+                    "Failed to add product to cart"
                 );
             }
 
-            alert(`${product.name} added to cart!`);
+            alert(
+                `${product.name} added to cart!`
+            );
 
-            // Go to cart after adding
             navigate("/cart");
 
         } catch (error) {
-            console.error("Add to cart error:", error);
+            console.error(
+                "Add to cart error:",
+                error
+            );
 
             alert(
                 error.message ||
@@ -126,16 +193,19 @@ const Shop = () => {
         try {
             setAddingWishlist(product._id);
 
-            const response = await fetch(`${API_URL}/wishlist`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                },
-                body: JSON.stringify({
-                    productId: product._id
-                })
-            });
+            const response = await fetch(
+                `${API_URL}/wishlist`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        productId: product._id
+                    })
+                }
+            );
 
             const data = await response.json();
 
@@ -146,10 +216,15 @@ const Shop = () => {
                 );
             }
 
-            alert(`${product.name} added to wishlist!`);
+            alert(
+                `${product.name} added to wishlist!`
+            );
 
         } catch (error) {
-            console.error("Add wishlist error:", error);
+            console.error(
+                "Add wishlist error:",
+                error
+            );
 
             alert(
                 error.message ||
@@ -191,6 +266,7 @@ const Shop = () => {
     return (
         <div className="shop-page">
 
+
             {/* =========================
                 SHOP HEADER
             ========================= */}
@@ -201,9 +277,7 @@ const Shop = () => {
                     SAAJKAR COLLECTION
                 </p>
 
-                <h1>
-                   
-                </h1>
+                <h1></h1>
 
                 <p className="shop-description">
                     Discover our complete collection of
@@ -214,10 +288,71 @@ const Shop = () => {
 
 
             {/* =========================
-                ALL PRODUCTS
+                SHOP CONTENT
             ========================= */}
 
             <section className="shop-content">
+
+
+                {/* =========================
+                    PRODUCT COUNT + SORT
+                ========================= */}
+
+                <div className="shop-toolbar">
+
+                    <p className="product-count">
+                        {products.length} Products
+                    </p>
+
+
+                    <div className="sort-section">
+
+                        <label htmlFor="sortProducts">
+                            Sort By:
+                        </label>
+
+                        <select
+                            id="sortProducts"
+                            value={sortBy}
+                            onChange={(e) =>
+                                setSortBy(e.target.value)
+                            }
+                        >
+
+                            <option value="default">
+                                Default
+                            </option>
+
+                            <option value="price-low">
+                                Price: Low to High
+                            </option>
+
+                            <option value="price-high">
+                                Price: High to Low
+                            </option>
+
+                            <option value="name-az">
+                                Name: A to Z
+                            </option>
+
+                            <option value="name-za">
+                                Name: Z to A
+                            </option>
+
+                            <option value="newest">
+                                Newest Arrivals
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                {/* =========================
+                    PRODUCTS
+                ========================= */}
 
                 {products.length === 0 ? (
 
@@ -238,141 +373,156 @@ const Shop = () => {
 
                     <div className="shop-grid">
 
-                        {products.map((product) => {
+                        {sortedProducts.map(
+                            (product) => {
 
-                            const image =
-                                product.images?.[0]?.url ||
-                                product.image ||
-                                "";
+                                const image =
+                                    product.images?.[0]?.url ||
+                                    product.image ||
+                                    "";
 
-                            const sellingPrice =
-                                product.discountPrice &&
-                                Number(product.discountPrice) > 0
-                                    ? product.discountPrice
-                                    : product.price;
+                                const sellingPrice =
+                                    product.discountPrice &&
+                                    Number(
+                                        product.discountPrice
+                                    ) > 0
+                                        ? product.discountPrice
+                                        : product.price;
 
-                            const categoryName =
-                                product.category?.name ||
-                                product.category ||
-                                "Jewellery";
-
-                            return (
-
-                                <div
-                                    className="shop-card"
-                                    key={product._id}
-                                >
-
-                                    {/* =========================
-                                        PRODUCT IMAGE
-                                    ========================= */}
-
-                                    <div className="shop-image">
-
-                                        {image ? (
-
-                                            <img
-                                                src={image}
-                                                alt={product.name}
-                                            />
-
-                                        ) : (
-
-                                            <div className="no-product-image">
-                                                No Image
-                                            </div>
-
-                                        )}
+                                const categoryName =
+                                    product.category?.name ||
+                                    product.category ||
+                                    "Jewellery";
 
 
-                                        {/* WISHLIST */}
+                                return (
 
-                                        <button
-                                            type="button"
-                                            className="wishlist-button"
-                                            onClick={() =>
-                                                addToWishlist(product)
-                                            }
-                                            disabled={
-                                                addingWishlist ===
+                                    <div
+                                        className="shop-card"
+                                        key={product._id}
+                                    >
+
+
+                                        {/* =========================
+                                            PRODUCT IMAGE
+                                        ========================= */}
+
+                                        <div className="shop-image">
+
+                                            {image ? (
+
+                                                <img
+                                                    src={image}
+                                                    alt={product.name}
+                                                />
+
+                                            ) : (
+
+                                                <div className="no-product-image">
+                                                    No Image
+                                                </div>
+
+                                            )}
+
+
+                                            {/* WISHLIST */}
+
+                                            <button
+                                                type="button"
+                                                className="wishlist-button"
+                                                onClick={() =>
+                                                    addToWishlist(
+                                                        product
+                                                    )
+                                                }
+                                                disabled={
+                                                    addingWishlist ===
+                                                    product._id
+                                                }
+                                                title="Add to Wishlist"
+                                            >
+
+                                                {addingWishlist ===
                                                 product._id
-                                            }
-                                            title="Add to Wishlist"
-                                        >
-                                            {addingWishlist ===
-                                            product._id
-                                                ? "♥"
-                                                : "♡"}
-                                        </button>
+                                                    ? "♥"
+                                                    : "♡"}
 
-                                    </div>
-
-
-                                    {/* =========================
-                                        PRODUCT DETAILS
-                                    ========================= */}
-
-                                    <div className="shop-info">
-
-                                        <p className="product-category">
-                                            {categoryName}
-                                        </p>
-
-                                        <h3>
-                                            {product.name}
-                                        </h3>
-
-                                        <div className="price-section">
-
-                                            <span className="shop-price">
-                                                ₹{sellingPrice}
-                                            </span>
-
-                                            {product.discountPrice > 0 &&
-                                                Number(
-                                                    product.discountPrice
-                                                ) <
-                                                    Number(
-                                                        product.price
-                                                    ) && (
-
-                                                    <span className="original-price">
-                                                        ₹{product.price}
-                                                    </span>
-
-                                                )}
+                                            </button>
 
                                         </div>
 
 
-                                        {/* ADD TO CART */}
+                                        {/* =========================
+                                            PRODUCT INFO
+                                        ========================= */}
 
-                                        <button
-                                            type="button"
-                                            className="add-cart-button"
-                                            onClick={() =>
-                                                addToCart(product)
-                                            }
-                                            disabled={
-                                                addingCart ===
+                                        <div className="shop-info">
+
+                                            <p className="product-category">
+                                                {categoryName}
+                                            </p>
+
+
+                                            <h3>
+                                                {product.name}
+                                            </h3>
+
+
+                                            <div className="price-section">
+
+                                                <span className="shop-price">
+                                                    ₹{sellingPrice}
+                                                </span>
+
+
+                                                {product.discountPrice &&
+                                                    Number(
+                                                        product.discountPrice
+                                                    ) <
+                                                        Number(
+                                                            product.price
+                                                        ) && (
+
+                                                        <span className="original-price">
+                                                            ₹{product.price}
+                                                        </span>
+
+                                                    )}
+
+                                            </div>
+
+
+                                            {/* ADD TO CART */}
+
+                                            <button
+                                                type="button"
+                                                className="add-cart-button"
+                                                onClick={() =>
+                                                    addToCart(
+                                                        product
+                                                    )
+                                                }
+                                                disabled={
+                                                    addingCart ===
+                                                    product._id
+                                                }
+                                            >
+
+                                                {addingCart ===
                                                 product._id
-                                            }
-                                        >
+                                                    ? "ADDING..."
+                                                    : "ADD TO CART"}
 
-                                            {addingCart ===
-                                            product._id
-                                                ? "ADDING..."
-                                                : "ADD TO CART"}
+                                            </button>
 
-                                        </button>
+                                        </div>
 
                                     </div>
 
-                                </div>
+                                );
 
-                            );
-
-                        })}
+                            }
+                        )}
 
                     </div>
 
@@ -385,4 +535,3 @@ const Shop = () => {
 };
 
 export default Shop;
-

@@ -1121,7 +1121,6 @@ const Checkout = () => {
 
                         <div className="delivery-box">
 
-
                             {/* ESTIMATED DELIVERY */}
 
                             <div className="delivery-row">
@@ -1267,33 +1266,17 @@ const Checkout = () => {
                                         />
 
 
-                                        <div>
+                                        
 
-                                            <h3>
-                                                {
-                                                    product?.name
-                                                }
-                                            </h3>
+                                            <div>
+    <h3>
+        {product?.name}
+    </h3>
 
-
-                                            <p>
-                                                Price: ₹
-                                                {Number(
-                                                    price
-                                                ).toLocaleString(
-                                                    "en-IN"
-                                                )}
-                                            </p>
-
-
-                                            <p>
-                                                Quantity:{" "}
-                                                {
-                                                    item.quantity
-                                                }
-                                            </p>
-
-                                        </div>
+    <p>
+        Quantity: {item.quantity}
+    </p>
+</div>
 
 
                                         <span className="item-total">

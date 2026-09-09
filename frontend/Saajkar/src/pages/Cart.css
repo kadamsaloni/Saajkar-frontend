@@ -1,59 +1,50 @@
+/* =========================
+   CART PAGE
+========================= */
+
 .cart-page {
     min-height: 100vh;
-
     padding: 50px 8%;
-
-    background:
-        linear-gradient(
-            rgba(255, 255, 255, 0.90),
-            rgba(255, 255, 255, 0.90)
-        ),
-        url("../assets/banner1.jpg");
-
-    background-size: cover;
-
-    background-position: center;
-
-    background-repeat: no-repeat;
+    background-color: rgb(255, 229, 217);
+    font-family: "Poppins", sans-serif;
 }
 
 
-/* Heading */
+/* =========================
+   CART HEADING
+========================= */
 
 .cart-page h1 {
     text-align: center;
-
-    font-family: 'Cinzel', serif;
-
+    font-family: "Cinzel", serif;
     font-size: 42px;
-
     font-weight: 700;
-
     color: #000;
-
-    margin-bottom: 40px;
+    margin: 0 0 40px 0;
 }
 
 
-/* Cart Container */
+/* =========================
+   CART CONTAINER
+========================= */
 
 .cart-container {
     display: grid;
-
     grid-template-columns: repeat(2, 1fr);
-
     gap: 30px;
 }
 
 
-/* Cart Card */
+/* =========================
+   CART CARD
+========================= */
 
 .cart-card {
     display: flex;
-
+    align-items: center;
     gap: 20px;
 
-    background: #fff;
+    background: rgba(255, 255, 255, 0.90);
 
     padding: 20px;
 
@@ -63,16 +54,15 @@
 
     box-shadow:
         0 8px 20px rgba(0, 0, 0, 0.08);
-
-    align-items: center;
 }
 
 
-/* Cart Image */
+/* =========================
+   PRODUCT IMAGE
+========================= */
 
 .cart-card img {
     width: 120px;
-
     height: 120px;
 
     object-fit: contain;
@@ -80,17 +70,30 @@
     border-radius: 10px;
 
     border: 1.5px solid #000;
+
+    background: #fff;
 }
 
 
-/* Product Name */
+/* =========================
+   PRODUCT DETAILS
+========================= */
 
-.cart-card h2 {
-    margin-bottom: 10px;
+.cart-product-details {
+    flex: 1;
+}
+
+
+/* =========================
+   PRODUCT NAME
+========================= */
+
+.cart-product-details h2 {
+    margin: 0 0 10px 0;
 
     color: #000;
 
-    font-family: 'Cinzel', serif;
+    font-family: "Cinzel", serif;
 
     font-size: 22px;
 
@@ -98,19 +101,118 @@
 }
 
 
-/* Price */
+/* =========================
+   PRICE
+========================= */
 
-.cart-card p {
+.cart-product-details p {
     margin: 5px 0;
 
     color: #444;
+
+    font-size: 15px;
 }
 
 
-/* Remove Button */
+/* =========================
+   QUANTITY SECTION
+========================= */
 
-.cart-card button {
+.quantity-section {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 15px;
+
+    margin-bottom: 18px;
+}
+
+
+.quantity-label {
+    color: #000;
+
+    font-size: 15px;
+
+    font-weight: 500;
+
+    margin-right: 5px;
+}
+
+
+.quantity-number {
+    min-width: 35px;
+
+    text-align: center;
+
+    color: #000;
+
+    font-size: 16px;
+
+    font-weight: 600;
+}
+
+
+/* =========================
+   MINUS AND PLUS BUTTONS
+========================= */
+
+.quantity-minus,
+.quantity-plus {
+    width: 32px;
+
+    height: 32px;
+
+    padding: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #000;
+
+    color: #D4AF37;
+
+    border: 1px solid #000;
+
+    border-radius: 5px;
+
+    font-size: 20px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+
+/* =========================
+   HOVER
+========================= */
+
+.quantity-minus:hover,
+.quantity-plus:hover {
     background: #D4AF37;
+
+    color: #000;
+
+    border-color: #D4AF37;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================
+   REMOVE BUTTON
+========================= */
+
+.remove-btn {
+    background: #800020;
 
     color: #fff;
 
@@ -122,36 +224,61 @@
 
     cursor: pointer;
 
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+
     font-weight: 600;
 
     transition: 0.3s ease;
 }
 
 
-.cart-card button:hover {
-    background: #b8932d;
+.remove-btn:hover {
+    background: #000;
+
+    color: #D4AF37;
 
     transform: translateY(-2px);
 }
 
 
-/* Cart Total */
+/* =========================
+   CART TOTAL
+========================= */
 
 .cart-total {
     margin-top: 40px;
 
+    padding: 25px;
+
     text-align: right;
+
+    background: rgba(255, 255, 255, 0.90);
+
+    border: 2px solid #000;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 
 .cart-total h2 {
-    margin-bottom: 20px;
+    margin: 0 0 20px 0;
 
     color: #000;
+
+    font-family: "Cinzel", serif;
+
+    font-size: 24px;
 }
 
 
-/* Checkout Button */
+/* =========================
+   CHECKOUT BUTTON
+========================= */
 
 .checkout-btn {
     background: #800020;
@@ -166,6 +293,8 @@
 
     cursor: pointer;
 
+    font-family: "Poppins", sans-serif;
+
     font-size: 16px;
 
     font-weight: 600;
@@ -175,13 +304,17 @@
 
 
 .checkout-btn:hover {
-    background: #5f0018;
+    background: #000;
+
+    color: #D4AF37;
 
     transform: translateY(-2px);
 }
 
 
-/* Empty Cart */
+/* =========================
+   EMPTY CART
+========================= */
 
 .empty {
     text-align: center;
@@ -191,7 +324,7 @@
 
 
 .empty h2 {
-    font-family: 'Cinzel', serif;
+    font-family: "Cinzel", serif;
 
     font-size: 28px;
 
@@ -202,7 +335,7 @@
 
 
 .empty button {
-    background: #D4AF37;
+    background: #800020;
 
     color: #fff;
 
@@ -214,60 +347,187 @@
 
     cursor: pointer;
 
+    font-family: "Poppins", sans-serif;
+
+    font-size: 15px;
+
     font-weight: 600;
+
+    transition: 0.3s ease;
 }
 
 
 .empty button:hover {
-    background: #b8932d;
+    background: #000;
+
+    color: #D4AF37;
+
+    transform: translateY(-2px);
 }
 
 
-/* Responsive */
+/* =========================
+   LOGIN REQUIRED
+========================= */
 
-@media (max-width: 768px) {
+.login-required {
+    text-align: center;
+
+    margin-top: 40px;
+}
+
+
+.login-required h2 {
+    color: #800020;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 20px;
+
+    margin-bottom: 20px;
+}
+
+
+.login-first-btn {
+    background: #800020;
+
+    color: #fff;
+
+    border: none;
+
+    padding: 12px 30px;
+
+    border-radius: 8px;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+
+.login-first-btn:hover {
+    background: #000;
+
+    color: #D4AF37;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================
+   LOADING
+========================= */
+
+.cart-page > h2 {
+    text-align: center;
+
+    color: #800020;
+
+    font-family: "Poppins", sans-serif;
+
+    margin-top: 40px;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 900px) {
+
+    .cart-page {
+        padding: 40px 5%;
+    }
 
     .cart-container {
         grid-template-columns: 1fr;
     }
+}
 
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .cart-page {
+        padding: 30px 5%;
+    }
+
+    .cart-page h1 {
+        font-size: 34px;
+        margin-bottom: 30px;
+    }
 
     .cart-card {
         flex-direction: column;
-
         text-align: center;
     }
 
+    .cart-card img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .cart-product-details {
+        width: 100%;
+    }
+
+    .quantity-section {
+        justify-content: center;
+    }
 
     .cart-total {
         text-align: center;
     }
 
-}
-.login-required {
-    text-align: center;
-    margin-top: 40px;
-}
-
-.login-required h2 {
-    color: #800020;
-    font-family: "Poppins", sans-serif;
-    font-size: 20px;
-    margin-bottom: 20px;
+    .checkout-btn {
+        width: 100%;
+    }
 }
 
-.login-first-btn {
-    background: #800020;
-    color: white;
-    border: none;
-    padding: 12px 30px;
-    font-family: "Poppins", sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.3s ease;
-}
 
-.login-first-btn:hover {
-    background: #0f0f0f;
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 400px) {
+
+    .cart-page h1 {
+        font-size: 28px;
+    }
+
+    .cart-card {
+        padding: 15px;
+    }
+
+    .cart-card img {
+        width: 130px;
+        height: 130px;
+    }
+
+    .cart-product-details h2 {
+        font-size: 19px;
+    }
+
+    .cart-total h2 {
+        font-size: 20px;
+    }
+
+    .quantity-section {
+        gap: 7px;
+    }
+
+    .quantity-minus,
+    .quantity-plus {
+        width: 30px;
+        height: 30px;
+    }
 }

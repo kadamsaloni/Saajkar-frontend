@@ -16,7 +16,10 @@ const Product = ({ product }) => {
     const productImage = product.images?.[0]?.url;
     const productPrice = product.discountPrice || product.price;
 
+    // ==============================
     // ADD TO CART
+    // ==============================
+
     const handleAddToCart = async () => {
         const token = localStorage.getItem("token");
 
@@ -44,7 +47,9 @@ const Product = ({ product }) => {
             const data = await response.json();
 
             if (!response.ok) {
-                setCartMessage(data.message || "Failed to add product");
+                setCartMessage(
+                    data.message || "Failed to add product"
+                );
                 return;
             }
 
@@ -59,7 +64,10 @@ const Product = ({ product }) => {
         }
     };
 
+    // ==============================
     // ADD TO WISHLIST
+    // ==============================
+
     const handleAddToWishlist = async () => {
         const token = localStorage.getItem("token");
 
@@ -96,7 +104,9 @@ const Product = ({ product }) => {
 
         } catch (error) {
             console.error("Wishlist error:", error);
-            setWishlistMessage("Unable to connect to server");
+            setWishlistMessage(
+                "Unable to connect to server"
+            );
 
         } finally {
             setWishlistLoading(false);
@@ -106,47 +116,86 @@ const Product = ({ product }) => {
     return (
         <div className="card">
 
-            <img
-                src={productImage}
-                alt={product.name}
-            />
+            {/* ==============================
+                PRODUCT IMAGE
+            ============================== */}
 
-            <h3>
-                {product.name}
-            </h3>
+            <div className="product-image-container">
 
-            <p>
-                ₹{productPrice}
-            </p>
+                <img
+                    src={productImage}
+                    alt={product.name}
+                    className="product-image"
+                />
 
-                        <button
-    className="wishlist-btn"
-    onClick={handleAddToWishlist}
-    disabled={wishlistLoading}
->
-    <span className="heart-icon">♡</span>
-    <span>
-        {wishlistLoading ? "Adding..." : "Wishlist"}
-    </span>
-</button>
-            
+                {/* Wishlist Heart */}
 
-            <button
-    className="cart-btn"
-    onClick={handleAddToCart}
-    disabled={cartLoading}
->
-    <span className="cart-icon">🛒</span>
-    <span>
-        {cartLoading ? "Adding..." : "Add To Cart"}
-    </span>
-</button>
+                <button
+                    className="wishlist-heart"
+                    onClick={handleAddToWishlist}
+                    disabled={wishlistLoading}
+                    title="Add to Wishlist"
+                >
+                    ♡
+                </button>
 
-            {cartMessage && (
-                <p>
-                    {cartMessage}
+            </div>
+
+
+            {/* ==============================
+                PRODUCT DETAILS
+            ============================== */}
+
+            <div className="product-details">
+
+                <h3>
+                    {product.name}
+                </h3>
+
+                <p className="product-price">
+                    ₹{productPrice}
                 </p>
-            )}
+
+
+                {/* ==============================
+                    ADD TO CART
+                ============================== */}
+
+                <button
+                    className="cart-btn"
+                    onClick={handleAddToCart}
+                    disabled={cartLoading}
+                >
+                    <span className="cart-icon">
+                        🛒
+                    </span>
+
+                    <span>
+                        {cartLoading
+                            ? "Adding..."
+                            : "Add To Cart"}
+                    </span>
+                </button>
+
+
+                {/* Wishlist Message */}
+
+                {wishlistMessage && (
+                    <p className="wishlist-message">
+                        {wishlistMessage}
+                    </p>
+                )}
+
+
+                {/* Cart Message */}
+
+                {cartMessage && (
+                    <p className="cart-message">
+                        {cartMessage}
+                    </p>
+                )}
+
+            </div>
 
         </div>
     );

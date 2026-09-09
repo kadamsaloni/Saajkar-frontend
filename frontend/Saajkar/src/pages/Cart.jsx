@@ -10,7 +10,10 @@ const Cart = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
-    // Load cart from backend
+    /* =========================
+       FETCH CART
+    ========================= */
+
     useEffect(() => {
         const fetchCart = async () => {
             const token = localStorage.getItem("token");
@@ -49,7 +52,11 @@ const Cart = () => {
         fetchCart();
     }, []);
 
-    // Remove item from cart
+
+    /* =========================
+       REMOVE ITEM
+    ========================= */
+
     const removeItem = async (productId) => {
         const token = localStorage.getItem("token");
 
@@ -84,7 +91,11 @@ const Cart = () => {
         }
     };
 
-    // Update quantity
+
+    /* =========================
+       UPDATE QUANTITY
+    ========================= */
+
     const updateQuantity = async (productId, quantity) => {
         const token = localStorage.getItem("token");
 
@@ -93,17 +104,25 @@ const Cart = () => {
             return;
         }
 
-        if (quantity < 1) {
+        /* 
+           If quantity becomes 0,
+           remove the product completely.
+        */
+
+        if (quantity <= 0) {
+            await removeItem(productId);
             return;
         }
 
         try {
             const response = await fetch(`${API_URL}/cart`, {
                 method: "PUT",
+
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`
                 },
+
                 body: JSON.stringify({
                     productId,
                     quantity
@@ -113,7 +132,10 @@ const Cart = () => {
             const data = await response.json();
 
             if (!response.ok) {
-                alert(data.message || "Failed to update quantity");
+                alert(
+                    data.message ||
+                    "Failed to update quantity"
+                );
                 return;
             }
 
@@ -125,17 +147,29 @@ const Cart = () => {
         }
     };
 
-    // Calculate total
+
+    /* =========================
+       TOTAL
+    ========================= */
+
     const total = cartItems.reduce((sum, item) => {
         const price =
             item.product?.discountPrice ||
             item.product?.price ||
             0;
 
-        return sum + Number(price) * Number(item.quantity);
+        return (
+            sum +
+            Number(price) *
+            Number(item.quantity)
+        );
     }, 0);
 
-    // Loading
+
+    /* =========================
+       LOADING
+    ========================= */
+
     if (loading) {
         return (
             <div className="cart-page">
@@ -145,41 +179,48 @@ const Cart = () => {
         );
     }
 
-    // Error
-    // Error
-if (error) {
-    return (
-        <div className="cart-page">
 
-            <h1>
-                Your Cart
-            </h1>
+    /* =========================
+       LOGIN REQUIRED
+    ========================= */
 
-            <div className="login-required">
+    if (error) {
+        return (
+            <div className="cart-page">
 
-                <h2>
-                    {error}
-                </h2>
+                <h1>Your Cart</h1>
 
-                <button
-                    className="login-first-btn"
-                    onClick={() => navigate("/login")}
-                >
-                    Login First
-                </button>
+                <div className="login-required">
+
+                    <h2>{error}</h2>
+
+                    <button
+                        className="login-first-btn"
+                        onClick={() =>
+                            navigate("/login")
+                        }
+                    >
+                        Login First
+                    </button>
+
+                </div>
 
             </div>
+        );
+    }
 
-        </div>
-    );
-}
+
+    /* =========================
+       CART PAGE
+    ========================= */
 
     return (
         <div className="cart-page">
 
-            <h1>
-                Your Cart
-            </h1>
+            <h1>Your Cart</h1>
+
+
+            {/* EMPTY CART */}
 
             {cartItems.length === 0 ? (
 
@@ -190,7 +231,9 @@ if (error) {
                     </h2>
 
                     <button
-                        onClick={() => navigate("/")}
+                        onClick={() =>
+                            navigate("/")
+                        }
                     >
                         Continue Shopping
                     </button>
@@ -201,11 +244,14 @@ if (error) {
 
                 <>
 
+                    {/* CART PRODUCTS */}
+
                     <div className="cart-container">
 
-                        {cartItems.map(item => {
+                        {cartItems.map((item) => {
 
-                            const product = item.product;
+                            const product =
+                                item.product;
 
                             if (!product) {
                                 return null;
@@ -213,65 +259,103 @@ if (error) {
 
                             const price =
                                 product.discountPrice ||
-                                product.price;
+                                product.price ||
+                                0;
+
 
                             return (
+
                                 <div
                                     className="cart-card"
                                     key={item._id}
                                 >
 
+                                    {/* PRODUCT IMAGE */}
+
                                     <img
-                                        src={product.images?.[0]?.url}
-                                        alt={product.name}
+                                        src={
+                                            product.images?.[0]?.url
+                                        }
+                                        alt={
+                                            product.name
+                                        }
                                     />
 
-                                    <div>
+
+                                    {/* PRODUCT DETAILS */}
+
+                                    <div className="cart-product-details">
 
                                         <h2>
                                             {product.name}
                                         </h2>
 
+
                                         <p>
                                             Price: ₹{price}
                                         </p>
 
-                                        <p>
-                                            Quantity: {item.quantity}
-                                        </p>
+
+                                        {/* QUANTITY */}
+
+                                        <div className="quantity-section">
+
+                                            <span className="quantity-label">
+                                                Quantity:
+                                            </span>
+
+
+                                            {/* MINUS */}
+
+                                            <button
+                                                className="quantity-minus"
+                                                onClick={() =>
+                                                    updateQuantity(
+                                                        product._id,
+                                                        Number(
+                                                            item.quantity
+                                                        ) - 1
+                                                    )
+                                                }
+                                            >
+                                                −
+                                            </button>
+
+
+                                            {/* QUANTITY NUMBER */}
+
+                                            <span className="quantity-number">
+                                                {item.quantity}
+                                            </span>
+
+
+                                            {/* PLUS */}
+
+                                            <button
+                                                className="quantity-plus"
+                                                onClick={() =>
+                                                    updateQuantity(
+                                                        product._id,
+                                                        Number(
+                                                            item.quantity
+                                                        ) + 1
+                                                    )
+                                                }
+                                            >
+                                                +
+                                            </button>
+
+                                        </div>
+
+
+                                        {/* REMOVE BUTTON */}
 
                                         <button
+                                            className="remove-btn"
                                             onClick={() =>
-                                                updateQuantity(
-                                                    product._id,
-                                                    item.quantity - 1
+                                                removeItem(
+                                                    product._id
                                                 )
-                                            }
-                                            disabled={item.quantity <= 1}
-                                        >
-                                            −
-                                        </button>
-
-                                        <span>
-                                            {" "}{item.quantity}{" "}
-                                        </span>
-
-                                        <button
-                                            onClick={() =>
-                                                updateQuantity(
-                                                    product._id,
-                                                    item.quantity + 1
-                                                )
-                                            }
-                                        >
-                                            +
-                                        </button>
-
-                                        <br />
-
-                                        <button
-                                            onClick={() =>
-                                                removeItem(product._id)
                                             }
                                         >
                                             Remove
@@ -280,10 +364,15 @@ if (error) {
                                     </div>
 
                                 </div>
+
                             );
+
                         })}
 
                     </div>
+
+
+                    {/* TOTAL */}
 
                     <div className="cart-total">
 
@@ -291,26 +380,45 @@ if (error) {
                             Total: ₹{total}
                         </h2>
 
-                        <button
-    type="button"
-    className="checkout-btn"
-    onClick={() => {
-        const token = localStorage.getItem("token");
 
-        if (!token) {
-            localStorage.setItem("checkoutAfterLogin", "true");
-            navigate("/register");
-        } else {
-            navigate("/checkout");
-        }
-    }}
->
-    Proceed to Checkout
-</button>
+                        <button
+                            type="button"
+                            className="checkout-btn"
+                            onClick={() => {
+
+                                const token =
+                                    localStorage.getItem(
+                                        "token"
+                                    );
+
+                                if (!token) {
+
+                                    localStorage.setItem(
+                                        "checkoutAfterLogin",
+                                        "true"
+                                    );
+
+                                    navigate(
+                                        "/register"
+                                    );
+
+                                } else {
+
+                                    navigate(
+                                        "/checkout"
+                                    );
+
+                                }
+
+                            }}
+                        >
+                            Proceed to Checkout
+                        </button>
 
                     </div>
 
                 </>
+
             )}
 
         </div>
