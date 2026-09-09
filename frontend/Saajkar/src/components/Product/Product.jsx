@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Product.css";
 import API_URL from "../../api/api";
 
 const Product = ({ product }) => {
+    const navigate = useNavigate();
+
     const [cartMessage, setCartMessage] = useState("");
     const [wishlistMessage, setWishlistMessage] = useState("");
 
@@ -14,7 +17,10 @@ const Product = ({ product }) => {
     }
 
     const productImage = product.images?.[0]?.url;
-    const productPrice = product.discountPrice || product.price;
+    const productPrice =
+        product.discountPrice && Number(product.discountPrice) > 0
+            ? product.discountPrice
+            : product.price;
 
     // ==============================
     // ADD TO CART
@@ -23,10 +29,34 @@ const Product = ({ product }) => {
     const handleAddToCart = async () => {
         const token = localStorage.getItem("token");
 
+        // ==============================
+        // USER NOT LOGGED IN
+        // ==============================
+
         if (!token) {
             setCartMessage("Please login first");
+
+            // Remember that user wanted to add this product
+            localStorage.setItem("cartAfterLogin", "true");
+            localStorage.setItem(
+                "pendingCartProduct",
+                JSON.stringify({
+                    productId: product._id,
+                    quantity: 1
+                })
+            );
+
+            // Open Login Page
+            setTimeout(() => {
+                navigate("/login");
+            }, 500);
+
             return;
         }
+
+        // ==============================
+        // USER IS LOGGED IN
+        // ==============================
 
         try {
             setCartLoading(true);
@@ -57,7 +87,9 @@ const Product = ({ product }) => {
 
         } catch (error) {
             console.error("Add to cart error:", error);
-            setCartMessage("Unable to connect to server");
+            setCartMessage(
+                "Unable to connect to server"
+            );
 
         } finally {
             setCartLoading(false);
@@ -73,6 +105,12 @@ const Product = ({ product }) => {
 
         if (!token) {
             setWishlistMessage("Please login first");
+
+            // Open Login Page
+            setTimeout(() => {
+                navigate("/login");
+            }, 500);
+
             return;
         }
 
@@ -95,15 +133,19 @@ const Product = ({ product }) => {
 
             if (!response.ok) {
                 setWishlistMessage(
-                    data.message || "Failed to add to wishlist"
+                    data.message ||
+                    "Failed to add to wishlist"
                 );
                 return;
             }
 
-            setWishlistMessage("Added to wishlist ✓");
+            setWishlistMessage(
+                "Added to wishlist ✓"
+            );
 
         } catch (error) {
             console.error("Wishlist error:", error);
+
             setWishlistMessage(
                 "Unable to connect to server"
             );
@@ -112,6 +154,10 @@ const Product = ({ product }) => {
             setWishlistLoading(false);
         }
     };
+
+    // ==============================
+    // UI
+    // ==============================
 
     return (
         <div className="card">
@@ -141,7 +187,6 @@ const Product = ({ product }) => {
 
             </div>
 
-
             {/* ==============================
                 PRODUCT DETAILS
             ============================== */}
@@ -153,9 +198,8 @@ const Product = ({ product }) => {
                 </h3>
 
                 <p className="product-price">
-                    ₹{productPrice}
+                    ₹{Number(productPrice).toLocaleString("en-IN")}
                 </p>
-
 
                 {/* ==============================
                     ADD TO CART
@@ -166,6 +210,7 @@ const Product = ({ product }) => {
                     onClick={handleAddToCart}
                     disabled={cartLoading}
                 >
+
                     <span className="cart-icon">
                         🛒
                     </span>
@@ -175,10 +220,12 @@ const Product = ({ product }) => {
                             ? "Adding..."
                             : "Add To Cart"}
                     </span>
+
                 </button>
 
-
-                {/* Wishlist Message */}
+                {/* ==============================
+                    WISHLIST MESSAGE
+                ============================== */}
 
                 {wishlistMessage && (
                     <p className="wishlist-message">
@@ -186,8 +233,9 @@ const Product = ({ product }) => {
                     </p>
                 )}
 
-
-                {/* Cart Message */}
+                {/* ==============================
+                    CART MESSAGE
+                ============================== */}
 
                 {cartMessage && (
                     <p className="cart-message">
