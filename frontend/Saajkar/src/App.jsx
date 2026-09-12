@@ -21,6 +21,7 @@ import OrderTracking from "./pages/OrderTracking";
 import Shop from "./pages/Shop";
 import NewArrival from "./pages/NewArrival";
 import BestSeller from "./pages/BestSeller";
+
 function App() {
 
 
@@ -48,6 +49,7 @@ function App() {
             <Route path="/track-order" element={<OrderTracking />} />
             <Route path="/best-seller"element={<BestSeller />}/>
             <Route path="/new-arrival" element={<NewArrival />} />
+            
         </Routes>
     );
 }

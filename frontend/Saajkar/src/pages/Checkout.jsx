@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Checkout.css";
-import API_URL from "../api/api";
+
+const API_URL = "https://saajkar-backend.onrender.com/api";
 
 const Checkout = () => {
-
     const navigate = useNavigate();
 
     const [cartItems, setCartItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const [placingOrder, setPlacingOrder] = useState(false);
-    const [error, setError] = useState("");
 
-    // Shipping details
     const [fullName, setFullName] = useState("");
     const [phone, setPhone] = useState("");
     const [address, setAddress] = useState("");
@@ -20,18 +18,12 @@ const Checkout = () => {
     const [state, setState] = useState("Maharashtra");
     const [pincode, setPincode] = useState("");
 
-    // Pincode validation
-    const [pincodeChecking, setPincodeChecking] = useState(false);
-    const [pincodeMessage, setPincodeMessage] = useState("");
     const [pincodeValid, setPincodeValid] = useState(false);
+    const [checkingPincode, setCheckingPincode] = useState(false);
 
-    // Payment method
     const [paymentMethod, setPaymentMethod] = useState("COD");
 
-
-    // =====================================================
-    // MAHARASHTRA CITIES
-    // =====================================================
+    const token = localStorage.getItem("token");
 
     const maharashtraCities = [
         "Mumbai",
@@ -61,847 +53,787 @@ const Checkout = () => {
         "Yavatmal"
     ];
 
-
-    // =====================================================
-    // DELIVERY CHARGES
-    // =====================================================
-
     const deliveryRates = {
         Mumbai: 70,
         Pune: 100
     };
 
-    // Other Maharashtra cities get ₹100
-    const deliveryCharges =
-        city
-            ? deliveryRates[city] || 100
-            : 0;
+    const deliveryCharges = city
+        ? deliveryRates[city] || 100
+        : 0;
 
+    // ======================================================
+    // LOAD RAZORPAY CHECKOUT SCRIPT
+    // ======================================================
 
-    // =====================================================
-    // GET CART FROM BACKEND
-    // =====================================================
-
-    useEffect(() => {
-
-        const fetchCart = async () => {
-
-            const token =
-                localStorage.getItem("token");
-
-            if (!token) {
-
-                navigate("/login");
-
+    const loadRazorpayScript = () => {
+        return new Promise((resolve) => {
+            if (window.Razorpay) {
+                resolve(true);
                 return;
-
             }
 
+            const script = document.createElement("script");
+
+            script.src =
+                "https://checkout.razorpay.com/v1/checkout.js";
+
+            script.onload = () => resolve(true);
+
+            script.onerror = () => resolve(false);
+
+            document.body.appendChild(script);
+        });
+    };
+
+    // ======================================================
+    // FETCH CART
+    // ======================================================
+
+    useEffect(() => {
+        const fetchCart = async () => {
             try {
+                if (!token) {
+                    navigate("/login");
+                    return;
+                }
 
-                const response =
-                    await fetch(`${API_URL}/cart`, {
-
-                        method: "GET",
-
+                const response = await fetch(
+                    `${API_URL}/cart`,
+                    {
                         headers: {
-
-                            Authorization:
-                                `Bearer ${token}`
-
+                            Authorization: `Bearer ${token}`
                         }
+                    }
+                );
 
-                    });
-
-
-                const data =
-                    await response.json();
-
+                const data = await response.json();
 
                 if (!response.ok) {
-
-                    setError(
+                    throw new Error(
                         data.message ||
                         "Failed to load cart"
                     );
-
-                    return;
-
                 }
-
 
                 setCartItems(
                     data.cart?.items || []
                 );
 
-
             } catch (error) {
-
                 console.error(
-                    "Cart error:",
+                    "Checkout Cart Error:",
                     error
                 );
 
-                setError(
-                    "Unable to connect to server"
-                );
-
+                alert(error.message);
 
             } finally {
-
                 setLoading(false);
-
             }
-
         };
 
-
         fetchCart();
+    }, [token, navigate]);
 
-    }, [navigate]);
-
-
-    // =====================================================
+    // ======================================================
     // CALCULATE SUBTOTAL
-    // =====================================================
+    // ======================================================
 
-    const subtotal =
-        cartItems.reduce(
-            (sum, item) => {
+    const subtotal = cartItems.reduce(
+        (total, item) => {
+            const product = item.product;
 
-                const price =
-                    item.product?.discountPrice ||
-                    item.product?.price ||
-                    0;
+            if (!product) {
+                return total;
+            }
 
-                return (
-                    sum +
-                    Number(price) *
-                    Number(item.quantity)
-                );
+            const price =
+                product.discountPrice ||
+                product.price;
 
-            },
-            0
-        );
+            return (
+                total +
+                price * item.quantity
+            );
+        },
+        0
+    );
 
+    const totalAmount =
+        subtotal + deliveryCharges;
 
-    // =====================================================
-    // CALCULATE TOTAL
-    // =====================================================
-
-    const total =
-        subtotal +
-        deliveryCharges;
-
-
-    // =====================================================
-    // VALIDATE PINCODE
-    // =====================================================
+    // ======================================================
+    // PINCODE VALIDATION
+    // ======================================================
 
     const validatePincode = async (pin) => {
-
-        if (pin.length !== 6) {
-
-            setPincodeMessage("");
+        if (!/^\d{6}$/.test(pin)) {
             setPincodeValid(false);
-
             return;
-
         }
 
         if (!city) {
-
-            setPincodeMessage(
-                "Please select a city first."
-            );
-
             setPincodeValid(false);
-
             return;
-
         }
 
-
         try {
+            setCheckingPincode(true);
 
-            setPincodeChecking(true);
-            setPincodeMessage("");
-            setPincodeValid(false);
+            const response = await fetch(
+                `https://api.postalpincode.in/pincode/${pin}`
+            );
 
-
-            const response =
-                await fetch(
-                    `https://api.postalpincode.in/pincode/${pin}`
-                );
-
-
-            const data =
-                await response.json();
-
+            const data = await response.json();
 
             if (
                 !data ||
                 !data[0] ||
                 data[0].Status !== "Success" ||
-                !data[0].PostOffice ||
-                data[0].PostOffice.length === 0
+                !data[0].PostOffice
             ) {
-
-                setPincodeMessage(
-                    "Invalid pincode. Please enter a valid pincode."
-                );
-
+                setPincodeValid(false);
                 return;
-
             }
-
 
             const postOffices =
                 data[0].PostOffice;
 
+            const cityMatches =
+                postOffices.some((office) => {
+                    const district =
+                        office.District?.toLowerCase() ||
+                        "";
 
-            // =================================================
-            // CHECK MAHARASHTRA
-            // =================================================
+                    const division =
+                        office.Division?.toLowerCase() ||
+                        "";
 
-            const isMaharashtra =
-                postOffices.some(
-                    (office) =>
-                        office.State &&
-                        office.State.toLowerCase() ===
-                            "maharashtra"
-                );
+                    const selectedCity =
+                        city.toLowerCase();
 
+                    const aliases = {
+                        mumbai: [
+                            "mumbai",
+                            "mumbai city",
+                            "mumbai suburban"
+                        ],
 
-            if (!isMaharashtra) {
+                        "navi mumbai": [
+                            "thane",
+                            "raigad",
+                            "mumbai"
+                        ],
 
-                setPincodeMessage(
-                    "This pincode is not from Maharashtra."
-                );
+                        aurangabad: [
+                            "aurangabad",
+                            "chhatrapati sambhajinagar"
+                        ],
 
-                return;
+                        ahmednagar: [
+                            "ahmednagar",
+                            "ahilyanagar"
+                        ]
+                    };
 
-            }
+                    const allowed =
+                        aliases[selectedCity] ||
+                        [selectedCity];
 
+                    return allowed.some(
+                        (name) =>
+                            district.includes(name) ||
+                            division.includes(name)
+                    );
+                });
 
-            // =================================================
-            // CHECK CITY / DISTRICT
-            // =================================================
-
-            const normalizedCity =
-                city
-                    .toLowerCase()
-                    .trim();
-
-
-            const cityAliases = {
-
-                "mumbai": [
-                    "mumbai",
-                    "mumbai suburban",
-                    "mumbai city"
-                ],
-
-                "navi mumbai": [
-                    "navi mumbai",
-                    "thane"
-                ],
-
-                "thane": [
-                    "thane"
-                ],
-
-                "pune": [
-                    "pune"
-                ],
-
-                "nagpur": [
-                    "nagpur"
-                ],
-
-                "nashik": [
-                    "nashik"
-                ],
-
-                "aurangabad": [
-                    "aurangabad",
-                    "chhatrapati sambhajinagar"
-                ],
-
-                "ahmednagar": [
-                    "ahmednagar",
-                    "ahilyanagar"
-                ],
-
-                "solapur": [
-                    "solapur"
-                ],
-
-                "kolhapur": [
-                    "kolhapur"
-                ],
-
-                "sangli": [
-                    "sangli"
-                ],
-
-                "satara": [
-                    "satara"
-                ],
-
-                "latur": [
-                    "latur"
-                ],
-
-                "akola": [
-                    "akola"
-                ],
-
-                "amravati": [
-                    "amravati"
-                ],
-
-                "jalgaon": [
-                    "jalgaon"
-                ],
-
-                "nanded": [
-                    "nanded"
-                ],
-
-                "dhule": [
-                    "dhule"
-                ],
-
-                "ratnagiri": [
-                    "ratnagiri"
-                ],
-
-                "chandrapur": [
-                    "chandrapur"
-                ],
-
-                "parbhani": [
-                    "parbhani"
-                ],
-
-                "beed": [
-                    "beed"
-                ],
-
-                "wardha": [
-                    "wardha"
-                ],
-
-                "buldhana": [
-                    "buldhana"
-                ],
-
-                "yavatmal": [
-                    "yavatmal"
-                ]
-
-            };
-
-
-            const validDistricts =
-                cityAliases[normalizedCity] || [
-                    normalizedCity
-                ];
-
-
-            const cityMatch =
-                postOffices.some(
-                    (office) => {
-
-                        const district =
-                            office.District
-                                ?.toLowerCase()
-                                .trim();
-
-                        const name =
-                            office.Name
-                                ?.toLowerCase()
-                                .trim();
-
-                        return (
-                            validDistricts.includes(
-                                district
-                            ) ||
-                            validDistricts.includes(
-                                name
-                            )
-                        );
-
-                    }
-                );
-
-
-            if (!cityMatch) {
-
-                setPincodeMessage(
-                    `Pincode ${pin} does not belong to ${city}.`
-                );
-
-                setPincodeValid(false);
-
-                return;
-
-            }
-
-
-            // =================================================
-            // PINCODE VALID
-            // =================================================
-
-            setPincodeValid(true);
-
-            setPincodeMessage(
-                `✓ Pincode is valid for ${city}, Maharashtra`
-            );
-
+            setPincodeValid(cityMatches);
 
         } catch (error) {
-
             console.error(
                 "Pincode validation error:",
                 error
             );
 
-            setPincodeMessage(
-                "Unable to verify pincode. Please try again."
-            );
-
             setPincodeValid(false);
 
-
         } finally {
-
-            setPincodeChecking(false);
-
+            setCheckingPincode(false);
         }
-
     };
 
+    useEffect(() => {
+        if (
+            pincode.length === 6 &&
+            city
+        ) {
+            validatePincode(pincode);
+        } else {
+            setPincodeValid(false);
+        }
+    }, [pincode, city]);
 
-    // =====================================================
+    // ======================================================
+    // CREATE COD ORDER
+    // ======================================================
+
+    const createCODOrder = async () => {
+        const response = await fetch(
+            `${API_URL}/orders`,
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json",
+
+                    Authorization:
+                        `Bearer ${token}`
+                },
+
+                body: JSON.stringify({
+                    shippingAddress: {
+                        fullName,
+                        phone,
+                        address,
+                        city,
+                        state,
+                        pincode
+                    },
+
+                    paymentMethod: "COD",
+
+                    deliveryCharges
+                })
+            }
+        );
+
+        const data =
+            await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                data.message ||
+                "Failed to place order"
+            );
+        }
+
+        return data;
+    };
+
+    // ======================================================
+    // START RAZORPAY PAYMENT
+    // ======================================================
+
+    const startRazorpayPayment =
+        async () => {
+
+            const scriptLoaded =
+                await loadRazorpayScript();
+
+            if (!scriptLoaded) {
+                throw new Error(
+                    "Razorpay failed to load. Please check your internet connection."
+                );
+            }
+
+            // Create Razorpay order on backend
+            const response =
+                await fetch(
+                    `${API_URL}/orders/create-razorpay-order`,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json",
+
+                            Authorization:
+                                `Bearer ${token}`
+                        },
+
+                        body: JSON.stringify({
+                            shippingAddress: {
+                                fullName,
+                                phone,
+                                address,
+                                city,
+                                state,
+                                pincode
+                            },
+
+                            deliveryCharges
+                        })
+                    }
+                );
+
+            const data =
+                await response.json();
+
+            if (!response.ok) {
+                throw new Error(
+                    data.message ||
+                    "Unable to create Razorpay order"
+                );
+            }
+
+            // Razorpay Checkout options
+            const options = {
+                key: data.key,
+
+                amount: data.amount,
+
+                currency: data.currency,
+
+                name: "SAAJKAR",
+
+                description:
+                    "Handcrafted Jewellery Purchase",
+
+                order_id:
+                    data.razorpayOrderId,
+
+                prefill: {
+                    name: fullName,
+                    contact: phone
+                },
+
+                theme: {
+                    color: "#8B5E3C"
+                },
+
+                handler:
+                    async function (
+                        paymentResponse
+                    ) {
+                        try {
+                            setPlacingOrder(
+                                true
+                            );
+
+                            // Verify payment
+                            const verifyResponse =
+                                await fetch(
+                                    `${API_URL}/orders/verify-payment`,
+                                    {
+                                        method: "POST",
+
+                                        headers: {
+                                            "Content-Type":
+                                                "application/json",
+
+                                            Authorization:
+                                                `Bearer ${token}`
+                                        },
+
+                                        body: JSON.stringify({
+                                            razorpay_order_id:
+                                                paymentResponse.razorpay_order_id,
+
+                                            razorpay_payment_id:
+                                                paymentResponse.razorpay_payment_id,
+
+                                            razorpay_signature:
+                                                paymentResponse.razorpay_signature,
+
+                                            shippingAddress: {
+                                                fullName,
+                                                phone,
+                                                address,
+                                                city,
+                                                state,
+                                                pincode
+                                            },
+
+                                            deliveryCharges
+                                        })
+                                    }
+                                );
+
+                            const verifyData =
+                                await verifyResponse.json();
+
+                            if (
+                                !verifyResponse.ok
+                            ) {
+                                throw new Error(
+                                    verifyData.message ||
+                                    "Payment verification failed"
+                                );
+                            }
+
+                            // Prepare invoice items
+                            const invoiceItems =
+                                cartItems.map(
+                                    (item) => ({
+                                        product:
+                                            item.product,
+
+                                        quantity:
+                                            item.quantity,
+
+                                        price:
+                                            item.product
+                                                .discountPrice ||
+                                            item.product
+                                                .price
+                                    })
+                                );
+
+                            const orderDetails = {
+                                orderId:
+                                    verifyData
+                                        .order
+                                        ._id,
+
+                                items:
+                                    invoiceItems,
+
+                                shippingAddress: {
+                                    fullName,
+                                    phone,
+                                    address,
+                                    city,
+                                    state,
+                                    pincode
+                                },
+
+                                subtotal,
+
+                                deliveryCharges,
+
+                                totalAmount,
+
+                                paymentMethod:
+                                    "Razorpay",
+
+                                isPaid: true,
+
+                                razorpayPaymentId:
+                                    paymentResponse
+                                        .razorpay_payment_id
+                            };
+
+                            localStorage.setItem(
+                                "orderDetails",
+                                JSON.stringify(
+                                    orderDetails
+                                )
+                            );
+
+                            navigate(
+                                "/invoice"
+                            );
+
+                        } catch (error) {
+                            console.error(
+                                "Payment Verification Error:",
+                                error
+                            );
+
+                            alert(
+                                error.message ||
+                                "Payment verification failed"
+                            );
+
+                            setPlacingOrder(
+                                false
+                            );
+                        }
+                    },
+
+                modal: {
+                    ondismiss:
+                        function () {
+                            setPlacingOrder(
+                                false
+                            );
+
+                            alert(
+                                "Payment was cancelled."
+                            );
+                        }
+                }
+            };
+
+            const razorpay =
+                new window.Razorpay(
+                    options
+                );
+
+            razorpay.on(
+                "payment.failed",
+                function (response) {
+                    console.error(
+                        "Razorpay Payment Failed:",
+                        response.error
+                    );
+
+                    alert(
+                        response.error
+                            ?.description ||
+                        "Payment failed. Please try again."
+                    );
+
+                    setPlacingOrder(
+                        false
+                    );
+                }
+            );
+
+            razorpay.open();
+        };
+
+    // ======================================================
     // PLACE ORDER
-    // =====================================================
+    // ======================================================
 
     const handlePlaceOrder =
         async () => {
 
-            const token =
-                localStorage.getItem("token");
-
-
-            if (!token) {
-
-                navigate("/login");
-
-                return;
-
-            }
-
-
-            // =================================================
-            // CHECK CART
-            // =================================================
-
-            if (cartItems.length === 0) {
-
-                alert(
-                    "Your cart is empty."
-                );
-
-                return;
-
-            }
-
-
-            // =================================================
-            // VALIDATE FIELDS
-            // =================================================
-
-            if (
-                !fullName ||
-                !phone ||
-                !address ||
-                !city ||
-                !state ||
-                !pincode
-            ) {
-
-                alert(
-                    "Please fill all shipping details."
-                );
-
-                return;
-
-            }
-
-
-            // =================================================
-            // PHONE VALIDATION
-            // =================================================
-
-            if (phone.length !== 10) {
-
-                alert(
-                    "Please enter a valid 10-digit phone number."
-                );
-
-                return;
-
-            }
-
-
-            // =================================================
-            // PINCODE LENGTH
-            // =================================================
-
-            if (pincode.length !== 6) {
-
-                alert(
-                    "Please enter a valid 6-digit pincode."
-                );
-
-                return;
-
-            }
-
-
-            // =================================================
-            // PINCODE VERIFIED
-            // =================================================
-
-            if (!pincodeValid) {
-
-                alert(
-                    "Please enter a valid pincode for the selected city."
-                );
-
-                return;
-
-            }
-
-
             try {
-
-                setPlacingOrder(true);
-
-
-                const response =
-                    await fetch(
-                        `${API_URL}/orders`,
-                        {
-
-                            method: "POST",
-
-                            headers: {
-
-                                "Content-Type":
-                                    "application/json",
-
-                                Authorization:
-                                    `Bearer ${token}`
-
-                            },
-
-                            body:
-                                JSON.stringify({
-
-                                    shippingAddress: {
-
-                                        fullName,
-
-                                        phone,
-
-                                        address,
-
-                                        city,
-
-                                        state,
-
-                                        pincode
-
-                                    },
-
-                                    paymentMethod,
-
-                                    deliveryCharges
-
-                                })
-
-                        }
+                if (!token) {
+                    localStorage.setItem(
+                        "checkoutAfterLogin",
+                        "true"
                     );
 
+                    navigate("/login");
 
-                const data =
-                    await response.json();
+                    return;
+                }
 
-
-                if (!response.ok) {
-
+                if (
+                    cartItems.length === 0
+                ) {
                     alert(
-                        data.message ||
-                        "Failed to place order"
+                        "Your cart is empty."
                     );
 
                     return;
-
                 }
 
-
-                console.log(
-                    "Order placed:",
-                    data
-                );
-
-
-                // =================================================
-                // PREPARE INVOICE DATA
-                // =================================================
-
-                const invoiceItems =
-                    cartItems.map(
-                        (item) => {
-
-                            const product =
-                                item.product;
-
-
-                            const price =
-                                product?.discountPrice ||
-                                product?.price ||
-                                0;
-
-
-                            return {
-
-                                id:
-                                    item._id,
-
-                                name:
-                                    product?.name ||
-                                    "Jewellery",
-
-                                price:
-                                    Number(price),
-
-                                quantity:
-                                    Number(
-                                        item.quantity
-                                    ) || 1,
-
-                                image:
-                                    product
-                                        ?.images?.[0]?.url ||
-                                    ""
-
-                            };
-
-                        }
+                if (!fullName.trim()) {
+                    alert(
+                        "Please enter your full name."
                     );
 
+                    return;
+                }
 
-                // =================================================
-                // SAVE INVOICE DATA
-                // =================================================
+                if (
+                    !/^\d{10}$/.test(
+                        phone
+                    )
+                ) {
+                    alert(
+                        "Please enter a valid 10-digit phone number."
+                    );
 
-                const invoiceData = {
+                    return;
+                }
 
-                    orderId:
-                        data.order?._id ||
-                        data.order?.orderId ||
-                        "N/A",
+                if (!address.trim()) {
+                    alert(
+                        "Please enter your address."
+                    );
 
+                    return;
+                }
 
-                    orderDate:
-                        new Date()
-                            .toLocaleDateString(
-                                "en-IN",
-                                {
+                if (!city) {
+                    alert(
+                        "Please select your city."
+                    );
 
-                                    day:
-                                        "2-digit",
+                    return;
+                }
 
-                                    month:
-                                        "long",
+                if (!state) {
+                    alert(
+                        "Please select your state."
+                    );
 
-                                    year:
-                                        "numeric"
+                    return;
+                }
 
-                                }
-                            ),
+                if (
+                    !/^\d{6}$/.test(
+                        pincode
+                    )
+                ) {
+                    alert(
+                        "Please enter a valid 6-digit pincode."
+                    );
 
+                    return;
+                }
 
-                    name:
-                        fullName,
+                if (!pincodeValid) {
+                    alert(
+                        checkingPincode
+                            ? "Please wait while the pincode is being verified."
+                            : "The pincode does not match the selected Maharashtra city."
+                    );
 
+                    return;
+                }
 
-                    phone:
-                        phone,
+                setPlacingOrder(true);
 
+                // ==================================================
+                // COD
+                // ==================================================
 
-                    address:
-                        address,
+                if (
+                    paymentMethod ===
+                    "COD"
+                ) {
+                    const data =
+                        await createCODOrder();
 
+                    const invoiceItems =
+                        cartItems.map(
+                            (item) => ({
+                                product:
+                                    item.product,
 
-                    city:
-                        city,
+                                quantity:
+                                    item.quantity,
 
+                                price:
+                                    item.product
+                                        .discountPrice ||
+                                    item.product
+                                        .price
+                            })
+                        );
 
-                    state:
-                        state,
+                    const orderDetails = {
+                        orderId:
+                            data.order._id,
 
+                        items:
+                            invoiceItems,
 
-                    pincode:
-                        pincode,
+                        shippingAddress: {
+                            fullName,
+                            phone,
+                            address,
+                            city,
+                            state,
+                            pincode
+                        },
 
-
-                    items:
-                        invoiceItems,
-
-
-                    subtotal:
                         subtotal,
 
-
-                    deliveryCharges:
                         deliveryCharges,
 
+                        totalAmount,
 
-                    totalAmount:
-                        total,
+                        paymentMethod:
+                            "COD",
 
+                        isPaid: false
+                    };
 
-                    estimatedDelivery:
-                        "7–8 Working Days",
+                    localStorage.setItem(
+                        "orderDetails",
+                        JSON.stringify(
+                            orderDetails
+                        )
+                    );
 
+                    navigate(
+                        "/invoice"
+                    );
 
-                    paymentMethod:
-                        paymentMethod === "COD"
-                            ? "Cash on Delivery"
-                            : paymentMethod
+                    return;
+                }
 
-                };
+                // ==================================================
+                // RAZORPAY
+                // ==================================================
 
+                if (
+                    paymentMethod ===
+                    "Razorpay"
+                ) {
+                    await startRazorpayPayment();
 
-                // =================================================
-                // SAVE INVOICE
-                // =================================================
-
-                localStorage.setItem(
-                    "orderDetails",
-                    JSON.stringify(
-                        invoiceData
-                    )
-                );
-
-
-                // =================================================
-                // GO TO INVOICE
-                // =================================================
-
-                navigate("/invoice");
-
+                    return;
+                }
 
             } catch (error) {
-
                 console.error(
-                    "Place order error:",
+                    "Place Order Error:",
                     error
                 );
 
                 alert(
-                    "Unable to connect to server"
+                    error.message ||
+                    "Something went wrong while placing the order."
                 );
 
-
-            } finally {
-
-                setPlacingOrder(false);
-
+                setPlacingOrder(
+                    false
+                );
             }
-
         };
 
-
-    // =====================================================
+    // ======================================================
     // LOADING
-    // =====================================================
+    // ======================================================
 
     if (loading) {
-
         return (
-
-            <div className="checkout-page">
-
-                <h1>
-                    Checkout
-                </h1>
-
+            <div className="checkout-container">
                 <h2>
-                    Loading cart...
+                    Loading checkout...
                 </h2>
-
             </div>
-
         );
-
     }
 
+    // ======================================================
+    // EMPTY CART
+    // ======================================================
 
-    // =====================================================
-    // ERROR
-    // =====================================================
-
-    if (error) {
-
+    if (cartItems.length === 0) {
         return (
-
-            <div className="checkout-page">
-
-                <h1>
-                    Checkout
-                </h1>
-
+            <div className="checkout-container">
                 <h2>
-                    {error}
+                    Your cart is empty
                 </h2>
 
+                <button
+                    onClick={() =>
+                        navigate("/")
+                    }
+                >
+                    Continue Shopping
+                </button>
             </div>
-
         );
-
     }
 
+    // ======================================================
+    // CHECKOUT UI
+    // ======================================================
 
     return (
+        <div className="checkout-container">
 
-        <div className="checkout-page">
+            <div className="checkout-left">
 
-            <h1>
-                CHECKOUT
-            </h1>
+                <h2>Checkout</h2>
 
+                <div className="checkout-section">
 
-            <div className="checkout-container">
-
-
-                {/* =====================================================
-                    BILLING DETAILS
-                ===================================================== */}
-
-                <div className="checkout-form">
-
-                    <h2>
-                        Billing Details
-                    </h2>
-
-
-                    {/* FULL NAME */}
+                    <h3>
+                        Shipping Information
+                    </h3>
 
                     <input
                         type="text"
@@ -914,529 +846,274 @@ const Checkout = () => {
                         }
                     />
 
-
-                    {/* PHONE */}
-
                     <input
                         type="tel"
                         placeholder="Phone Number"
                         value={phone}
                         maxLength="10"
-                        inputMode="numeric"
-                        onChange={(e) => {
-
-                            const value =
-                                e.target.value
-                                    .replace(
-                                        /\D/g,
-                                        ""
-                                    )
-                                    .slice(0, 10);
-
-                            setPhone(value);
-
-                        }}
+                        onChange={(e) =>
+                            setPhone(
+                                e.target.value.replace(
+                                    /\D/g,
+                                    ""
+                                )
+                            )
+                        }
                     />
 
-
-                    {/* ADDRESS */}
-
                     <textarea
-                        placeholder="Address"
-                        rows="3"
+                        placeholder="Full Address"
                         value={address}
                         onChange={(e) =>
                             setAddress(
                                 e.target.value
                             )
                         }
-                    ></textarea>
-
-
-                    {/* =================================================
-                        STATE
-                    ================================================= */}
-
-                    <select
-                        value={state}
-                        onChange={(e) => {
-
-                            setState(
-                                e.target.value
-                            );
-
-                            setCity("");
-
-                            setPincode("");
-
-                            setPincodeMessage("");
-
-                            setPincodeValid(false);
-
-                        }}
-                    >
-
-                        <option value="">
-                            Select State
-                        </option>
-
-                        <option value="Maharashtra">
-                            Maharashtra
-                        </option>
-
-                    </select>
-
-
-                    {/* =================================================
-                        CITY
-                    ================================================= */}
+                    />
 
                     <select
                         value={city}
-                        disabled={!state}
-                        onChange={(e) => {
-
+                        onChange={(e) =>
                             setCity(
                                 e.target.value
-                            );
-
-                            setPincode("");
-
-                            setPincodeMessage("");
-
-                            setPincodeValid(false);
-
-                        }}
-                    >
-
-                        <option value="">
-                            {state
-                                ? "Select City"
-                                : "Select State First"}
-                        </option>
-
-
-                        {state === "Maharashtra" &&
-                            maharashtraCities.map(
-                                (cityName) => (
-
-                                    <option
-                                        key={cityName}
-                                        value={cityName}
-                                    >
-                                        {cityName}
-                                    </option>
-
-                                )
                             )
                         }
+                    >
+                        <option value="">
+                            Select City
+                        </option>
 
+                        {maharashtraCities.map(
+                            (item) => (
+                                <option
+                                    key={item}
+                                    value={item}
+                                >
+                                    {item}
+                                </option>
+                            )
+                        )}
                     </select>
 
-
-                    {/* =================================================
-                        PINCODE
-                    ================================================= */}
+                    <select
+                        value={state}
+                        onChange={(e) =>
+                            setState(
+                                e.target.value
+                            )
+                        }
+                    >
+                        <option value="Maharashtra">
+                            Maharashtra
+                        </option>
+                    </select>
 
                     <input
                         type="text"
                         placeholder="Pincode"
                         value={pincode}
                         maxLength="6"
-                        inputMode="numeric"
-                        onChange={(e) => {
-
-                            const value =
-                                e.target.value
-                                    .replace(
-                                        /\D/g,
-                                        ""
-                                    )
-                                    .slice(0, 6);
-
-                            setPincode(value);
-
-                            setPincodeMessage("");
-
-                            setPincodeValid(false);
-
-
-                            if (
-                                value.length === 6 &&
-                                city
-                            ) {
-
-                                validatePincode(
-                                    value
-                                );
-
-                            }
-
-                        }}
+                        onChange={(e) =>
+                            setPincode(
+                                e.target.value.replace(
+                                    /\D/g,
+                                    ""
+                                )
+                            )
+                        }
                     />
 
-
-                    {/* PINCODE MESSAGE */}
-
-                    {pincodeChecking && (
-
-                        <p className="pincode-message">
-
+                    {checkingPincode && (
+                        <p>
                             Checking pincode...
-
                         </p>
-
                     )}
 
-
-                    {!pincodeChecking &&
-                        pincodeMessage && (
-
+                    {!checkingPincode &&
+                        pincode.length === 6 &&
+                        city && (
                             <p
-                                className={
-                                    pincodeValid
-                                        ? "pincode-message valid"
-                                        : "pincode-message invalid"
-                                }
+                                style={{
+                                    color:
+                                        pincodeValid
+                                            ? "green"
+                                            : "red"
+                                }}
                             >
-
-                                {pincodeMessage}
-
+                                {pincodeValid
+                                    ? "✓ Pincode verified"
+                                    : "✕ Pincode does not match selected city"}
                             </p>
-
-                        )
-                    }
-
-
-                    {/* =====================================================
-                        DELIVERY DETAILS
-                    ===================================================== */}
-
-                    <div className="delivery-details">
-
-                        <h2>
-                            Delivery Details
-                        </h2>
-
-
-                        <div className="delivery-box">
-
-                            {/* ESTIMATED DELIVERY */}
-
-                            <div className="delivery-row">
-
-                                <div className="delivery-text">
-
-                                    <span className="delivery-icon">
-                                        📦
-                                    </span>
-
-
-                                    <div>
-
-                                        <strong>
-                                            Estimated Delivery
-                                        </strong>
-
-                                        <p>
-                                            7–8 Working Days
-                                        </p>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-
-                            <div className="delivery-line"></div>
-
-
-                            {/* DELIVERY CHARGES */}
-
-                            <div className="delivery-row">
-
-                                <div className="delivery-text">
-
-                                    <span className="delivery-icon">
-                                        🚚
-                                    </span>
-
-
-                                    <div>
-
-                                        <strong>
-                                            Delivery Charges
-                                        </strong>
-
-                                        <p>
-                                            Maharashtra
-                                        </p>
-
-                                    </div>
-
-                                </div>
-
-
-                                <div className="selected-delivery">
-
-                                    {city ? (
-
-                                        <>
-
-                                            <small>
-                                                {city}
-                                            </small>
-
-                                            <strong>
-                                                ₹
-                                                {deliveryCharges}
-                                            </strong>
-
-                                        </>
-
-                                    ) : (
-
-                                        <small>
-                                            Select City
-                                        </small>
-
-                                    )}
-
-                                </div>
-
-                            </div>
-
-
-                        </div>
-
-                    </div>
+                        )}
 
                 </div>
 
+                <div className="checkout-section">
 
-                {/* =====================================================
-                    ORDER SUMMARY
-                ===================================================== */}
+                    <h3>
+                        Payment Method
+                    </h3>
 
-                <div className="order-summary">
-
-                    <h2>
-                        Order Summary
-                    </h2>
-
-
-                    {cartItems.length === 0 ? (
-
-                        <p>
-                            Your cart is empty.
-                        </p>
-
-                    ) : (
-
-                        cartItems.map(
-                            (item) => {
-
-                                const product =
-                                    item.product;
-
-
-                                const price =
-                                    product?.discountPrice ||
-                                    product?.price ||
-                                    0;
-
-
-                                return (
-
-                                    <div
-                                        className="order-item"
-                                        key={item._id}
-                                    >
-
-
-                                        <img
-                                            src={
-                                                product
-                                                    ?.images?.[0]?.url
-                                            }
-                                            alt={
-                                                product?.name
-                                            }
-                                        />
-
-
-                                        
-
-                                            <div>
-    <h3>
-        {product?.name}
-    </h3>
-
-    <p>
-        Quantity: {item.quantity}
-    </p>
-</div>
-
-
-                                        <span className="item-total">
-
-                                            ₹
-                                            {(
-                                                Number(
-                                                    price
-                                                ) *
-                                                Number(
-                                                    item.quantity
-                                                )
-                                            ).toLocaleString(
-                                                "en-IN"
-                                            )}
-
-                                        </span>
-
-                                    </div>
-
-                                );
-
+                    <label>
+                        <input
+                            type="radio"
+                            value="COD"
+                            checked={
+                                paymentMethod ===
+                                "COD"
                             }
-                        )
+                            onChange={(e) =>
+                                setPaymentMethod(
+                                    e.target.value
+                                )
+                            }
+                        />
 
-                    )}
+                        Cash on Delivery
+                    </label>
 
+                    <label>
+                        <input
+                            type="radio"
+                            value="Razorpay"
+                            checked={
+                                paymentMethod ===
+                                "Razorpay"
+                            }
+                            onChange={(e) =>
+                                setPaymentMethod(
+                                    e.target.value
+                                )
+                            }
+                        />
 
-                    <hr />
-
-
-                    {/* SUBTOTAL */}
-
-                    <div className="summary-row">
-
-                        <span>
-                            Subtotal
-                        </span>
-
-
-                        <span>
-
-                            ₹
-                            {subtotal.toLocaleString(
-                                "en-IN"
-                            )}
-
-                        </span>
-
-                    </div>
-
-
-                    {/* DELIVERY */}
-
-                    <div className="summary-row">
-
-                        <span>
-                            Delivery Charges
-                        </span>
-
-
-                        <span>
-
-                            {city
-                                ? `₹${deliveryCharges}`
-                                : "Select City"}
-
-                        </span>
-
-                    </div>
-
-
-                    <div className="summary-divider"></div>
-
-
-                    {/* TOTAL */}
-
-                    <div className="summary-row total-row">
-
-                        <span>
-                            Total Amount
-                        </span>
-
-
-                        <span>
-
-                            ₹
-                            {total.toLocaleString(
-                                "en-IN"
-                            )}
-
-                        </span>
-
-                    </div>
-
-
-                    {/* =====================================================
-                        PAYMENT METHOD
-                    ===================================================== */}
-
-                    <div className="payment-section">
-
-                        <h3>
-                            Payment Method
-                        </h3>
-
-
-                        <label>
-
-                            <input
-                                type="radio"
-                                value="COD"
-                                checked={
-                                    paymentMethod ===
-                                    "COD"
-                                }
-                                onChange={(e) =>
-                                    setPaymentMethod(
-                                        e.target.value
-                                    )
-                                }
-                            />
-
-                            Online Payment 
-
-                        </label>
-
-                    </div>
-
-
-                    {/* =====================================================
-                        PLACE ORDER
-                    ===================================================== */}
-
-                    <button
-                        className="place-order"
-                        type="button"
-                        onClick={
-                            handlePlaceOrder
-                        }
-                        disabled={
-                            placingOrder ||
-                            cartItems.length === 0
-                        }
-                    >
-
-                        {placingOrder
-                            ? "Placing Order..."
-                            : "Place Order"}
-
-                    </button>
+                        Online Payment
+                    </label>
 
                 </div>
 
             </div>
 
+            <div className="checkout-right">
+
+                <h3>
+                    Order Summary
+                </h3>
+
+                {cartItems.map(
+                    (item) => {
+                        const product =
+                            item.product;
+
+                        if (!product) {
+                            return null;
+                        }
+
+                        const price =
+                            product.discountPrice ||
+                            product.price;
+
+                        return (
+                            <div
+                                className="checkout-item"
+                                key={
+                                    product._id
+                                }
+                            >
+
+                                <img
+                                    src={
+                                        product
+                                            .images?.[0]
+                                            ?.url
+                                    }
+                                    alt={
+                                        product.name
+                                    }
+                                />
+
+                                <div>
+                                    <p>
+                                        {
+                                            product.name
+                                        }
+                                    </p>
+
+                                    <p>
+                                        ₹
+                                        {price} ×{" "}
+                                        {
+                                            item.quantity
+                                        }
+                                    </p>
+                                </div>
+
+                            </div>
+                        );
+                    }
+                )}
+
+                <div className="checkout-total">
+
+                    <div>
+                        <span>
+                            Subtotal
+                        </span>
+
+                        <span>
+                            ₹{subtotal}
+                        </span>
+                    </div>
+
+                    <div>
+                        <span>
+                            Delivery
+                        </span>
+
+                        <span>
+                            ₹
+                            {
+                                deliveryCharges
+                            }
+                        </span>
+                    </div>
+
+                    <div>
+                        <strong>
+                            Total
+                        </strong>
+
+                        <strong>
+                            ₹{totalAmount}
+                        </strong>
+                    </div>
+
+                </div>
+
+                <button
+                    className="place-order-btn"
+                    onClick={
+                        handlePlaceOrder
+                    }
+                    disabled={
+                        placingOrder
+                    }
+                >
+                    {placingOrder
+                        ? paymentMethod ===
+                          "Razorpay"
+                            ? "Opening Payment..."
+                            : "Placing Order..."
+                        : paymentMethod ===
+                          "Razorpay"
+                        ? "Pay with Razorpay"
+                        : "Place Order"}
+                </button>
+
+            </div>
+
         </div>
-
     );
-
 };
 
 export default Checkout;
