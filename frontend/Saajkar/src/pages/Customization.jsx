@@ -314,38 +314,40 @@ function Customization() {
 
           {/* ================= BUDGET ================= */}
 
-          <div className="custom-box">
+          {/* ================= BUDGET ================= */}
 
-            <label>Budget Range</label>
+<div className="custom-box">
 
-            <select
-              defaultValue=""
-              required
-            >
+  <label>Budget Range</label>
 
-              <option value="" disabled>
-                Select Budget
-              </option>
+  <select
+    defaultValue=""
+    required
+  >
 
-              <option>
-                Below ₹25,000
-              </option>
+    <option value="" disabled>
+      Select Budget
+    </option>
 
-              <option>
-                ₹25,000 - ₹50,000
-              </option>
+    <option>
+      Below ₹500
+    </option>
 
-              <option>
-                ₹50,000 - ₹1,00,000
-              </option>
+    <option>
+      ₹500 - ₹1,000
+    </option>
 
-              <option>
-                Above ₹1,00,000
-              </option>
+    <option>
+      ₹1,000 - ₹1,500
+    </option>
 
-            </select>
+    <option>
+      Above ₹1,500
+    </option>
 
-          </div>
+  </select>
+
+</div>
 
 
           {/* ================= DESIGN DESCRIPTION ================= */}

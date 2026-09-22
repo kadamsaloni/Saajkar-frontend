@@ -212,7 +212,7 @@ const Product = ({ product }) => {
                 >
 
                     <span className="cart-icon">
-                        🛒
+                        
                     </span>
 
                     <span>

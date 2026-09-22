@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Shop.css";
@@ -468,26 +469,23 @@ const Shop = () => {
                                             </h3>
 
 
+                                            {/* PRICE */}
+
                                             <div className="price-section">
 
                                                 <span className="shop-price">
-                                                    ₹{sellingPrice}
+                                                    ₹{Number(sellingPrice)}
                                                 </span>
 
+                                                {Number(product.discountPrice) > 0 &&
+                                                    Number(product.discountPrice) <
+                                                        Number(product.price) && (
 
-                                                {product.discountPrice &&
-                                                    Number(
-                                                        product.discountPrice
-                                                    ) <
-                                                        Number(
-                                                            product.price
-                                                        ) && (
+                                                    <span className="original-price">
+                                                        ₹{Number(product.price)}
+                                                    </span>
 
-                                                        <span className="original-price">
-                                                            ₹{product.price}
-                                                        </span>
-
-                                                    )}
+                                                )}
 
                                             </div>
 

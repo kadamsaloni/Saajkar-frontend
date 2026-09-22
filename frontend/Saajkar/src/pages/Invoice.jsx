@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import "./Invoice.css";
 import logo from "../assets/saajkar-logo.png";
@@ -20,13 +19,10 @@ const Invoice = () => {
     }
   }, []);
 
-  /* ================= NO ORDER ================= */
-
   if (!order) {
     return (
       <div className="invoice-page">
         <div className="invoice-box no-invoice">
-
           <img
             src={logo}
             alt="Saajkar Logo"
@@ -38,39 +34,25 @@ const Invoice = () => {
           <p>
             Please place an order first to view your invoice.
           </p>
-
         </div>
       </div>
     );
   }
 
-  /* ================= ITEMS ================= */
+  const items = Array.isArray(order.items) ? order.items : [];
 
-  const items = Array.isArray(order.items)
-    ? order.items
-    : [];
+  const calculatedSubtotal = items.reduce((total, item) => {
+    const price = Number(item.price) || 0;
+    const quantity = Number(item.quantity) || 1;
 
-  /* ================= SUBTOTAL ================= */
-
-  const calculatedSubtotal = items.reduce(
-    (total, item) => {
-      const price = Number(item.price) || 0;
-      const quantity = Number(item.quantity) || 1;
-
-      return total + price * quantity;
-    },
-    0
-  );
+    return total + price * quantity;
+  }, 0);
 
   const subtotal =
     Number(order.subtotal) || calculatedSubtotal;
 
-  /* ================= DELIVERY ================= */
-
   const deliveryCharges =
     Number(order.deliveryCharges) || 0;
-
-  /* ================= TOTAL ================= */
 
   const totalAmount =
     Number(order.totalAmount) ||
@@ -78,15 +60,10 @@ const Invoice = () => {
 
   return (
     <div className="invoice-page">
-
       <div className="invoice-box">
 
-        {/* ================================================= */}
         {/* HEADER */}
-        {/* ================================================= */}
-
         <div className="invoice-header">
-
           <img
             src={logo}
             alt="Saajkar Logo"
@@ -96,43 +73,27 @@ const Invoice = () => {
           <h1>INVOICE</h1>
 
           <p>JEWELLERY & ELEGANCE</p>
-
         </div>
 
-
-        {/* ================================================= */}
         {/* ORDER INFORMATION */}
-        {/* ================================================= */}
-
         <div className="invoice-info">
 
           <div>
             <strong>Order ID</strong>
-
-            <span>
-              {order.orderId || "N/A"}
-            </span>
+            <span>{order.orderId || "N/A"}</span>
           </div>
 
           <div>
             <strong>Order Date</strong>
-
-            <span>
-              {order.orderDate || "N/A"}
-            </span>
+            <span>{order.orderDate || "N/A"}</span>
           </div>
 
         </div>
 
-
-        {/* ================================================= */}
         {/* CUSTOMER INFORMATION */}
-        {/* ================================================= */}
-
         {(order.name ||
           order.email ||
           order.phone) && (
-
           <div className="customer-info">
 
             <h3>Customer Details</h3>
@@ -161,22 +122,15 @@ const Invoice = () => {
           </div>
         )}
 
-
-        {/* ================================================= */}
-        {/* JEWELLERY DETAILS */}
-        {/* ================================================= */}
-
+        {/* PRODUCTS */}
         <div className="invoice-products">
 
           <h3>Jewellery Details</h3>
 
-
           {items.length === 0 ? (
-
             <p className="empty-items">
               No jewellery items found.
             </p>
-
           ) : (
 
             items.map((item, index) => {
@@ -190,31 +144,66 @@ const Invoice = () => {
               const itemTotal =
                 price * quantity;
 
-              return (
+              /*
+                Get product image from different
+                possible image fields.
+              */
+              let productImage = "";
 
+              if (item.image) {
+                productImage = item.image;
+              } else if (item.imageUrl) {
+                productImage = item.imageUrl;
+              } else if (
+                item.images &&
+                Array.isArray(item.images) &&
+                item.images.length > 0
+              ) {
+                if (
+                  typeof item.images[0] === "string"
+                ) {
+                  productImage = item.images[0];
+                } else {
+                  productImage =
+                    item.images[0]?.url || "";
+                }
+              }
+
+              return (
                 <div
                   className="invoice-item"
-                  key={item.id || index}
+                  key={item.id || item._id || index}
                 >
 
-                  {/* PRODUCT PHOTO */}
-
+                  {/* PRODUCT IMAGE */}
                   <div className="invoice-image-container">
 
-                    <img
-                      src={item.image}
-                      alt={
-                        item.name ||
-                        "Jewellery"
-                      }
-                      className="invoice-item-image"
-                    />
+                    {productImage ? (
+                      <img
+                        src={productImage}
+                        alt={
+                          item.name ||
+                          "Jewellery"
+                        }
+                        className="invoice-item-image"
+                        onError={(e) => {
+                          e.target.style.display =
+                            "none";
+
+                          e.target.parentElement.classList.add(
+                            "image-error"
+                          );
+                        }}
+                      />
+                    ) : (
+                      <div className="image-placeholder">
+                        No Image
+                      </div>
+                    )}
 
                   </div>
 
-
                   {/* PRODUCT DETAILS */}
-
                   <div className="invoice-item-info">
 
                     <h4>
@@ -235,16 +224,12 @@ const Invoice = () => {
 
                   </div>
 
-
-                  {/* PRODUCT TOTAL */}
-
+                  {/* ITEM TOTAL */}
                   <div className="invoice-item-price">
-
                     ₹
                     {itemTotal.toLocaleString(
                       "en-IN"
                     )}
-
                   </div>
 
                 </div>
@@ -254,20 +239,11 @@ const Invoice = () => {
 
         </div>
 
-
-        {/* ================================================= */}
-        {/* PRICE DETAILS */}
-        {/* ================================================= */}
-
+        {/* TOTAL */}
         <div className="invoice-total">
 
-          {/* SUBTOTAL */}
-
           <div>
-
-            <span>
-              Subtotal
-            </span>
+            <span>Subtotal</span>
 
             <span>
               ₹
@@ -275,38 +251,23 @@ const Invoice = () => {
                 "en-IN"
               )}
             </span>
-
           </div>
 
-
-          {/* DELIVERY CHARGES */}
-
           <div>
+            <span>Delivery Charges</span>
 
             <span>
-              Delivery Charges
-            </span>
-
-            <span>
-
               {deliveryCharges === 0
                 ? "FREE"
                 : `₹${deliveryCharges.toLocaleString(
                     "en-IN"
                   )}`}
-
             </span>
-
           </div>
-
-
-          {/* TOTAL */}
 
           <div className="final-total">
 
-            <span>
-              Total Amount
-            </span>
+            <span>Total Amount</span>
 
             <span>
               ₹
@@ -319,18 +280,11 @@ const Invoice = () => {
 
         </div>
 
-
-        {/* ================================================= */}
-        {/* PAYMENT METHOD */}
-        {/* ================================================= */}
-
+        {/* PAYMENT */}
         {order.paymentMethod && (
-
           <div className="payment-info">
 
-            <strong>
-              Payment Method
-            </strong>
+            <strong>Payment Method</strong>
 
             <span>
               {order.paymentMethod}
@@ -339,11 +293,7 @@ const Invoice = () => {
           </div>
         )}
 
-
-        {/* ================================================= */}
         {/* FOOTER */}
-        {/* ================================================= */}
-
         <div className="invoice-footer">
 
           <p>
@@ -351,21 +301,20 @@ const Invoice = () => {
           </p>
 
           <p>
-            Your jewellery order has been
-            placed successfully.
+            Your jewellery order has been placed
+            successfully.
           </p>
 
           <p className="invoice-note">
-            We hope you enjoy your beautiful jewellery.
+            We hope you enjoy your beautiful
+            jewellery.
           </p>
 
         </div>
 
       </div>
-
     </div>
   );
 };
 
 export default Invoice;
-

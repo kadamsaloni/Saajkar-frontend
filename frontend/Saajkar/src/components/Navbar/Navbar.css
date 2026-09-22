@@ -1,3 +1,4 @@
+
 /* ============================= */
 /* NAVBAR */
 /* ============================= */
@@ -300,4 +301,312 @@
     position: relative;
 
     z-index: 1004;
+}
+
+
+/* ========================================= */
+/* MOBILE NAVBAR */
+/* ========================================= */
+
+@media (max-width: 600px) {
+
+    /* ============================= */
+    /* MAIN TOP ROW */
+    /* ============================= */
+
+    .top-navbar {
+        height: 65px;
+
+        padding: 0 15px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+    }
+
+
+    /* ============================= */
+    /* CENTER LOGO */
+    /* ============================= */
+
+    .logo {
+        position: absolute;
+
+        left: 50%;
+
+        top: 50%;
+
+        transform: translate(-50%, -50%);
+
+        width: 135px;
+
+        z-index: 1002;
+    }
+
+
+    .logo img {
+        width: 135px;
+
+        height: auto;
+
+        margin: 0 auto;
+    }
+
+
+    /* ============================= */
+    /* ICONS */
+    /* ============================= */
+
+    .nav-icons {
+        display: flex;
+
+        align-items: center;
+
+        justify-content: flex-end;
+
+        gap: 14px;
+
+        margin-left: auto;
+
+        position: relative;
+
+        z-index: 1003;
+    }
+
+
+    .nav-icons a {
+        width: 28px;
+
+        height: 40px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+    }
+
+
+    .nav-icons svg {
+        font-size: 19px;
+    }
+
+
+    /* ============================= */
+    /* LOGIN IMAGE */
+    /* ============================= */
+
+    .login-logo {
+        width: 30px;
+
+        height: 30px;
+
+        border-width: 1px;
+    }
+
+
+    /* ============================= */
+    /* FILTER BUTTON */
+    /* ============================= */
+
+    .filter-btn {
+        position: absolute;
+
+        left: 15px;
+
+        top: 50%;
+
+        transform: translateY(-50%);
+
+        padding: 5px;
+
+        margin: 0;
+
+        font-size: 0;
+
+        gap: 0;
+
+        z-index: 1003;
+    }
+
+
+    .filter-btn svg {
+        font-size: 21px;
+    }
+
+
+    /* ============================= */
+    /* HIDE DESKTOP MENU ON MOBILE */
+    /* ============================= */
+
+    .menu {
+        display: none;
+    }
+}
+
+
+/* =========================================
+   MOBILE NAVBAR
+========================================= */
+
+@media (max-width: 600px) {
+
+    .navbar {
+        width: 100%;
+        position: relative;
+        height: auto;
+        padding: 0;
+    }
+
+    /* TOP ROW */
+    .top-navbar {
+        height: 65px;
+        padding: 0 15px;
+        position: relative;
+    }
+
+    /* CENTER LOGO */
+    .logo {
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .logo img {
+        width: 125px;
+        height: auto;
+        margin: 0 auto;
+    }
+
+    /* FILTER */
+    .filter-btn {
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        padding: 5px;
+        font-size: 0;
+    }
+
+    .filter-btn svg {
+        font-size: 20px;
+    }
+
+    /* RIGHT ICONS */
+    .nav-icons {
+        gap: 10px;
+        margin-left: auto;
+    }
+
+    .nav-icons a {
+        width: 28px;
+        height: 40px;
+    }
+
+    .nav-icons svg {
+        font-size: 18px;
+    }
+
+    /* LOGIN IMAGE */
+    .login-logo {
+        width: 29px;
+        height: 29px;
+    }
+
+    /* =====================================
+       MOBILE MENU
+    ===================================== */
+
+    .menu {
+        width: 100%;
+        height: auto;
+        min-height: 45px;
+
+        display: flex;
+        flex-wrap: nowrap;
+
+        justify-content: flex-start;
+        align-items: center;
+
+        gap: 25px;
+
+        padding: 8px 15px;
+
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+
+        box-sizing: border-box;
+
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    /* Hide scrollbar */
+    .menu::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* MENU LINKS */
+    .menu a {
+        flex-shrink: 0;
+
+        font-size: 13px;
+
+        padding: 7px 0;
+
+        white-space: nowrap;
+
+        z-index: 1002;
+    }
+
+    /* FILTER DOES NOT MIX WITH MENU */
+    .menu .filter-btn {
+        position: absolute;
+    }
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 400px) {
+
+    .top-navbar {
+        height: 60px;
+        padding: 0 10px;
+    }
+
+    .logo img {
+        width: 110px;
+    }
+
+    .filter-btn {
+        left: 8px;
+    }
+
+    .nav-icons {
+        gap: 7px;
+    }
+
+    .nav-icons svg {
+        font-size: 17px;
+    }
+
+    .login-logo {
+        width: 27px;
+        height: 27px;
+    }
+
+    .menu {
+        gap: 20px;
+        padding: 7px 12px;
+    }
+
+    .menu a {
+        font-size: 12px;
+    }
 }

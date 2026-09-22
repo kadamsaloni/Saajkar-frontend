@@ -969,23 +969,7 @@ const Checkout = () => {
                             }
                         />
 
-                        Cash on Delivery
-                    </label>
-
-                    <label>
-                        <input
-                            type="radio"
-                            value="Razorpay"
-                            checked={
-                                paymentMethod ===
-                                "Razorpay"
-                            }
-                            onChange={(e) =>
-                                setPaymentMethod(
-                                    e.target.value
-                                )
-                            }
-                        />
+                        
 
                         Online Payment
                     </label>

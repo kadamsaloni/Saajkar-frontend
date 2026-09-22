@@ -104,11 +104,11 @@ function BestSeller() {
                 <div className="best-seller-heading">
 
                     <p>
-                        OUR FAVOURITES
+                     
                     </p>
 
                     <h2>
-                        Best Selling Jewellery
+                        Explore Our Best Sellers
                     </h2>
 
                 </div>

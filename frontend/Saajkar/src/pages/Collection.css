@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
 
 
@@ -15,18 +16,7 @@
 
     padding: 55px 5% 80px;
 
-    background:
-        radial-gradient(
-            circle at 20% 20%,
-            rgba(212, 175, 55, 0.08),
-            transparent 25%
-        ),
-        radial-gradient(
-            circle at 80% 30%,
-            rgba(58, 8, 4, 0.05),
-            transparent 25%
-        ),
-        #fffaf3;
+    background: rgb(255, 229, 217);
 
     overflow: hidden;
 }
@@ -510,6 +500,8 @@
         gap: 25px;
     }
 }
+
+
 /* =========================================
    COLLECTION TOOLBAR
 ========================================= */
@@ -611,3 +603,4 @@
         min-width: 170px;
     }
 }
+

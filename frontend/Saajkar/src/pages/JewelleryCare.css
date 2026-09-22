@@ -300,3 +300,247 @@
 
     margin: 0;
 }
+/* =========================================
+   PHONE ONLY - JEWELLERY CARE PAGE
+========================================= */
+
+@media screen and (max-width: 600px) {
+
+    /* MAIN PAGE */
+    .care-page {
+        width: 100%;
+        min-height: 100vh;
+        padding: 30px 15px 45px;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+
+
+    /* =====================================
+       HEADER
+    ===================================== */
+
+    .care-header {
+        margin-bottom: 30px;
+    }
+
+    .care-header h1 {
+        font-size: 28px;
+        line-height: 1.3;
+        margin-bottom: 12px;
+    }
+
+    .care-header p {
+        font-size: 13px;
+        line-height: 1.6;
+        padding: 0 5px;
+    }
+
+
+    /* =====================================
+       CARE CARDS
+    ===================================== */
+
+    .care-container {
+        width: 100%;
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+
+    /* =====================================
+       CARD
+    ===================================== */
+
+    .care-card {
+        width: 100%;
+        padding: 25px 18px;
+        border-radius: 14px;
+    }
+
+    .care-card:hover {
+        transform: none;
+    }
+
+
+    /* =====================================
+       ICON
+    ===================================== */
+
+    .care-icon {
+        font-size: 35px;
+        margin-bottom: 12px;
+    }
+
+
+    /* =====================================
+       CARD TITLE
+    ===================================== */
+
+    .care-card h2 {
+        font-size: 19px;
+        margin-bottom: 10px;
+    }
+
+
+    /* =====================================
+       CARD TEXT
+    ===================================== */
+
+    .care-card p {
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+
+    /* =====================================
+       CARE TIPS
+    ===================================== */
+
+    .care-tips {
+        width: 100%;
+        margin: 35px auto 0;
+        padding: 25px 18px;
+        border-radius: 15px;
+        box-sizing: border-box;
+    }
+
+
+    .care-tips > h2 {
+        font-size: 24px;
+        margin-bottom: 25px;
+    }
+
+
+    /* =====================================
+       DO / DON'T
+    ===================================== */
+
+    .tips-container {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+
+    /* =====================================
+       DO SECTION
+    ===================================== */
+
+    .do-section h3 {
+        font-size: 20px;
+        margin-bottom: 12px;
+    }
+
+
+    /* =====================================
+       DON'T SECTION
+    ===================================== */
+
+    .dont-section h3 {
+        font-size: 20px;
+        margin-bottom: 12px;
+    }
+
+
+    /* =====================================
+       LIST
+    ===================================== */
+
+    .tips-container ul {
+        padding-left: 20px;
+    }
+
+    .tips-container li {
+        font-size: 13px;
+        line-height: 1.6;
+        margin-bottom: 9px;
+    }
+
+
+    /* =====================================
+       FOOTER MESSAGE
+    ===================================== */
+
+    .care-footer {
+        width: 100%;
+        margin: 35px auto 5px;
+        padding: 0 5px;
+        box-sizing: border-box;
+    }
+
+    .care-footer h2 {
+        font-size: 24px;
+        line-height: 1.3;
+        margin-bottom: 10px;
+    }
+
+    .care-footer p {
+        font-size: 13px;
+        line-height: 1.6;
+    }
+}
+
+
+/* =========================================
+   VERY SMALL PHONES
+========================================= */
+
+@media screen and (max-width: 400px) {
+
+    .care-page {
+        padding: 25px 12px 40px;
+    }
+
+    .care-header h1 {
+        font-size: 25px;
+    }
+
+    .care-header p {
+        font-size: 12px;
+    }
+
+    .care-container {
+        gap: 15px;
+    }
+
+    .care-card {
+        padding: 22px 15px;
+    }
+
+    .care-icon {
+        font-size: 32px;
+    }
+
+    .care-card h2 {
+        font-size: 18px;
+    }
+
+    .care-card p {
+        font-size: 12px;
+    }
+
+    .care-tips {
+        padding: 22px 15px;
+    }
+
+    .care-tips > h2 {
+        font-size: 22px;
+    }
+
+    .do-section h3,
+    .dont-section h3 {
+        font-size: 18px;
+    }
+
+    .tips-container li {
+        font-size: 12px;
+    }
+
+    .care-footer h2 {
+        font-size: 22px;
+    }
+
+    .care-footer p {
+        font-size: 12px;
+    }
+}
