@@ -1490,3 +1490,618 @@ body {
         font-size: 13px;
     }
 }
+/* =========================================================
+   CUSTOMIZATION REQUESTS
+========================================================= */
+
+.customization-section {
+    width: 100%;
+    margin-top: 60px;
+    padding-top: 35px;
+
+    border-top: 1px solid rgba(128, 0, 32, 0.20);
+}
+
+
+/* =========================================================
+   CUSTOMIZATION REQUEST HEADER
+========================================================= */
+
+.customization-section .inventory-header {
+    margin-bottom: 25px;
+}
+
+
+/* =========================================================
+   CUSTOMIZATION REQUEST GRID
+========================================================= */
+
+.customization-request-grid {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 25px;
+}
+
+
+/* =========================================================
+   CUSTOMIZATION REQUEST CARD
+========================================================= */
+
+.customization-request-card {
+    width: 100%;
+
+    padding: 25px;
+
+    background: #ffffff;
+
+    border: 1px solid #eaded9;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 5px 20px rgba(0, 0, 0, 0.07);
+
+    transition: all 0.3s ease;
+}
+
+.customization-request-card:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 10px 28px rgba(0, 0, 0, 0.10);
+}
+
+
+/* =========================================================
+   REQUEST CARD HEADER
+========================================================= */
+
+.customization-card-header {
+    width: 100%;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    gap: 15px;
+
+    padding-bottom: 18px;
+
+    margin-bottom: 20px;
+
+    border-bottom: 1px solid #eaded9;
+}
+
+.customization-card-header h3 {
+    margin: 0 0 6px;
+
+    font-family: "Cinzel", serif;
+
+    font-size: 21px;
+
+    font-weight: 600;
+
+    color: #000000;
+}
+
+.customization-card-header p {
+    margin: 0;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 12px;
+
+    color: #888888;
+}
+
+
+/* =========================================================
+   CUSTOMIZATION STATUS
+========================================================= */
+
+.customization-status {
+    min-width: 105px;
+
+    padding: 8px 12px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    border-radius: 20px;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    text-align: center;
+
+    white-space: nowrap;
+}
+
+
+/* PENDING */
+
+.customization-status.status-pending {
+    background: #fff4d6;
+
+    color: #9a7200;
+}
+
+
+/* CONTACTED */
+
+.customization-status.status-contacted {
+    background: #e8f0ff;
+
+    color: #315aa8;
+}
+
+
+/* IN PROGRESS */
+
+.customization-status.status-in-progress {
+    background: #f4e8ff;
+
+    color: #7535a8;
+}
+
+
+/* COMPLETED */
+
+.customization-status.status-completed {
+    background: #e8f6ec;
+
+    color: #2e7d32;
+}
+
+
+/* =========================================================
+   CUSTOMER DETAILS
+========================================================= */
+
+.customization-details {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 14px;
+
+    margin-bottom: 22px;
+}
+
+.customization-details > div {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+
+    padding: 12px;
+
+    background: #faf7f5;
+
+    border-radius: 7px;
+}
+
+.customization-details strong {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    color: #800020;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+}
+
+.customization-details span {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 13px;
+
+    color: #333333;
+
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   DESIGN DESCRIPTION
+========================================================= */
+
+.customization-description {
+    margin-bottom: 22px;
+
+    padding: 16px;
+
+    background: #fffaf7;
+
+    border-left: 3px solid #d4af37;
+
+    border-radius: 7px;
+}
+
+.customization-description strong {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: #800020;
+}
+
+.customization-description p {
+    margin: 0;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+
+    color: #555555;
+
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   REFERENCE IMAGES
+========================================================= */
+
+.customization-images {
+    margin-bottom: 22px;
+}
+
+.customization-images > strong {
+    display: block;
+
+    margin-bottom: 12px;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: #800020;
+}
+
+
+/* IMAGE GRID */
+
+.customization-image-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 10px;
+}
+
+
+/* IMAGE LINK */
+
+.customization-image-grid a {
+    width: 100%;
+
+    height: 95px;
+
+    display: block;
+
+    overflow: hidden;
+
+    border-radius: 7px;
+
+    border: 1px solid #eaded9;
+
+    background: #f7f5ef;
+}
+
+
+/* IMAGE */
+
+.customization-image-grid img {
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition: transform 0.3s ease;
+}
+
+.customization-image-grid a:hover img {
+    transform: scale(1.06);
+}
+
+
+/* =========================================================
+   STATUS UPDATE
+========================================================= */
+
+.customization-actions {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid #eaded9;
+}
+
+.customization-actions label {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: #333333;
+
+    white-space: nowrap;
+}
+
+.customization-actions select {
+    flex: 1;
+
+    height: 42px;
+
+    padding: 0 12px;
+
+    border: 1px solid #d4af37;
+
+    border-radius: 7px;
+
+    background: #ffffff;
+
+    color: #333333;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 13px;
+
+    outline: none;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+}
+
+.customization-actions select:focus {
+    border-color: #800020;
+
+    box-shadow:
+        0 0 5px rgba(128, 0, 32, 0.15);
+}
+
+
+/* =========================================================
+   CUSTOMIZATION REFRESH BUTTON
+========================================================= */
+
+.customization-section .inventory-header .add-product-btn {
+    height: 42px;
+
+    padding: 0 18px;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .customization-request-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .customization-section {
+        margin-top: 45px;
+
+        padding-top: 30px;
+    }
+
+
+    /* HEADER */
+
+    .customization-section .inventory-header {
+        width: 100%;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+    .customization-section
+    .inventory-header
+    .add-product-btn {
+        width: 100%;
+
+        height: 44px;
+    }
+
+
+    /* GRID */
+
+    .customization-request-grid {
+        grid-template-columns: 1fr;
+
+        gap: 20px;
+    }
+
+
+    /* CARD */
+
+    .customization-request-card {
+        padding: 20px;
+
+        border-radius: 11px;
+    }
+
+
+    /* CARD HEADER */
+
+    .customization-card-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 12px;
+    }
+
+    .customization-card-header h3 {
+        font-size: 19px;
+    }
+
+    .customization-status {
+        min-width: auto;
+
+        padding: 7px 12px;
+    }
+
+
+    /* DETAILS */
+
+    .customization-details {
+        grid-template-columns: 1fr;
+
+        gap: 10px;
+    }
+
+
+    /* IMAGES */
+
+    .customization-image-grid {
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap: 8px;
+    }
+
+    .customization-image-grid a {
+        height: 85px;
+    }
+
+
+    /* STATUS */
+
+    .customization-actions {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 8px;
+    }
+
+    .customization-actions select {
+        width: 100%;
+
+        height: 44px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .customization-section {
+        margin-top: 40px;
+
+        padding-top: 25px;
+    }
+
+
+    .customization-request-card {
+        padding: 16px;
+    }
+
+
+    .customization-card-header h3 {
+        font-size: 18px;
+    }
+
+
+    .customization-card-header p {
+        font-size: 11px;
+    }
+
+
+    .customization-details > div {
+        padding: 10px;
+    }
+
+
+    .customization-details span {
+        font-size: 12px;
+    }
+
+
+    .customization-description {
+        padding: 13px;
+    }
+
+
+    .customization-description p {
+        font-size: 12px;
+    }
+
+
+    .customization-image-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+
+    .customization-image-grid a {
+        height: 100px;
+    }
+
+}
