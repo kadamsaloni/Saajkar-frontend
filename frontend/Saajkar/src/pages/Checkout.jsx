@@ -21,7 +21,7 @@ const Checkout = () => {
     const [pincodeValid, setPincodeValid] = useState(false);
     const [checkingPincode, setCheckingPincode] = useState(false);
 
-    const [paymentMethod, setPaymentMethod] = useState("COD");
+    const [paymentMethod, setPaymentMethod] = useState("Razorpay");
 
     const token = localStorage.getItem("token");
 
