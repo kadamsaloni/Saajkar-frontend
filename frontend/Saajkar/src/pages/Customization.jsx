@@ -305,6 +305,9 @@ function Customization() {
               </option>
 
               <option>Gold</option>
+              <option>Pearl</option>
+              <option>Edistone</option>
+
 
             </select>
 

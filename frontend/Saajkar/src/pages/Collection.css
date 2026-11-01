@@ -1,154 +1,107 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
 
-
 /* =========================================
    MAIN COLLECTION PAGE
 ========================================= */
 
 .collection-page {
     position: relative;
-
     width: 100%;
     min-height: 100vh;
-
     box-sizing: border-box;
-
     padding: 55px 5% 80px;
 
-    background: rgb(255, 229, 217);
+    background:
+        radial-gradient(circle at 20% 20%, rgba(212,175,55,0.08), transparent 25%),
+        radial-gradient(circle at 80% 30%, rgba(58,8,4,0.05), transparent 25%),
+        #fffaf3;
 
     overflow: hidden;
 }
-
 
 /* =========================================
    DECORATIVE BACKGROUND
 ========================================= */
 
-.collection-page::before {
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-    left: 0;
-
-    width: 180px;
-    height: 180px;
-
-    border-radius: 0 0 100% 0;
-
-    background:
-        radial-gradient(
-            circle,
-            transparent 45%,
-            rgba(212, 175, 55, 0.15) 46%,
-            transparent 48%
-        );
-
-    pointer-events: none;
-}
-
-
+.collection-page::before,
 .collection-page::after {
     content: "";
-
     position: absolute;
-
-    right: 0;
     top: 0;
-
     width: 180px;
     height: 180px;
 
-    border-radius: 0 0 0 100%;
-
-    background:
-        radial-gradient(
-            circle,
-            transparent 45%,
-            rgba(212, 175, 55, 0.15) 46%,
-            transparent 48%
-        );
+    background: radial-gradient(
+        circle,
+        transparent 45%,
+        rgba(212,175,55,0.15) 46%,
+        transparent 48%
+    );
 
     pointer-events: none;
 }
 
+.collection-page::before {
+    left: 0;
+    border-radius: 0 0 100% 0;
+}
+
+.collection-page::after {
+    right: 0;
+    border-radius: 0 0 0 100%;
+}
 
 /* =========================================
-   HEADER
+   COLLECTION HEADER
 ========================================= */
 
 .collection-header {
     position: relative;
-
-    text-align: center;
-
-    margin-bottom: 45px;
-
     z-index: 2;
+    text-align: center;
+    margin-bottom: 45px;
 }
-
 
 .collection-header h1 {
     display: inline-block;
-
     margin: 5px 0;
-
-    padding: 5px 55px;
+    padding: 5px 30px;
 
     color: #3a0804;
-
     font-family: "Cinzel", serif;
-
     font-size: 58px;
-
     font-weight: 600;
-
     text-transform: uppercase;
-
     letter-spacing: 4px;
 }
-
 
 .collection-header p {
     margin-top: 15px;
 
     color: #444;
-
     font-family: "Poppins", sans-serif;
-
     font-size: 17px;
-
     letter-spacing: 0.5px;
 }
 
-
 /* =========================================
-   DECORATIVE LINES
+   DECORATIVE HEADING LINE
 ========================================= */
 
 .heading-line {
     width: 420px;
-
     max-width: 80%;
-
-    margin: 0 auto;
+    margin: 12px auto 0;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     gap: 12px;
 }
 
-
 .heading-line span {
     height: 1px;
-
     flex: 1;
 
     background: linear-gradient(
@@ -158,7 +111,6 @@
     );
 }
 
-
 .heading-line span:last-child {
     background: linear-gradient(
         to left,
@@ -167,347 +119,22 @@
     );
 }
 
-
 .heading-line i {
     color: #b8861b;
-
     font-size: 16px;
-
     font-style: normal;
 }
-
-
-/* =========================================
-   CONTROLS
-========================================= */
-
-.collection-controls {
-    width: 100%;
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    margin-bottom: 30px;
-
-    position: relative;
-
-    z-index: 3;
-}
-
-
-/* Product count */
-
-.product-count {
-    display: flex;
-
-    align-items: center;
-
-    gap: 14px;
-
-    padding: 14px 25px;
-
-    border: 1px solid #dfbf72;
-
-    border-radius: 30px;
-
-    background: rgba(255, 253, 248, 0.7);
-
-    color: #3a0804;
-
-    font-family: "Poppins", sans-serif;
-
-    font-size: 15px;
-}
-
-
-.grid-icon {
-    color: #c39429;
-
-    font-size: 25px;
-
-    line-height: 1;
-}
-
-
-/* Sort */
-
-.sort-button {
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
-    padding: 14px 25px;
-
-    border: 1px solid #dfbf72;
-
-    border-radius: 30px;
-
-    background: transparent;
-
-    color: #3a0804;
-
-    font-family: "Poppins", sans-serif;
-
-    font-size: 15px;
-
-    cursor: pointer;
-
-    transition: 0.3s ease;
-}
-
-
-.sort-button span:first-child {
-    color: #c39429;
-
-    font-size: 18px;
-}
-
-
-.sort-button span:last-child {
-    font-size: 20px;
-}
-
-
-.sort-button:hover {
-    background: #3a0804;
-
-    color: white;
-
-    border-color: #3a0804;
-}
-
-
-/* =========================================
-   PRODUCTS GRID
-========================================= */
-
-.products-container {
-    width: 100%;
-
-    display: grid;
-
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-
-    gap: 30px;
-
-    align-items: stretch;
-
-    position: relative;
-
-    z-index: 2;
-}
-
-
-/* =========================================
-   PRODUCT WRAPPER
-========================================= */
-
-.collection-product {
-    width: 100%;
-
-    min-width: 0;
-
-    display: flex;
-}
-
-
-.collection-product > * {
-    width: 100%;
-}
-
-
-/* =========================================
-   PAGINATION
-========================================= */
-
-.pagination {
-    margin: 45px auto 0;
-
-    width: fit-content;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 5px;
-
-    padding: 6px;
-
-    border: 1px solid #e2c681;
-
-    border-radius: 15px;
-
-    background: #fffdf8;
-
-    box-shadow: 0 5px 15px rgba(58, 8, 4, 0.08);
-}
-
-
-.pagination button {
-    width: 42px;
-    height: 42px;
-
-    border: none;
-
-    background: transparent;
-
-    color: #3a0804;
-
-    font-family: "Poppins", sans-serif;
-
-    font-size: 15px;
-
-    border-radius: 10px;
-
-    cursor: pointer;
-
-    transition: 0.3s ease;
-}
-
-
-.pagination button:hover {
-    background: #f3e5c5;
-}
-
-
-.pagination .active-page {
-    background: #3a0804;
-
-    color: #fff;
-
-    box-shadow: 0 4px 10px rgba(58, 8, 4, 0.25);
-}
-
-
-.pagination span {
-    padding: 0 10px;
-
-    color: #3a0804;
-
-    font-size: 16px;
-}
-
-
-.pagination .next-page {
-    border-left: 1px solid #ead8ac;
-
-    border-radius: 0;
-}
-
-
-/* =========================================
-   EMPTY / ERROR MESSAGE
-========================================= */
-
-.collection-message {
-    min-height: 300px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: center;
-
-    text-align: center;
-
-    font-family: "Poppins", sans-serif;
-}
-
-
-.collection-message h2 {
-    margin-bottom: 10px;
-
-    color: #3a0804;
-
-    font-family: "Cinzel", serif;
-
-    font-size: 28px;
-}
-
-
-.collection-message p {
-    color: #777;
-
-    font-size: 15px;
-}
-
-
-/* =========================================
-   TABLET
-========================================= */
-
-@media (max-width: 1000px) {
-
-    .collection-page {
-        padding: 45px 4% 70px;
-    }
-
-    .collection-header h1 {
-        font-size: 45px;
-    }
-
-    .products-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-
-/* =========================================
-   MOBILE
-========================================= */
-
-@media (max-width: 600px) {
-
-    .collection-page {
-        padding: 35px 20px 60px;
-    }
-
-    .collection-header h1 {
-        font-size: 32px;
-
-        padding: 5px 15px;
-
-        letter-spacing: 2px;
-    }
-
-    .collection-header p {
-        font-size: 14px;
-    }
-
-    .collection-controls {
-        flex-direction: column;
-
-        gap: 15px;
-
-        align-items: stretch;
-    }
-
-    .product-count,
-    .sort-button {
-        justify-content: center;
-    }
-
-    .products-container {
-        grid-template-columns: 1fr;
-
-        gap: 25px;
-    }
-}
-
 
 /* =========================================
    COLLECTION TOOLBAR
 ========================================= */
 
 .collection-toolbar {
+    position: relative;
+    z-index: 3;
+
     width: 90%;
+    max-width: 1200px;
     margin: 0 auto 30px;
 
     display: flex;
@@ -523,13 +150,10 @@
 .collection-toolbar p {
     margin: 0;
 
-    font-family: "Poppins", sans-serif;
-
-    font-size: 14px;
-
     color: #555;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
 }
-
 
 /* =========================================
    SORT BOX
@@ -538,69 +162,431 @@
 .sort-box {
     display: flex;
     align-items: center;
-
     gap: 10px;
 }
 
 .sort-box label {
-    font-family: "Poppins", sans-serif;
-
-    font-size: 14px;
-
     color: #222;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
 }
 
 .sort-box select {
     min-width: 190px;
-
     padding: 10px 35px 10px 12px;
 
     border: 1px solid #d4af37;
+    border-radius: 3px;
 
     background: #fffdf8;
-
     color: #222;
 
     font-family: "Poppins", sans-serif;
-
     font-size: 13px;
 
     cursor: pointer;
-
     outline: none;
-
-    border-radius: 2px;
 }
 
 .sort-box select:focus {
-    border-color: #0f0f0f;
+    border-color: #3a0804;
 }
 
+/* =========================================
+   PRODUCTS GRID
+========================================= */
+
+.products-container {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    max-width: 1200px;
+
+    margin: 0 auto;
+    padding: 0 15px;
+
+    box-sizing: border-box;
+
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 30px;
+    align-items: stretch;
+}
 
 /* =========================================
-   MOBILE
+   COLLECTION PRODUCT BOX
+========================================= */
+
+.collection-product {
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+
+    display: flex;
+    box-sizing: border-box;
+}
+
+.collection-product > * {
+    width: 100%;
+    min-width: 0;
+}
+
+/* =========================================
+   PRODUCT CARD
+========================================= */
+
+.collection-product .card {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    background: #ffffff;
+    text-align: center;
+    overflow: hidden;
+
+    border: 1px solid #eee;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+
+    box-sizing: border-box;
+}
+
+.collection-product .card:hover {
+    transform: translateY(-5px);
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* =========================================
+   PRODUCT IMAGE CONTAINER
+========================================= */
+
+.collection-product .product-image-container {
+    position: relative;
+
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    height: auto;
+
+    flex-shrink: 0;
+
+    overflow: hidden;
+    background: #f7f2ed;
+}
+
+/* =========================================
+   PRODUCT IMAGE
+========================================= */
+
+.collection-product .product-image {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+
+    transition: transform 0.4s ease;
+}
+
+.collection-product .card:hover .product-image {
+    transform: scale(1.04);
+}
+
+/* =========================================
+   WISHLIST HEART
+========================================= */
+
+.collection-product .wishlist-heart {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+    border: 1px solid #eee;
+
+    background: #fff;
+    color: #3a0804;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 27px;
+    line-height: 1;
+
+    cursor: pointer;
+    z-index: 2;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+
+    transition: all 0.3s ease;
+}
+
+.collection-product .wishlist-heart:hover {
+    background: #3a0804;
+    color: #d4af37;
+    transform: scale(1.08);
+}
+
+.collection-product .wishlist-heart:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* =========================================
+   PRODUCT DETAILS
+========================================= */
+
+.collection-product .product-details {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 20px 18px;
+
+    background: #fff;
+    box-sizing: border-box;
+}
+
+/* =========================================
+   PRODUCT NAME
+========================================= */
+
+.collection-product .product-details h3 {
+    width: 100%;
+    min-height: 48px;
+
+    margin: 0 0 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #3a0804;
+
+    font-family: "Cinzel", serif;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+/* =========================================
+   PRODUCT PRICE
+========================================= */
+
+.collection-product .product-price {
+    margin: 0 0 16px;
+
+    color: #a47b22;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* =========================================
+   ADD TO CART BUTTON
+========================================= */
+
+.collection-product .cart-btn {
+    width: 100%;
+    max-width: 260px;
+    min-height: 44px;
+
+    margin-top: auto;
+
+    background: #3a0804;
+    color: #d4af37;
+
+    border: 1px solid #3a0804;
+    border-radius: 3px;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    transition: all 0.3s ease;
+}
+
+.collection-product .cart-btn:hover {
+    background: #d4af37;
+    color: #3a0804;
+    border-color: #d4af37;
+}
+
+.collection-product .cart-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.collection-product .cart-icon {
+    font-size: 16px;
+}
+
+/* =========================================
+   CART AND WISHLIST MESSAGES
+========================================= */
+
+.collection-product .cart-message,
+.collection-product .wishlist-message {
+    width: 100%;
+
+    margin: 8px 0 0;
+
+    color: #800020;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* =========================================
+   EMPTY / ERROR MESSAGE
+========================================= */
+
+.collection-message {
+    position: relative;
+    z-index: 2;
+
+    min-height: 300px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+}
+
+.collection-message h2 {
+    margin-bottom: 10px;
+
+    color: #3a0804;
+
+    font-family: "Cinzel", serif;
+    font-size: 28px;
+}
+
+.collection-message p {
+    color: #777;
+    font-size: 15px;
+}
+
+/* =========================================
+   TABLET RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+
+    .collection-page {
+        padding: 45px 4% 70px;
+    }
+
+    .collection-header h1 {
+        font-size: 45px;
+    }
+
+    .products-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 25px;
+    }
+
+    .collection-product .product-details {
+        padding: 16px;
+    }
+
+}
+
+/* =========================================
+   MOBILE RESPONSIVE
 ========================================= */
 
 @media (max-width: 600px) {
 
+    .collection-page {
+        padding: 35px 4% 50px;
+    }
+
+    .collection-header {
+        margin-bottom: 30px;
+    }
+
+    .collection-header h1 {
+        font-size: 30px;
+        letter-spacing: 2px;
+        padding: 5px 10px;
+    }
+
+    .collection-header p {
+        font-size: 13px;
+    }
+
     .collection-toolbar {
-        width: 90%;
+        width: 100%;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
 
-        flex-direction: column;
-
-        align-items: flex-start;
-
-        gap: 15px;
+    .collection-toolbar p {
+        font-size: 12px;
     }
 
     .sort-box {
-        width: 100%;
+        gap: 6px;
+    }
 
-        justify-content: space-between;
+    .sort-box label {
+        font-size: 12px;
     }
 
     .sort-box select {
-        min-width: 170px;
+        min-width: 145px;
+        padding: 9px 5px;
+        font-size: 12px;
     }
-}
 
+    .products-container {
+        grid-template-columns: 1fr;
+        padding: 0;
+        gap: 25px;
+    }
+
+    .collection-product .product-image-container {
+        aspect-ratio: 1 / 1;
+    }
+
+    .collection-product .product-details h3 {
+        font-size: 16px;
+    }
+
+    .collection-product .wishlist-heart {
+        width: 40px;
+        height: 40px;
+        font-size: 25px;
+    }
+
+}

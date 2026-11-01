@@ -580,3 +580,110 @@
     }
 
 }
+
+/* PAYMENT METHOD SECTION */
+
+.payment-section {
+    margin-top: 25px;
+}
+
+.payment-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 18px;
+}
+
+.payment-option {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 18px;
+    border: 1px solid #e2d5ca;
+    border-radius: 10px;
+    background: #fffdf8;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.payment-option:hover {
+    border-color: #8b5e3c;
+    background: #fffaf3;
+}
+
+.payment-option.selected {
+    border: 2px solid #4a120d;
+    background: #fff8ed;
+}
+
+.payment-option input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #4a120d;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.payment-icon {
+    font-size: 27px;
+}
+
+.payment-info {
+    flex: 1;
+}
+
+.payment-info strong {
+    display: block;
+    color: #3a0804;
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.payment-info p {
+    color: #777;
+    font-size: 13px;
+    margin: 0;
+}
+
+.payment-check {
+    color: #4a120d;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.pincode-success {
+    color: green;
+    font-size: 13px;
+}
+
+.pincode-error {
+    color: red;
+    font-size: 13px;
+}
+
+.pincode-checking {
+    color: #8b5e3c;
+    font-size: 13px;
+}
+
+.secure-payment-text {
+    text-align: center;
+    font-size: 12px;
+    color: #777;
+    margin-top: 12px;
+}
+
+@media (max-width: 600px) {
+    .payment-option {
+        padding: 14px;
+        gap: 10px;
+    }
+
+    .payment-info strong {
+        font-size: 14px;
+    }
+
+    .payment-info p {
+        font-size: 12px;
+    }
+}

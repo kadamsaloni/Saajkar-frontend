@@ -1,5 +1,6 @@
+
 import React, { useEffect, useState } from "react";
-import { useParams ,useSearchParams} from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import API_URL from "../api/api";
 import Product from "../components/Product/Product.jsx";
 import "./Collection.css";
@@ -7,12 +8,12 @@ import "./Collection.css";
 const Collection = () => {
     const { category } = useParams();
     const [searchParams] = useSearchParams();
-     const priceFilter = searchParams.get("price");
+
+    const priceFilter = searchParams.get("price");
+
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
-
-    // Sorting
     const [sortOption, setSortOption] = useState("");
 
     useEffect(() => {
@@ -22,7 +23,7 @@ const Collection = () => {
                 setError("");
                 setProducts([]);
 
-                // Fetch all categories
+                // Fetch categories
                 const categoryResponse = await fetch(
                     `${API_URL}/categories`
                 );
@@ -31,12 +32,11 @@ const Collection = () => {
 
                 if (!categoryResponse.ok) {
                     throw new Error(
-                        categoryData.message ||
-                        "Failed to fetch categories"
+                        categoryData.message || "Failed to fetch categories"
                     );
                 }
 
-                // Convert URL category
+                // Format category name
                 const formattedCategory = category
                     .replace(/-/g, " ")
                     .trim()
@@ -50,13 +50,12 @@ const Collection = () => {
                             formattedCategory
                     );
 
-                // Category not found
                 if (!selectedCategory) {
                     setProducts([]);
                     return;
                 }
 
-                // Fetch products for selected category
+                // Fetch category products
                 const productResponse = await fetch(
                     `${API_URL}/products?category=${selectedCategory._id}`
                 );
@@ -65,8 +64,7 @@ const Collection = () => {
 
                 if (!productResponse.ok) {
                     throw new Error(
-                        productData.message ||
-                        "Failed to fetch products"
+                        productData.message || "Failed to fetch products"
                     );
                 }
 
@@ -85,17 +83,31 @@ const Collection = () => {
         }
     }, [category]);
 
-    // ================= SORT PRODUCTS =================
-
-    const sortedProducts = [...products].sort((a, b) => {
-
-        const priceA = Number(
-            a.discountPrice || a.price || 0
+    // Filter products by price
+    const filteredProducts = products.filter((product) => {
+        const price = Number(
+            product.discountPrice || product.price || 0
         );
 
-        const priceB = Number(
-            b.discountPrice || b.price || 0
-        );
+        if (priceFilter === "under1000") {
+            return price < 1000;
+        }
+
+        if (priceFilter === "1000-5000") {
+            return price >= 1000 && price <= 5000;
+        }
+
+        if (priceFilter === "above5000") {
+            return price > 5000;
+        }
+
+        return true;
+    });
+
+    // Sort products
+    const sortedProducts = [...filteredProducts].sort((a, b) => {
+        const priceA = Number(a.discountPrice || a.price || 0);
+        const priceB = Number(b.discountPrice || b.price || 0);
 
         if (sortOption === "lowToHigh") {
             return priceA - priceB;
@@ -108,8 +120,11 @@ const Collection = () => {
         return 0;
     });
 
-    // ================= LOADING =================
+    const displayCategory = category
+        ? category.replace(/-/g, " ")
+        : "Collection";
 
+    // Loading
     if (loading) {
         return (
             <div className="collection-page">
@@ -120,8 +135,7 @@ const Collection = () => {
         );
     }
 
-    // ================= ERROR =================
-
+    // Error
     if (error) {
         return (
             <div className="collection-page">
@@ -132,21 +146,19 @@ const Collection = () => {
         );
     }
 
-    // Format category name
-    const displayCategory = category
-        ? category.replace(/-/g, " ")
-        : "Collection";
-
     return (
         <div className="collection-page">
 
-            {/* ================= HEADER ================= */}
-
+            {/* COLLECTION HEADER */}
             <div className="collection-header">
 
                 <h1>{displayCategory}</h1>
 
-                <div className="title-line"></div>
+                <div className="heading-line">
+                    <span></span>
+                    <i>✦</i>
+                    <span></span>
+                </div>
 
                 <p>
                     Timeless beauty, crafted to perfection.
@@ -154,14 +166,12 @@ const Collection = () => {
 
             </div>
 
-
-            {/* ================= SORT BAR ================= */}
-
-            {products.length > 0 && (
+            {/* SORT TOOLBAR */}
+            {sortedProducts.length > 0 && (
                 <div className="collection-toolbar">
 
                     <p>
-                        {products.length} Products
+                        {sortedProducts.length} Products
                     </p>
 
                     <div className="sort-box">
@@ -177,10 +187,7 @@ const Collection = () => {
                                 setSortOption(e.target.value)
                             }
                         >
-
-                            <option value="">
-                                Default
-                            </option>
+                            <option value="">Default</option>
 
                             <option value="lowToHigh">
                                 Price: Low to High
@@ -189,7 +196,6 @@ const Collection = () => {
                             <option value="highToLow">
                                 Price: High to Low
                             </option>
-
                         </select>
 
                     </div>
@@ -197,20 +203,16 @@ const Collection = () => {
                 </div>
             )}
 
-
-            {/* ================= PRODUCTS ================= */}
-
-            {products.length === 0 ? (
+            {/* PRODUCTS */}
+            {sortedProducts.length === 0 ? (
 
                 <div className="collection-message">
-
                     <h2>No Products Found</h2>
 
                     <p>
                         There are currently no products available
                         in this collection.
                     </p>
-
                 </div>
 
             ) : (
@@ -218,16 +220,12 @@ const Collection = () => {
                 <div className="products-container">
 
                     {sortedProducts.map((product) => (
-
                         <div
                             className="collection-product"
                             key={product._id}
                         >
-
                             <Product product={product} />
-
                         </div>
-
                     ))}
 
                 </div>
