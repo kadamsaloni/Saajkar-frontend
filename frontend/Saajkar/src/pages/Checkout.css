@@ -1,16 +1,17 @@
-/* =================================
-   SAAJKAR CHECKOUT PAGE
-================================= */
+/* =====================================================
+   SAAJKAR CHECKOUT
+   ISOLATED STYLES
+===================================================== */
 
-.checkout-container {
+.saajkar-checkout-page {
+    width: 100%;
     min-height: 100vh;
-
-    padding: 50px 8%;
+    box-sizing: border-box;
 
     background:
         linear-gradient(
-            rgba(255, 255, 255, 0.90),
-            rgba(255, 255, 255, 0.90)
+            rgba(255, 248, 242, 0.92),
+            rgba(255, 248, 242, 0.92)
         ),
         url("../assets/banner1.jpg");
 
@@ -18,594 +19,344 @@
     background-position: center;
     background-repeat: no-repeat;
 
+    font-family: "Poppins", sans-serif;
+
+    color: #222;
+
+    padding-bottom: 60px;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.saajkar-checkout-page .checkout-header {
+    text-align: center;
+
+    padding: 55px 20px 35px;
+
+    background: #fce2d4;
+
+    box-sizing: border-box;
+}
+
+.saajkar-checkout-page .checkout-header h1 {
+    margin: 0;
+
+    font-family: "Cinzel", serif;
+
+    font-size: 46px;
+
+    font-weight: 500;
+
+    color: #800020 !important;
+
+    line-height: 1.2;
+}
+
+.saajkar-checkout-page .checkout-header p {
+    margin: 10px 0 0;
+
+    font-size: 17px;
+
+    color: #333 !important;
+}
+
+
+/* =====================================================
+   MAIN LAYOUT
+===================================================== */
+
+.saajkar-checkout-page .checkout-layout {
+    width: 92%;
+
+    max-width: 1350px;
+
+    margin: 50px auto;
+
     display: grid;
-    grid-template-columns: 1fr 1fr;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
 
     gap: 40px;
 
+    align-items: start;
+
     box-sizing: border-box;
 }
 
 
-/* =================================
-   LEFT & RIGHT CARDS
-================================= */
+/* =====================================================
+   CARDS
+===================================================== */
 
-.checkout-left,
-.checkout-right {
+.saajkar-checkout-page .checkout-card {
+    width: 100%;
+
+    min-width: 0;
+
+    box-sizing: border-box;
+
     background: #ffffff;
 
-    padding: 35px;
+    border: 2px solid #111;
 
-    border-radius: 20px;
+    border-radius: 22px;
 
-    border: 2px solid #000;
+    padding: 38px;
 
     box-shadow:
-        0 8px 20px rgba(0, 0, 0, 0.08);
+        0 10px 30px
+        rgba(0, 0, 0, 0.08);
+}
+
+
+/* =====================================================
+   CARD HEADINGS
+===================================================== */
+
+.saajkar-checkout-page .checkout-card h2 {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin: 0 0 32px;
+
+    font-family: "Cinzel", serif;
+
+    font-size: 28px;
+
+    font-weight: 500;
+
+    color: #800020 !important;
+
+    line-height: 1.3;
+}
+
+.saajkar-checkout-page .checkout-card h2 span {
+    color: #d4af37 !important;
+
+    font-size: 20px;
+
+    font-family: "Poppins", sans-serif;
+}
+
+
+/* =====================================================
+   SECTION
+===================================================== */
+
+.saajkar-checkout-page .checkout-section {
+    margin-bottom: 32px;
+}
+
+.saajkar-checkout-page .checkout-section h3 {
+    margin: 0 0 20px;
+
+    padding-bottom: 12px;
+
+    border-bottom:
+        1px solid #d4af37;
+
+    font-family: "Cinzel", serif;
+
+    font-size: 20px;
+
+    font-weight: 500;
+
+    color: #800020 !important;
+}
+
+
+/* =====================================================
+   LABELS
+===================================================== */
+
+.saajkar-checkout-page .checkout-section > label {
+    display: block;
+
+    margin: 0 0 8px;
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+    color: #333 !important;
+}
+
+
+/* =====================================================
+   INPUTS
+===================================================== */
+
+.saajkar-checkout-page .checkout-section input,
+.saajkar-checkout-page .checkout-section textarea,
+.saajkar-checkout-page .checkout-section select {
+    width: 100%;
+
+    display: block;
 
     box-sizing: border-box;
-}
-
-
-/* =================================
-   MAIN HEADINGS
-================================= */
-
-.checkout-left > h2 {
-    font-family: "Cinzel", serif;
-
-    font-size: 32px;
-
-    font-weight: 600;
-
-    color: #800020 !important;
-
-    opacity: 1 !important;
-
-    margin: 0 0 30px;
-
-    visibility: visible !important;
-}
-
-.checkout-right > h3 {
-    font-family: "Cinzel", serif;
-
-    font-size: 26px;
-
-    font-weight: 600;
-
-    color: #800020 !important;
-
-    opacity: 1 !important;
-
-    margin: 0 0 25px;
-
-    padding-bottom: 10px;
-
-    border-bottom: 1px solid #d4af37;
-
-    visibility: visible !important;
-}
-
-
-/* =================================
-   CHECKOUT SECTIONS
-================================= */
-
-.checkout-section {
-    margin-bottom: 30px;
-}
-
-.checkout-section h3 {
-    font-family: "Cinzel", serif;
-
-    color: #800020;
-
-    font-size: 21px;
 
     margin: 0 0 18px;
 
-    padding-bottom: 10px;
+    padding: 14px 16px;
 
-    border-bottom: 1px solid #d4af37;
-}
-
-
-/* =================================
-   INPUT FIELDS
-================================= */
-
-.checkout-left input,
-.checkout-left textarea,
-.checkout-left select {
-    width: 100%;
-
-    padding: 14px;
-
-    margin-bottom: 15px;
-
-    border: 1.5px solid #000;
+    border: 1.5px solid #222;
 
     border-radius: 10px;
 
-    background: #ffffff;
+    background: #fff !important;
+
+    color: #222 !important;
 
     font-family: "Poppins", sans-serif;
 
     font-size: 14px;
 
     outline: none;
-
-    box-sizing: border-box;
-
-    transition: 0.3s;
 }
 
-
-/* =================================
-   INPUT FOCUS
-================================= */
-
-.checkout-left input:focus,
-.checkout-left textarea:focus,
-.checkout-left select:focus {
+.saajkar-checkout-page .checkout-section input:focus,
+.saajkar-checkout-page .checkout-section textarea:focus,
+.saajkar-checkout-page .checkout-section select:focus {
     border-color: #800020;
 
     box-shadow:
-        0 0 6px rgba(128, 0, 32, 0.25);
+        0 0 0 3px
+        rgba(128, 0, 32, 0.08);
 }
 
 
-/* =================================
-   ADDRESS
-================================= */
+/* =====================================================
+   TEXTAREA
+===================================================== */
 
-.checkout-left textarea {
-    height: 100px;
+.saajkar-checkout-page .checkout-section textarea {
+    height: 110px;
 
-    resize: none;
+    resize: vertical;
 }
 
 
-/* =================================
-   CITY / STATE DROPDOWN
-================================= */
+/* =====================================================
+   PINCODE
+===================================================== */
 
-.checkout-left select {
-    cursor: pointer;
-
-    appearance: auto;
-}
-
-
-/* =================================
-   PINCODE MESSAGE
-================================= */
-
-.checkout-left .checkout-section p {
-    margin: -5px 0 15px;
-
-    font-family: "Poppins", sans-serif;
+.saajkar-checkout-page .pincode-success,
+.saajkar-checkout-page .pincode-error,
+.saajkar-checkout-page .pincode-checking {
+    margin: -8px 0 15px;
 
     font-size: 13px;
 }
 
+.saajkar-checkout-page .pincode-success {
+    color: #198754 !important;
+}
 
-/* =================================
-   PAYMENT METHOD
-================================= */
+.saajkar-checkout-page .pincode-error {
+    color: #dc3545 !important;
+}
 
-.checkout-section label {
+.saajkar-checkout-page .pincode-checking {
+    color: #8b5e3c !important;
+}
+
+
+/* =====================================================
+   PAYMENT OPTIONS
+===================================================== */
+
+.saajkar-checkout-page .payment-options {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+.saajkar-checkout-page .payment-option {
+    width: 100%;
+
     display: flex;
 
     align-items: center;
 
-    gap: 10px;
+    gap: 14px;
 
-    padding: 13px 15px;
+    box-sizing: border-box;
 
-    margin-bottom: 10px;
+    padding: 16px;
 
-    border: 1px solid #ddd;
+    border:
+        1px solid #ddd;
 
-    border-radius: 10px;
+    border-radius: 12px;
 
-    background: #fff;
-
-    font-size: 14px;
+    background: #fffdf8;
 
     cursor: pointer;
 
-    transition: 0.3s;
+    transition: 0.2s ease;
 }
 
-.checkout-section label:hover {
+.saajkar-checkout-page .payment-option:hover {
     border-color: #800020;
-
-    background: #fffdf8;
 }
 
+.saajkar-checkout-page .payment-option.selected {
+    border:
+        2px solid #800020;
 
-/* =================================
-   RADIO BUTTON
-================================= */
+    background: #fff8ed;
+}
 
-.checkout-section label input[type="radio"] {
-    width: auto;
+.saajkar-checkout-page .payment-option input {
+    width: 18px !important;
 
-    margin: 0;
+    height: 18px;
 
-    padding: 0;
+    margin: 0 !important;
+
+    padding: 0 !important;
 
     accent-color: #800020;
 
-    cursor: pointer;
-
-    box-shadow: none;
-}
-
-
-/* =================================
-   ORDER ITEMS
-================================= */
-
-.checkout-item {
-    display: flex;
-
-    align-items: center;
-
-    gap: 18px;
-
-    padding-bottom: 18px;
-
-    margin-bottom: 18px;
-
-    border-bottom: 1px solid #ddd;
-}
-
-
-/* =================================
-   PRODUCT IMAGE
-================================= */
-
-.checkout-item img {
-    width: 80px !important;
-
-    height: 80px !important;
-
-    max-width: 80px !important;
-
-    max-height: 80px !important;
-
-    min-width: 80px;
-
-    min-height: 80px;
-
-    object-fit: cover;
-
-    border-radius: 10px;
-
-    border: 1.5px solid #000;
-
     flex-shrink: 0;
-
-    display: block;
 }
 
-
-/* =================================
-   PRODUCT INFORMATION
-================================= */
-
-.checkout-item div {
+.saajkar-checkout-page .payment-info {
     flex: 1;
 
     min-width: 0;
 }
 
-.checkout-item p {
-    margin: 4px 0;
-
-    font-family: "Poppins", sans-serif;
-
-    font-size: 14px;
-
-    color: #555;
-}
-
-
-/* =================================
-   PRODUCT NAME
-================================= */
-
-.checkout-item p:first-child {
-    margin-bottom: 8px;
-
-    font-family: "Cinzel", serif;
-
-    font-size: 16px;
-
-    font-weight: 600;
-
-    color: #000;
-}
-
-
-/* =================================
-   PRICE
-================================= */
-
-.checkout-item p:last-child {
-    color: #800020;
-
-    font-weight: 600;
-}
-
-
-/* =================================
-   ORDER SUMMARY IMAGE SAFETY
-================================= */
-
-/*
-   Prevent any image inside the summary
-   from becoming a huge full-card image.
-*/
-
-.checkout-right .checkout-item img {
-    width: 80px !important;
-
-    height: 80px !important;
-
-    max-width: 80px !important;
-
-    max-height: 80px !important;
-
-    object-fit: cover !important;
-
-    flex-shrink: 0;
-}
-
-
-/* =================================
-   TOTAL SECTION
-================================= */
-
-.checkout-total {
-    margin-top: 25px;
-
-    padding-top: 10px;
-}
-
-.checkout-total > div {
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    margin: 13px 0;
-
-    font-family: "Poppins", sans-serif;
-
-    font-size: 14px;
-}
-
-
-/* =================================
-   DIVIDER BEFORE TOTAL
-================================= */
-
-.checkout-total > div:last-child {
-    border-top: 1px solid #800020;
-
-    padding-top: 18px;
-
-    margin-top: 18px;
-}
-
-
-/* =================================
-   TOTAL
-================================= */
-
-.checkout-total strong {
-    font-family: "Cinzel", serif;
-
-    font-size: 19px;
-
-    color: #800020;
-}
-
-
-/* =================================
-   PLACE ORDER BUTTON
-================================= */
-
-.place-order-btn {
-    width: 100%;
-
-    padding: 15px;
-
-    margin-top: 25px;
-
-    background: #800020;
-
-    color: #ffffff;
-
-    border: none;
-
-    border-radius: 10px;
-
-    cursor: pointer;
-
-    font-family: "Poppins", sans-serif;
-
-    font-size: 16px;
-
-    font-weight: 600;
-
-    transition: 0.3s;
-}
-
-.place-order-btn:hover {
-    background: #5c0018;
-}
-
-
-/* =================================
-   DISABLED BUTTON
-================================= */
-
-.place-order-btn:disabled {
-    opacity: 0.65;
-
-    cursor: not-allowed;
-}
-
-.place-order-btn:disabled:hover {
-    background: #800020;
-}
-
-
-/* =================================
-   LOADING / EMPTY CART
-================================= */
-
-.checkout-container > h2 {
-    grid-column: 1 / -1;
-
-    text-align: center;
-
-    font-family: "Cinzel", serif;
-
-    color: #800020;
-
-    align-self: center;
-}
-
-
-/* =================================
-   EMPTY CART BUTTON
-================================= */
-
-.checkout-container > button {
-    grid-column: 1 / -1;
-
-    width: 220px;
-
-    margin: 20px auto;
-
-    padding: 13px 20px;
-
-    background: #800020;
-
-    color: #fff;
-
-    border: none;
-
-    border-radius: 10px;
-
-    cursor: pointer;
-
-    font-size: 15px;
-}
-
-.checkout-container > button:hover {
-    background: #5c0018;
-}
-
-
-/* =================================
-   PAYMENT METHOD SECTION
-================================= */
-
-.payment-section {
-    margin-top: 25px;
-}
-
-.payment-options {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 15px;
-
-    margin-top: 18px;
-}
-
-.payment-option {
-    display: flex;
-
-    align-items: center;
-
-    gap: 15px;
-
-    padding: 18px;
-
-    border: 1px solid #e2d5ca;
-
-    border-radius: 10px;
-
-    background: #fffdf8;
-
-    cursor: pointer;
-
-    transition: 0.3s ease;
-}
-
-.payment-option:hover {
-    border-color: #8b5e3c;
-
-    background: #fffaf3;
-}
-
-.payment-option.selected {
-    border: 2px solid #4a120d;
-
-    background: #fff8ed;
-}
-
-.payment-option input[type="radio"] {
-    width: 18px;
-
-    height: 18px;
-
-    accent-color: #4a120d;
-
-    cursor: pointer;
-
-    flex-shrink: 0;
-}
-
-.payment-icon {
-    font-size: 27px;
-}
-
-.payment-info {
-    flex: 1;
-}
-
-.payment-info strong {
+.saajkar-checkout-page .payment-info strong {
     display: block;
 
-    color: #3a0804;
+    margin-bottom: 4px;
+
+    color: #3a0804 !important;
 
     font-size: 15px;
-
-    margin-bottom: 5px;
 }
 
-.payment-info p {
-    color: #777;
-
-    font-size: 13px;
-
+.saajkar-checkout-page .payment-info p {
     margin: 0;
+
+    color: #777 !important;
+
+    font-size: 12px;
 }
 
-.payment-check {
-    color: #4a120d;
+.saajkar-checkout-page .payment-check {
+    color: #800020 !important;
 
     font-size: 20px;
 
@@ -613,207 +364,334 @@
 }
 
 
-/* =================================
-   PINCODE STATUS
-================================= */
+/* =====================================================
+   ORDER ITEMS
+===================================================== */
 
-.pincode-success {
-    color: green;
+.saajkar-checkout-page .order-items {
+    width: 100%;
 
-    font-size: 13px;
+    box-sizing: border-box;
 }
 
-.pincode-error {
-    color: red;
+.saajkar-checkout-page .order-item {
+    width: 100%;
 
-    font-size: 13px;
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    padding: 0 0 20px;
+
+    margin-bottom: 20px;
+
+    border-bottom:
+        1px solid #ddd;
+
+    box-sizing: border-box;
 }
 
-.pincode-checking {
-    color: #8b5e3c;
+
+/* VERY IMPORTANT:
+   This prevents global img CSS from
+   making the product image huge.
+*/
+
+.saajkar-checkout-page .order-item img {
+    display: block !important;
+
+    width: 90px !important;
+
+    min-width: 90px !important;
+
+    max-width: 90px !important;
+
+    height: 90px !important;
+
+    min-height: 90px !important;
+
+    max-height: 90px !important;
+
+    object-fit: cover !important;
+
+    border-radius: 10px;
+
+    border:
+        1px solid #ddd;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+}
+
+.saajkar-checkout-page .order-item-info {
+    flex: 1;
+
+    min-width: 0;
+}
+
+.saajkar-checkout-page .order-item-info h4 {
+    margin: 0 0 8px;
+
+    font-family: "Cinzel", serif;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    color: #111 !important;
+
+    line-height: 1.4;
+}
+
+.saajkar-checkout-page .order-item-info p {
+    margin: 0 0 7px;
 
     font-size: 13px;
+
+    color: #666 !important;
+}
+
+.saajkar-checkout-page .order-item-info strong {
+    font-size: 16px;
+
+    color: #800020 !important;
 }
 
 
-/* =================================
-   SECURE PAYMENT TEXT
-================================= */
+/* =====================================================
+   TOTAL
+===================================================== */
 
-.secure-payment-text {
+.saajkar-checkout-page .checkout-total {
+    margin-top: 25px;
+
+    padding-top: 5px;
+}
+
+.saajkar-checkout-page .checkout-total > div {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin: 14px 0;
+
+    font-size: 14px;
+
+    color: #444 !important;
+}
+
+.saajkar-checkout-page .checkout-total strong {
+    color: #333 !important;
+}
+
+.saajkar-checkout-page .checkout-total .grand-total {
+    margin-top: 20px;
+
+    padding-top: 18px;
+
+    border-top:
+        1px solid #800020;
+
+    font-size: 17px;
+
+    font-weight: 600;
+}
+
+.saajkar-checkout-page .checkout-total .grand-total strong {
+    color: #800020 !important;
+
+    font-family: "Cinzel", serif;
+
+    font-size: 21px;
+}
+
+
+/* =====================================================
+   PLACE ORDER
+===================================================== */
+
+.saajkar-checkout-page .place-order-btn {
+    width: 100%;
+
+    display: block;
+
+    box-sizing: border-box;
+
+    margin-top: 28px;
+
+    padding: 16px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #800020 !important;
+
+    color: #ffffff !important;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.saajkar-checkout-page .place-order-btn:hover {
+    background: #5c0018 !important;
+}
+
+.saajkar-checkout-page .place-order-btn:disabled {
+    opacity: 0.65;
+
+    cursor: not-allowed;
+}
+
+
+/* =====================================================
+   SECURE TEXT
+===================================================== */
+
+.saajkar-checkout-page .secure-payment-text {
+    margin: 12px 0 0;
+
     text-align: center;
 
     font-size: 12px;
 
-    color: #777;
-
-    margin-top: 12px;
+    color: #777 !important;
 }
 
 
-/* =================================
+/* =====================================================
+   LOADING / EMPTY
+===================================================== */
+
+.saajkar-checkout-page .checkout-message {
+    min-height: 70vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 20px;
+
+    text-align: center;
+}
+
+.saajkar-checkout-page .checkout-message h2 {
+    color: #800020 !important;
+
+    font-family: "Cinzel", serif;
+}
+
+.saajkar-checkout-page .checkout-message button {
+    padding: 13px 25px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #800020 !important;
+
+    color: white !important;
+
+    cursor: pointer;
+}
+
+
+/* =====================================================
    TABLET
-================================= */
+===================================================== */
 
-@media (max-width: 1024px) {
+@media (max-width: 1000px) {
 
-    .checkout-container {
-        padding: 40px 5%;
+    .saajkar-checkout-page
+        .checkout-layout {
 
-        gap: 25px;
-    }
+        width: 94%;
 
-    .checkout-left,
-    .checkout-right {
-        padding: 25px;
-    }
-
-}
-
-
-/* =================================
-   MOBILE
-================================= */
-
-@media (max-width: 768px) {
-
-    .checkout-container {
         grid-template-columns: 1fr;
 
-        padding: 30px 20px;
-
         gap: 25px;
     }
 
-    .checkout-left,
-    .checkout-right {
-        width: 100%;
+}
 
-        padding: 25px;
 
-        border-radius: 15px;
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .saajkar-checkout-page
+        .checkout-header {
+
+        padding:
+            40px 15px 25px;
     }
 
-    .checkout-left > h2 {
-        font-size: 28px;
+    .saajkar-checkout-page
+        .checkout-header h1 {
 
-        margin-bottom: 25px;
+        font-size: 34px;
     }
 
-    .checkout-right > h3 {
+    .saajkar-checkout-page
+        .checkout-header p {
+
+        font-size: 14px;
+    }
+
+    .saajkar-checkout-page
+        .checkout-layout {
+
+        width: 94%;
+
+        margin: 25px auto;
+    }
+
+    .saajkar-checkout-page
+        .checkout-card {
+
+        padding: 22px;
+
+        border-radius: 16px;
+    }
+
+    .saajkar-checkout-page
+        .checkout-card h2 {
+
         font-size: 23px;
     }
 
-    .checkout-section h3 {
-        font-size: 19px;
-    }
+    .saajkar-checkout-page
+        .order-item img {
 
-    .checkout-item img {
         width: 70px !important;
 
-        height: 70px !important;
+        min-width: 70px !important;
 
         max-width: 70px !important;
 
+        height: 70px !important;
+
+        min-height: 70px !important;
+
         max-height: 70px !important;
-
-        min-width: 70px;
-
-        min-height: 70px;
-    }
-
-}
-
-
-/* =================================
-   SMALL MOBILE
-================================= */
-
-@media (max-width: 480px) {
-
-    .checkout-container {
-        padding: 25px 15px;
-
-        gap: 20px;
-    }
-
-    .checkout-left,
-    .checkout-right {
-        padding: 20px;
-    }
-
-    .checkout-left > h2 {
-        font-size: 25px;
-    }
-
-    .checkout-right > h3 {
-        font-size: 21px;
-    }
-
-    .checkout-section h3 {
-        font-size: 18px;
-    }
-
-    .checkout-left input,
-    .checkout-left textarea,
-    .checkout-left select {
-        padding: 12px;
-
-        font-size: 13px;
-    }
-
-    .checkout-item {
-        gap: 12px;
-    }
-
-    .checkout-item img {
-        width: 60px !important;
-
-        height: 60px !important;
-
-        max-width: 60px !important;
-
-        max-height: 60px !important;
-
-        min-width: 60px;
-
-        min-height: 60px;
-    }
-
-    .checkout-item p:first-child {
-        font-size: 14px;
-    }
-
-    .checkout-item p:last-child {
-        font-size: 13px;
-    }
-
-    .checkout-total > div {
-        font-size: 13px;
-    }
-
-    .checkout-total strong {
-        font-size: 17px;
-    }
-
-    .place-order-btn {
-        padding: 13px;
-
-        font-size: 15px;
-    }
-
-    .payment-option {
-        padding: 14px;
-
-        gap: 10px;
-    }
-
-    .payment-info strong {
-        font-size: 14px;
-    }
-
-    .payment-info p {
-        font-size: 12px;
     }
 
 }
