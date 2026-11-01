@@ -1,9 +1,10 @@
-/* =========================================
+/* =================================
    SAAJKAR CHECKOUT PAGE
-========================================= */
+================================= */
 
 .checkout-container {
     min-height: 100vh;
+
     padding: 50px 8%;
 
     background:
@@ -19,64 +20,88 @@
 
     display: grid;
     grid-template-columns: 1fr 1fr;
+
     gap: 40px;
 
     box-sizing: border-box;
 }
 
 
-/* =========================================
+/* =================================
    LEFT & RIGHT CARDS
-========================================= */
+================================= */
 
 .checkout-left,
 .checkout-right {
     background: #ffffff;
+
     padding: 35px;
+
     border-radius: 20px;
+
     border: 2px solid #000;
 
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.08);
 
     box-sizing: border-box;
 }
 
 
-/* =========================================
-   MAIN HEADINGS
-========================================= */
-
-.checkout-left > h2,
-.checkout-right > h2,
-.checkout-right > h3 {
-    font-family: "Cinzel", serif;
-    color: #111;
-
-    margin-top: 0;
-    margin-bottom: 30px;
-
-    text-align: center;
-}
+/* =================================
+   MAIN CHECKOUT HEADING
+================================= */
 
 .checkout-left > h2 {
-    font-size: 28px;
+    font-family: "Cinzel", serif !important;
+
+    font-size: 32px !important;
+
+    font-weight: 600 !important;
+
+    color: #800020 !important;
+
+    text-align: left;
+
+    margin: 0 0 30px;
+
+    opacity: 1 !important;
 }
 
-.checkout-right > h2,
+
+/* =================================
+   ORDER SUMMARY HEADING
+================================= */
+
 .checkout-right > h3 {
-    font-size: 27px;
+    font-family: "Cinzel", serif !important;
+
+    font-size: 28px !important;
+
+    font-weight: 600 !important;
+
+    color: #800020 !important;
+
+    text-align: left;
+
+    margin: 0 0 25px;
+
+    padding-bottom: 12px;
+
+    border-bottom: 1px solid #d4af37;
+
+    opacity: 1 !important;
 }
 
 
-/* =========================================
-   SECTION HEADINGS
-========================================= */
+/* =================================
+   CHECKOUT SECTIONS
+================================= */
 
 .checkout-section {
     margin-bottom: 30px;
 }
 
-.checkout-section h2,
 .checkout-section h3 {
     font-family: "Cinzel", serif;
 
@@ -92,28 +117,9 @@
 }
 
 
-/* =========================================
-   FORM LABELS
-========================================= */
-
-.checkout-left label {
-    display: block;
-
-    font-family: "Poppins", sans-serif;
-
-    color: #222;
-
-    font-size: 15px;
-
-    margin-bottom: 8px;
-
-    font-weight: 500;
-}
-
-
-/* =========================================
-   INPUTS
-========================================= */
+/* =================================
+   INPUT FIELDS
+================================= */
 
 .checkout-left input,
 .checkout-left textarea,
@@ -124,13 +130,11 @@
 
     margin-bottom: 15px;
 
-    border: 1.5px solid #999;
+    border: 1.5px solid #000;
 
     border-radius: 10px;
 
-    background: #fff;
-
-    color: #222;
+    background: #ffffff;
 
     font-family: "Poppins", sans-serif;
 
@@ -143,160 +147,114 @@
     transition: 0.3s;
 }
 
+
+/* =================================
+   INPUT FOCUS
+================================= */
+
 .checkout-left input:focus,
 .checkout-left textarea:focus,
 .checkout-left select:focus {
     border-color: #800020;
 
     box-shadow:
-        0 0 6px rgba(128, 0, 32, 0.20);
+        0 0 6px rgba(128, 0, 32, 0.25);
 }
+
+
+/* =================================
+   ADDRESS
+================================= */
 
 .checkout-left textarea {
-    min-height: 100px;
+    height: 100px;
 
-    resize: vertical;
+    resize: none;
 }
+
+
+/* =================================
+   CITY / STATE DROPDOWN
+================================= */
 
 .checkout-left select {
     cursor: pointer;
+
+    appearance: auto;
 }
 
 
-/* =========================================
-   PINCODE
-========================================= */
+/* =================================
+   PINCODE MESSAGE
+================================= */
 
-.pincode-success {
-    color: green;
+.checkout-left .checkout-section p {
+    margin: -5px 0 15px;
+
+    font-family: "Poppins", sans-serif;
+
     font-size: 13px;
-    margin-top: -5px;
-    margin-bottom: 15px;
-}
-
-.pincode-error {
-    color: red;
-    font-size: 13px;
-    margin-top: -5px;
-    margin-bottom: 15px;
-}
-
-.pincode-checking {
-    color: #8b5e3c;
-    font-size: 13px;
-    margin-top: -5px;
-    margin-bottom: 15px;
 }
 
 
-/* =========================================
-   PAYMENT SECTION
-========================================= */
+/* =================================
+   PAYMENT METHOD
+================================= */
 
-.payment-section {
-    margin-top: 25px;
-}
-
-.payment-options {
-    display: flex;
-    flex-direction: column;
-
-    gap: 12px;
-
-    margin-top: 15px;
-}
-
-.payment-option {
+.checkout-section label {
     display: flex;
 
     align-items: center;
 
-    gap: 14px;
+    gap: 10px;
 
-    padding: 16px;
+    padding: 13px 15px;
+
+    margin-bottom: 10px;
 
     border: 1px solid #ddd;
 
     border-radius: 10px;
 
-    background: #fffdf8;
+    background: #fff;
+
+    font-size: 14px;
 
     cursor: pointer;
 
     transition: 0.3s;
 }
 
-.payment-option:hover {
+.checkout-section label:hover {
     border-color: #800020;
 
-    background: #fff8f3;
+    background: #fffdf8;
 }
 
-.payment-option.selected {
-    border: 2px solid #800020;
 
-    background: #fff8f3;
-}
+/* =================================
+   RADIO BUTTON
+================================= */
 
-.payment-option input[type="radio"] {
-    width: 18px;
-
-    height: 18px;
+.checkout-section label input[type="radio"] {
+    width: auto;
 
     margin: 0;
+
+    padding: 0;
 
     accent-color: #800020;
 
     cursor: pointer;
-}
 
-.payment-icon {
-    font-size: 25px;
-}
-
-.payment-info {
-    flex: 1;
-}
-
-.payment-info strong {
-    display: block;
-
-    color: #3a0804;
-
-    font-size: 15px;
-
-    margin-bottom: 4px;
-}
-
-.payment-info p {
-    color: #777;
-
-    font-size: 13px;
-
-    margin: 0;
-}
-
-.payment-check {
-    color: #800020;
-
-    font-size: 20px;
-
-    font-weight: bold;
+    box-shadow: none;
 }
 
 
-/* =========================================
-   ORDER SUMMARY
-========================================= */
+/* =================================
+   ORDER ITEMS
+================================= */
 
-.checkout-right {
-    overflow: hidden;
-}
-
-
-/* Product row */
-
-.summary-product,
 .checkout-item {
     display: flex;
 
@@ -304,47 +262,58 @@
 
     gap: 18px;
 
-    padding: 18px 0;
+    padding-bottom: 18px;
+
+    margin-bottom: 18px;
 
     border-bottom: 1px solid #ddd;
 }
 
 
-/* Product image */
+/* =================================
+   PRODUCT IMAGE
+================================= */
 
-.summary-product img,
 .checkout-item img {
-    width: 85px;
+    width: 80px;
 
-    height: 85px;
-
-    min-width: 85px;
+    height: 80px;
 
     object-fit: cover;
 
     border-radius: 10px;
 
-    border: 1px solid #ddd;
+    border: 1.5px solid #000;
 
-    background: #f8f8f8;
+    flex-shrink: 0;
 }
 
 
-/* Product details */
+/* =================================
+   PRODUCT INFORMATION
+================================= */
 
-.summary-product > div,
-.checkout-item > div {
+.checkout-item div {
     flex: 1;
+}
 
-    min-width: 0;
+.checkout-item p {
+    margin: 4px 0;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+
+    color: #555;
 }
 
 
-/* Product name */
+/* =================================
+   PRODUCT NAME
+================================= */
 
-.summary-product p:first-child,
 .checkout-item p:first-child {
-    margin: 0 0 6px;
+    margin-bottom: 8px;
 
     font-family: "Cinzel", serif;
 
@@ -352,48 +321,65 @@
 
     font-weight: 600;
 
-    color: #111;
-
-    line-height: 1.4;
+    color: #000;
 }
 
 
-/* Quantity */
+/* =================================
+   PRODUCT PRICE
+================================= */
 
-.summary-product p:nth-child(2),
-.checkout-item p:nth-child(2) {
-    margin: 4px 0;
-
-    color: #555;
-
-    font-family: "Poppins", sans-serif;
-
-    font-size: 14px;
-}
-
-
-/* Price */
-
-.summary-product p:last-child,
 .checkout-item p:last-child {
-    margin: 5px 0 0;
-
     color: #800020;
-
-    font-family: "Poppins", sans-serif;
-
-    font-size: 15px;
 
     font-weight: 600;
 }
 
 
-/* =========================================
-   ORDER TOTAL
-========================================= */
+/* =================================
+   ORDER SUMMARY
+================================= */
+
+.checkout-right {
+    color: #000;
+}
+
+
+/* Product name inside summary */
+
+.checkout-right .checkout-item p:first-child {
+    color: #000 !important;
+
+    font-family: "Cinzel", serif;
+
+    font-weight: 600;
+}
+
+
+/* Quantity text */
+
+.checkout-right .checkout-item p {
+    color: #555 !important;
+}
+
+
+/* Product price */
+
+.checkout-right .checkout-item p:last-child {
+    color: #800020 !important;
+
+    font-weight: 600;
+}
+
+
+/* =================================
+   TOTAL SECTION
+================================= */
 
 .checkout-total {
     margin-top: 25px;
+
+    padding-top: 10px;
 }
 
 .checkout-total > div {
@@ -405,53 +391,48 @@
 
     margin: 13px 0;
 
-    color: #333;
-
     font-family: "Poppins", sans-serif;
 
     font-size: 14px;
 }
+
+
+/* Divider before total */
 
 .checkout-total > div:last-child {
     border-top: 1px solid #800020;
 
     padding-top: 18px;
 
-    margin-top: 20px;
+    margin-top: 18px;
 }
+
+
+/* Total */
 
 .checkout-total strong {
-    color: #800020;
-
     font-family: "Cinzel", serif;
 
-    font-size: 20px;
+    font-size: 19px;
+
+    color: #800020;
 }
 
 
-/* =========================================
-   DELIVERY CHARGE
-========================================= */
-
-.delivery-charge {
-    color: #555;
-}
-
-
-/* =========================================
+/* =================================
    PLACE ORDER BUTTON
-========================================= */
+================================= */
 
 .place-order-btn {
     width: 100%;
 
-    padding: 16px;
+    padding: 15px;
 
     margin-top: 25px;
 
     background: #800020;
 
-    color: #fff;
+    color: #ffffff;
 
     border: none;
 
@@ -470,66 +451,44 @@
 
 .place-order-btn:hover {
     background: #5c0018;
-
-    transform: translateY(-1px);
 }
+
+
+/* =================================
+   DISABLED BUTTON
+================================= */
 
 .place-order-btn:disabled {
     opacity: 0.65;
 
     cursor: not-allowed;
+}
 
-    transform: none;
+.place-order-btn:disabled:hover {
+    background: #800020;
 }
 
 
-/* =========================================
-   SECURE PAYMENT TEXT
-========================================= */
-
-.secure-payment-text {
-    text-align: center;
-
-    font-size: 12px;
-
-    color: #777;
-
-    margin-top: 12px;
-}
-
-
-/* =========================================
-   TERMS TEXT
-========================================= */
-
-.checkout-right > p {
-    text-align: center;
-
-    color: #555;
-
-    font-family: "Poppins", sans-serif;
-
-    font-size: 13px;
-
-    line-height: 1.5;
-
-    margin-top: 12px;
-}
-
-
-/* =========================================
-   EMPTY CART / LOADING
-========================================= */
+/* =================================
+   LOADING / EMPTY CART
+================================= */
 
 .checkout-container > h2 {
     grid-column: 1 / -1;
 
     text-align: center;
 
+    font-family: "Cinzel", serif;
+
     color: #800020;
 
-    font-family: "Cinzel", serif;
+    align-self: center;
 }
+
+
+/* =================================
+   EMPTY CART BUTTON
+================================= */
 
 .checkout-container > button {
     grid-column: 1 / -1;
@@ -549,6 +508,8 @@
     border-radius: 10px;
 
     cursor: pointer;
+
+    font-size: 15px;
 }
 
 .checkout-container > button:hover {
@@ -556,9 +517,144 @@
 }
 
 
-/* =========================================
+/* =================================
+   PAYMENT METHOD SECTION
+================================= */
+
+.payment-section {
+    margin-top: 25px;
+}
+
+.payment-options {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+
+    margin-top: 18px;
+}
+
+.payment-option {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 18px;
+
+    border: 1px solid #e2d5ca;
+
+    border-radius: 10px;
+
+    background: #fffdf8;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+.payment-option:hover {
+    border-color: #8b5e3c;
+
+    background: #fffaf3;
+}
+
+.payment-option.selected {
+    border: 2px solid #4a120d;
+
+    background: #fff8ed;
+}
+
+.payment-option input[type="radio"] {
+    width: 18px;
+
+    height: 18px;
+
+    accent-color: #4a120d;
+
+    cursor: pointer;
+
+    flex-shrink: 0;
+}
+
+.payment-icon {
+    font-size: 27px;
+}
+
+.payment-info {
+    flex: 1;
+}
+
+.payment-info strong {
+    display: block;
+
+    color: #3a0804;
+
+    font-size: 15px;
+
+    margin-bottom: 5px;
+}
+
+.payment-info p {
+    color: #777;
+
+    font-size: 13px;
+
+    margin: 0;
+}
+
+.payment-check {
+    color: #4a120d;
+
+    font-size: 20px;
+
+    font-weight: bold;
+}
+
+
+/* =================================
+   PINCODE STATUS
+================================= */
+
+.pincode-success {
+    color: green;
+
+    font-size: 13px;
+}
+
+.pincode-error {
+    color: red;
+
+    font-size: 13px;
+}
+
+.pincode-checking {
+    color: #8b5e3c;
+
+    font-size: 13px;
+}
+
+
+/* =================================
+   SECURE PAYMENT TEXT
+================================= */
+
+.secure-payment-text {
+    text-align: center;
+
+    font-size: 12px;
+
+    color: #777;
+
+    margin-top: 12px;
+}
+
+
+/* =================================
    TABLET
-========================================= */
+================================= */
 
 @media (max-width: 1024px) {
 
@@ -576,9 +672,9 @@
 }
 
 
-/* =========================================
+/* =================================
    MOBILE
-========================================= */
+================================= */
 
 @media (max-width: 768px) {
 
@@ -600,39 +696,38 @@
     }
 
     .checkout-left > h2 {
-        font-size: 26px;
+        font-size: 28px !important;
+
+        margin-bottom: 25px;
     }
 
-    .checkout-right > h2,
     .checkout-right > h3 {
-        font-size: 23px;
+        font-size: 23px !important;
     }
 
-    .summary-product,
-    .checkout-item {
-        gap: 12px;
+    .checkout-section h3 {
+        font-size: 19px;
     }
 
-    .summary-product img,
     .checkout-item img {
         width: 70px;
 
         height: 70px;
-
-        min-width: 70px;
     }
 
 }
 
 
-/* =========================================
+/* =================================
    SMALL MOBILE
-========================================= */
+================================= */
 
 @media (max-width: 480px) {
 
     .checkout-container {
         padding: 25px 15px;
+
+        gap: 20px;
     }
 
     .checkout-left,
@@ -641,15 +736,13 @@
     }
 
     .checkout-left > h2 {
-        font-size: 23px;
+        font-size: 25px !important;
     }
 
-    .checkout-right > h2,
     .checkout-right > h3 {
-        font-size: 21px;
+        font-size: 21px !important;
     }
 
-    .checkout-section h2,
     .checkout-section h3 {
         font-size: 18px;
     }
@@ -662,23 +755,20 @@
         font-size: 13px;
     }
 
-    .summary-product img,
+    .checkout-item {
+        gap: 12px;
+    }
+
     .checkout-item img {
         width: 60px;
 
         height: 60px;
-
-        min-width: 60px;
     }
 
-    .summary-product p:first-child,
     .checkout-item p:first-child {
         font-size: 14px;
     }
 
-    .summary-product p:nth-child(2),
-    .summary-product p:last-child,
-    .checkout-item p:nth-child(2),
     .checkout-item p:last-child {
         font-size: 13px;
     }
@@ -692,9 +782,23 @@
     }
 
     .place-order-btn {
-        padding: 14px;
+        padding: 13px;
 
         font-size: 15px;
+    }
+
+    .payment-option {
+        padding: 14px;
+
+        gap: 10px;
+    }
+
+    .payment-info strong {
+        font-size: 14px;
+    }
+
+    .payment-info p {
+        font-size: 12px;
     }
 
 }
